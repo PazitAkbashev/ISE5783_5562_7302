@@ -13,7 +13,6 @@ public final class Main {
     /** Main program to tests initial functionality of the 1st stage
      * @param args irrelevant here */
     public static void main(String[] args) {
-        out.println("lo oved");
         try { // test zero vector
             new Vector(0, 0, 0);
             out.println("ERROR: zero vector does not throw an exception");
