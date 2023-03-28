@@ -1,20 +1,16 @@
 package geometries;
-
 import primitives.*;
 
 import static primitives.Util.isZero;
 
 public class Plane implements Geometry {
-
     public Point q0;
     public Vector normal;
 
     /**
-     * constructor plan
-     *
-     * @param p0-A          point in the plane
-     * @param vector-Normal to the plane
-     *                      Normalize the vector in a state that is not normalized
+     * constructor plane
+     * @param p0-A point in the plane
+     * @param vector-Normal to the plane Normalize the vector in a state that is not normalized
      */
     public Plane(Point p0, Vector vector) {
         this.q0 = p0;
@@ -29,7 +25,6 @@ public class Plane implements Geometry {
      * Constructor of Plane from 3 points on its surface <br/>
      * the points are ordered from right to left
      * we calculate the normal on the constructor to avoid repeated request of the normal
-     *
      * @param p1 P1
      * @param p2 P2
      * @param p3 P3
@@ -62,7 +57,7 @@ public class Plane implements Geometry {
     }
 
     /**
-     * geret vector normal
+     * getter vector normal
      *
      * @return normal-Normal to the plane
      */
@@ -71,7 +66,7 @@ public class Plane implements Geometry {
     }
 
     /**
-     * geret vector normal
+     * getter vector normal
      *
      * @param point in the plan
      * @return normal-Normal to the plane

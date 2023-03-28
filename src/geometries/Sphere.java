@@ -9,6 +9,11 @@ public class Sphere extends RadialGeometry{
 
     final Point center;
 
+    /**
+     * constructor for sphare in 3D
+     * @param center is the center point of sphare
+     * @param radius is the distance between the center point to point on the perimeter
+     */
     public Sphere(Point center, double radius) {
         super(radius);
         this.center = center;

@@ -7,7 +7,7 @@ import primitives.*;
  */
 public class Triangle extends Polygon{
     /**
-     * constructor
+     * constructor of triangle
      * @param p1 Vertex 1
      * @param p2 Vertex 2
      * @param p3 Vertex 3

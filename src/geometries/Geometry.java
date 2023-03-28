@@ -1,7 +1,7 @@
 package geometries;
 import primitives.*;
 /**
- * Abstract class for all the geometries shapes
+ * interface class for all the geometries shapes
  * @author Pazit and Leah
  */
 public interface Geometry {

@@ -1,12 +1,12 @@
 package primitives;
 
 /**
- * this class represent a Vector of 3D
+ * A fundamental object in geometry with direction and size, according to the approach of linear algebra, is like a point, defined by the end point.
  * @author Pazit and Leah
  */
 public class Vector extends Point {
      /**
-     * constructor
+     * A constructor that accepts three numbers of type double3
      * @param x value of x
      * @param y value of y
      * @param z value of z
@@ -17,7 +17,7 @@ public class Vector extends Point {
             throw new IllegalArgumentException("vector 0");
     }
     /**
-     * constructor
+     * A constructor that accepts an object of type Double3 permission
      * @param double3 value of point
      */
     public Vector(Double3 double3){
@@ -25,6 +25,12 @@ public class Vector extends Point {
         if(Double3.ZERO.equals(double3))
             throw new IllegalArgumentException("vector 0");
     }
+
+    /**
+     * A normalization operation that returns a new normalized vector
+     * a unit vector in the same direction as the original vector
+     * @return  new normelized vector
+     */
     public Vector normalize(){
         return new Vector(xyz.reduce(length()));
     }

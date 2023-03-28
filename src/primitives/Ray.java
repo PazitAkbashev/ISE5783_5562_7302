@@ -9,7 +9,7 @@ public class Ray{
     private Vector dir;
 
     /**
-     * constructor
+     * A constructor that accepts a point and a vector
      * @param p0 is a point x,y,z
      * @param dir The direction of the vector
      */
@@ -31,11 +31,6 @@ public class Ray{
     public Vector getDir() {
         return dir;
     }
-    /**
-     * equals-Compares two rays
-     * @param o-The object for comparison
-     * @return Boolean value Whether the objects are equal or not
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -43,10 +38,6 @@ public class Ray{
         Ray ray = (Ray) o;
         return getP0().equals(ray.getP0()) && getDir().equals(ray.getDir());
     }
-    /**
-     *toString
-     * @return Threading the values
-     */
     @Override
     public String toString() {
         //todo

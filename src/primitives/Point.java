@@ -9,7 +9,7 @@ public class Point {
     final Double3 xyz;
 
     /**
-     * constructor
+     * A constructor that accepts an object of type Double3 permission
      * @param xyz value of point
      */
     public Point(Double3 xyz) {
@@ -17,7 +17,7 @@ public class Point {
     }
 
     /**
-     * constructor
+     * A constructor that accepts three double numbers for the coordinate values
      * @param d1 value of x
      * @param d2 value of y
      * @param d3 value of z
@@ -45,24 +45,26 @@ public class Point {
     }
 
     /**
-     *Subtraction vector and dot
+     *Vector subtraction - receives a second point in the parameter, returns a vector from the second point to the point on which the subtraction is performed
+     * the action
      * @param point to subtract
-     * @return Vector
+     * @return Vector a vector from the second point to the point on which it is performed
+     * the action
      */
     public Vector subtract(Point point) {
         return new Vector(xyz.subtract(point.xyz));
     }
     /**
-     *Connecting vector and dot
+     *Adding a vector to a point - returns a new point
      * @param vec to adding
-     * @return point
+     * @return point new point
      */
     public Point add(Vector vec) {
         return new Point(this.xyz.add(vec.xyz));
     }
     /**
-     *Distance squared
-     * @param point
+     *Distance squared-The distance between two points
+     * @param point the point to calculate the distance from
      * @return Distance squared
      */
     public double distanceSquared(Point point) {
@@ -70,9 +72,9 @@ public class Point {
         return (result.d1*result.d1)+(result.d2*result.d2)+(result.d3*result.d3);
     }
     /**
-     *Distance
-     * @param point
-     * @return Distance
+     *Distance-Distance between 2 points
+     * @param point the point to calculate the distance from
+     * @return Distance the distance between those 2 points
      */
     public double distance(Point point) {
         return Math.sqrt(this.distanceSquared(point));
