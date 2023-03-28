@@ -13,7 +13,7 @@ public class Plane implements Geometry {
      * constructor plan
      *
      * @param p0-A          point in the plane
-     * @param normal-Normal to the plane
+     * @param vector-Normal to the plane
      *                      Normalize the vector in a state that is not normalized
      */
     public Plane(Point p0, Vector vector) {
