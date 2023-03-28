@@ -1,10 +1,13 @@
 package test;
-
-        import static java.lang.System.out;
+import static java.lang.System.out;
         import static primitives.Util.isZero;
 
         import primitives.Point;
         import primitives.Vector;
+/**
+ * exersice 1 by Pazit Akbashev 213527302 pakbashev12@gmail.com
+ *           and Lea Shternbuch 325235562 leash2480@gmail.com
+ */
 
 /** Test program for the 1st stage
  * @author Dan Zilberstein */
