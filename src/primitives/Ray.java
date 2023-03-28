@@ -49,6 +49,7 @@ public class Ray{
      */
     @Override
     public String toString() {
+        //todo
         return p0.toString()+ dir.toString();
     }
 }

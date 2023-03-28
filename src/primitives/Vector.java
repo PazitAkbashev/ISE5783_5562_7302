@@ -26,7 +26,7 @@ public class Vector extends Point {
             throw new IllegalArgumentException("vector 0");
     }
     public Vector normalize(){
-        return new Vector(point3d.reduce(length()));
+        return new Vector(xyz.reduce(length()));
     }
     /**
      * add two vectors
@@ -34,7 +34,7 @@ public class Vector extends Point {
      * @return new Vector from (x1 + x2, y1 + y2, z1 + z2)
      */
     public Vector add(Vector vec) {
-        return new Vector(point3d.add(vec.point3d));
+        return new Vector(xyz.add(vec.xyz));
     }
     /**
      * multiply this vector with a scalar
@@ -45,7 +45,7 @@ public class Vector extends Point {
     public Vector scale (double num){
         if (num==0)
             throw new IllegalArgumentException("vector 0");
-        return new Vector(point3d.d1*num, point3d.d2*num, point3d.d3*num);
+        return new Vector(xyz.d1*num, xyz.d2*num, xyz.d3*num);
     }
     /**
      * dot product of tow vectors (x1, y1, z1), (x2, y2, z2)
@@ -53,7 +53,7 @@ public class Vector extends Point {
      * @return x1*x2 + y1*y2 + z1*z2
      */
     public double dotProduct(Vector vec){
-        return (vec.point3d.d1 * point3d.d1)+(vec.point3d.d2 * point3d.d2)+(vec.point3d.d3 * point3d.d3);
+        return (vec.xyz.d1 * xyz.d1)+(vec.xyz.d2 * xyz.d2)+(vec.xyz.d3 * xyz.d3);
     }
     /**
      * cross product of two vectors (x1, y1, z1), (x2, y2, z2)
@@ -62,14 +62,14 @@ public class Vector extends Point {
      * = (y1*z2 -z1*y2, z1*x2 - x1*z2, x1*y2 - y1*x2)
      */
     public Vector crossProduct(Vector vec){
-        return new Vector(point3d.d2*vec.point3d.d3-point3d.d3*vec.point3d.d2, point3d.d3*vec.point3d.d1- point3d.d1*vec.point3d.d3, point3d.d1*vec.point3d.d2- point3d.d2*vec.point3d.d1);
+        return new Vector(xyz.d2*vec.xyz.d3- xyz.d3*vec.xyz.d2, xyz.d3*vec.xyz.d1- xyz.d1*vec.xyz.d3, xyz.d1*vec.xyz.d2- xyz.d2*vec.xyz.d1);
     }
     /**
      * the squared length of the vector (x, y, z)
      * @return x^2 + y^2 + z^2
      */
     public double lengthSquared(){
-        return (point3d.d1 * point3d.d1)+(point3d.d2 * point3d.d2)+(point3d.d3 * point3d.d3);
+        return (xyz.d1 * xyz.d1)+(xyz.d2 * xyz.d2)+(xyz.d3 * xyz.d3);
     }
     /**
      * the length of the vector (x, y, z)
