@@ -14,4 +14,5 @@ class SphereTests {
         assertEquals(new Vector(1,0,0),sphere.getNormal(new Point(2,0,0)),"too bad");
 
     }
+
 }
