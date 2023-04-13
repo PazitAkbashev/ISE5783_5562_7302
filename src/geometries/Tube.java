@@ -4,6 +4,9 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
+
 
 /**
  * this class represent an infinite cylinder containing a radius and a ray
@@ -26,8 +29,8 @@ public class Tube extends RadialGeometry {
 
     @Override
     public Vector getNormal(Point p) {
-        Point p0 = axisRay.getP0();
-        Vector v = axisRay.getDir();
+        Point p0 = axisray.getP0();
+        Vector v = axisray.getDir();
 
         Vector p0_p = p.subtract(p0);
         double t = alignZero(p0_p.dotProduct(v));

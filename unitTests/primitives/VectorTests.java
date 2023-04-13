@@ -6,8 +6,7 @@
 //import static primitives.Util.isZero;
 //
 //class VectorTests {
-//
-//
+
 //  /** Test method for {@link primitives.Vector#add(primitives.Vector)}.
 //            */
 //    @Test
@@ -143,4 +142,4 @@
 //        assertEquals("wrong normalized vector", new Vector(0, 0.6, 0.8), v);
 //    }
 //
-//}
+}
