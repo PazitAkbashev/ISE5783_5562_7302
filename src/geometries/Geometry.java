@@ -7,7 +7,7 @@ import primitives.*;
  *
  * @author Pazit and Leah
  */
-public interface Geometry {
+public interface Geometry extends Intersectable {
     /**
      * getter of material that getting a point
      *

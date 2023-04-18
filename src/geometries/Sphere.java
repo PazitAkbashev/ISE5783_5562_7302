@@ -1,6 +1,8 @@
 package geometries;
 import primitives.*;
 
+import java.util.List;
+
 /**
  * this class represent a sphere by center point and radius
  * @author  Pazit and Leah
@@ -22,5 +24,10 @@ public class Sphere extends RadialGeometry{
     @Override
     public Vector getNormal(Point point) {
         return point.subtract(center).normalize();
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 }
