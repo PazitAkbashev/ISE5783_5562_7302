@@ -54,7 +54,7 @@ public class Plane implements Geometry {
     //region getters
 
     /**
-     * geter point p0
+     * getter point p0
      *
      * @return p0-A point in the plane
      */
