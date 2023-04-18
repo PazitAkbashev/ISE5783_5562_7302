@@ -38,7 +38,8 @@ public class Ray {
         return dir;
     }
 
-    @Override
+
+   @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Ray)) return false;
