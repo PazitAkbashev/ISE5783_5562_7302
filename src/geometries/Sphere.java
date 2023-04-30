@@ -33,46 +33,40 @@ public class Sphere extends RadialGeometry{
     public List<Point> findIntersections(Ray ray) {
         Point p0 = ray.getP0();
         Vector v = ray.getDir();
-        Point center = this.center;
-        double radius = this.radius;
 
-        Vector u;
-        try {
-            u = center.subtract(p0);
-        } catch (IllegalArgumentException ex) { // Ray starts at sphere center
-            return List.of(p0.add(v.scale(radius)));
+        if(p0.equals(center)){
+            throw new IllegalArgumentException("ray p0 cannot be equals to the center of the sphere");
         }
 
-        double tm = alignZero(v.dotProduct(u));
-        double d = alignZero(Math.sqrt(u.lengthSquared() - tm * tm));
+        Vector u = center.subtract(p0);
+        double tm = alignZero(u.dotProduct(v));
+        double d = alignZero(Math.sqrt(u.lengthSquared() - (tm * tm)));
 
-        // No intersections
-        if (d >= radius) {
-            return null;
+        if(d >= radius){
+            return null; // there is no intersections points
         }
 
-        double th = alignZero(Math.sqrt(radius * radius - d * d));
+        double th = alignZero(Math.sqrt( (radius * radius) - (d * d) ));
 
-        // t1, t2 are the distances from p0 to the intersection points
         double t1 = alignZero(tm - th);
         double t2 = alignZero(tm + th);
 
-        // t1, t2 are negative or ray starts inside sphere
-        if (t1 <= 0 && t2 <= 0) {
-            return null;
+        if(t1 > 0 && t2 > 0){
+            Point p1 = ray.getPoint(t1);
+            Point p2 = ray.getPoint(t2);
+
+            return List.of(p1,p2);
         }
 
-        // At least one intersection point
-        List<Point> intersections = new ArryList<>();//***************************************88check, need to fix
-        if (t1 > 0) {
-            intersections.add(ray.getPoint(t1));
-        }
-        if (t2 > 0) {
-            intersections.add(ray.getPoint(t2));
+        if(t1 > 0){
+            return List.of(ray.getPoint(t1));
         }
 
-        return intersections;
+        if(t2 > 0){
+            return List.of(ray.getPoint(t2));
+        }
+
+        return null; // 0 points
     }
-
 
 }

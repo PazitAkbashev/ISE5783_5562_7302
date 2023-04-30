@@ -16,8 +16,11 @@ public class Point {
      * @param xyz value of point
      */
     public Point(Double3 xyz) {
-        this.xyz = xyz;
+        this.xyz=xyz;
     }
+
+
+
 
     /**
      * A constructor that accepts three double numbers for the coordinate values
@@ -90,4 +93,6 @@ public class Point {
     public double distance(Point point) {
         return Math.sqrt(this.distanceSquared(point));
     }
+
+
 }
