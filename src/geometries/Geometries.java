@@ -6,8 +6,12 @@ import primitives.Ray;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Composite class for all geometries.
+ * @author pazit and Lea
+ */
 public class Geometries implements Intersectable{
-    private List<Intersectable> _intersectables;
+    private final List<Intersectable> _intersectables;
 
     /**
      * Default constructor for Geometries
@@ -37,12 +41,6 @@ public class Geometries implements Intersectable{
         }
     }
 
-    /**
-     * find intersections of ray with geometry shape
-     *
-     * @param ray ray that cross the geometry
-     * @return list of intersection points that were found
-     */
     @Override
     public List<Point> findIntersections(Ray ray) {
         List<Point> result = null;

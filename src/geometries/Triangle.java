@@ -1,31 +1,37 @@
 package geometries;
-import primitives.*;
 
+import primitives.*;
 import java.util.List;
 
-import static primitives.Util.alignZero;
-
 /**
- * this class represent a Triangle by 3 points
+ * Class describe triangle, polygon with 3 points.
  * @author Pazit and Leah
  */
 public class Triangle extends Polygon {
+
     /**
-     * constructor of triangle
-     *
-     * @param p1 Vertex 1
-     * @param p2 Vertex 2
-     * @param p3 Vertex 3
+     * Constructor create triangle from 3 points.
+     * @param p1 first point
+     * @param p2 second point
+     * @param p3 third point
+     * @throws IllegalArgumentException if the points can't create triangle (same points etc.)
      */
     public Triangle(Point p1, Point p2, Point p3) {
         super(p1, p2, p3);
     }
+
+    @Override
+    public Vector getNormal(Point point) {
+        return super.getNormal(point);
+    }
+
     @Override
     public List<Point> findIntersections(Ray ray) {
         /* If ray doesn't intersect the plan consist in triangle return null */
         if (plane.findIntersections(ray) == null) {
             return null;
         }
+
         List<Point> result = null;
         Vector vector, vector1, vector2, vector3;
         Vector normal1, normal2, normal3;
