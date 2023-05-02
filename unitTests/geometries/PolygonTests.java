@@ -8,8 +8,10 @@ import static primitives.Util.*;
 
 /**
  * Testing Polygons
- *
- * @author Dan
+ * test for:
+ *          constructor
+ *          get normal
+ * @author Pazit and Lea
  */
 public class PolygonTests {
 

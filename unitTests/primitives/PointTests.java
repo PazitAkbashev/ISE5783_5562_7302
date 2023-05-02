@@ -3,6 +3,14 @@ package primitives;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+/**
+ * the class test for point
+ * test the: Subtract
+ *          Add
+ *          DistanceSquared
+ *          Distance
+ * @author Pazit and lea
+ */
 
 class PointTests {
     /**

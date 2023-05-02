@@ -42,8 +42,9 @@ public class Sphere extends RadialGeometry{
         double tm = alignZero(u.dotProduct(v));
         double d = alignZero(Math.sqrt(u.lengthSquared() - (tm * tm)));
 
+        // there is no intersections points
         if(d >= radius){
-            return null; // there is no intersections points
+            return null;
         }
 
         double th = alignZero(Math.sqrt( (radius * radius) - (d * d) ));

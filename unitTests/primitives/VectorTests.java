@@ -9,8 +9,16 @@ import static primitives.Util.*;
 
 /**
  * Vector class tests
- *
- * @author Dan Zilberstein -- lo limchok
+ * test for:Vector
+ *          AddVector
+ *          SubtractVector
+ *          Scale
+ *          DotProduct
+ *          CrossProduct
+ *          LengthSquared
+ *          Length
+ *          Normalize
+ * @author Lea and Pazit
  */
 class VectorTest {
 

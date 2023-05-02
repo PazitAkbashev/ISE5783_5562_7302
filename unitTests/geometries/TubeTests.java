@@ -16,7 +16,7 @@ class TubeTests {
      * Test method for {@link geometries.Tube#getNormal(primitives.Point)}.
      */
     @Test
-    public void testGetNormalDan() {
+    public void testGetNormal() {
         Tube tube = new Tube(1.0, new Ray(new Point(0, 0, 1), new Vector(0, 1, 0)));
 
         // ============ Equivalence Partitions Tests ==============
