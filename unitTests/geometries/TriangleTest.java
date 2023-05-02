@@ -8,7 +8,11 @@ import primitives.Vector;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * the class test for triangle
+ * test the: get normal
+ * @author Pazit and lea
+ */
 class TriangleTest {
     /**
      * Test method for {@link geometries.Triangle#getNormal(primitives.Point)}.

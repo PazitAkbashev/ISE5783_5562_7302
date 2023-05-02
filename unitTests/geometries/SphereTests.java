@@ -9,6 +9,12 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * the class test for sphere
+ * test the: get normal
+ *           find intersection
+ * @author Pazit and lea
+ */
 class SphereTests {
     /**
      *Test method for {@link geometries.Sphere#getNormal(primitives.Point)}.
@@ -23,6 +29,11 @@ class SphereTests {
 
     }
 
+    /**
+     * The provided code appears to be a test function in Java,
+     * which tests the findIntersections method of the Sphere class.
+     * Here's a brief rundown of the comments that are present in the code:
+     */
     @Test
     public void testFindIntersections() {
         Sphere sphere = new Sphere(new Point (1, 0, 0), 1d);
@@ -52,7 +63,7 @@ class SphereTests {
         // =============== Boundary Values Tests ==================
 
         // **** Group: Ray's line crosses the sphere (but not the center)
-        // TC11: Ray starts at sphere and goes inside (1 points)
+        // TC11: Ray starts at sphere and goes inside (1 point)
         ray = new Ray(new Point(0,0,0), new Vector(2,2,0));
         assertEquals(List.of(new Point(1,1,0)) ,sphere.findIntersections(ray));
         // TC12: Ray starts at sphere and goes outside (0 points)
@@ -64,10 +75,10 @@ class SphereTests {
         ray = new Ray(new Point(0,-2,0), new Vector(2,2,0));
         result = sphere.findIntersections(ray);
         assertEquals(2, result.size());
-        // TC14: Ray starts at sphere and goes inside (1 points)
+        // TC14: Ray starts at sphere and goes inside (1 point)
         ray = new Ray(new Point(2, 0, 0), new Vector(-1, 0, 0));
         assertEquals(List.of(new Point(0, 0, 0)), sphere.findIntersections(ray));
-        // TC15: Ray starts inside (1 points)
+        // TC15: Ray starts inside (1 point)
         ray = new Ray(new Point(0.59, 0, 0), new Vector(-0.59, 0, 0));
         assertEquals(List.of(new Point(0, 0, 0)), sphere.findIntersections(ray));
         // TC16: Ray starts at the center (1 points)
@@ -97,5 +108,4 @@ class SphereTests {
         assertNull(sphere.findIntersections(ray));
 
     }
-
 }

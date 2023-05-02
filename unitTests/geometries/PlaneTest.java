@@ -10,6 +10,13 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static primitives.Util.isZero;
 
+/**
+ * the class test for plan
+ * test the: constructor
+ *           get normal
+ *           find intersection
+ * @author Pazit and lea
+ */
 class PlaneTest {
 
     /**

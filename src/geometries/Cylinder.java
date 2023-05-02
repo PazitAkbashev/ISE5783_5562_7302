@@ -23,9 +23,9 @@ public class Cylinder extends Tube {
     /**
      * constructor for finite Cylinder
      *
-     * @param radius  radius of the circumference of the cylunder
-     * @param axisray ray of the circumference of the cylunder
-     * @param length  the length of the cylunder
+     * @param radius  radius of the circumference of the cylinder
+     * @param axisray ray of the circumference of the cylinder
+     * @param length  the length of the cylinder
      */
     protected Cylinder(double radius, Ray axisray, double length) {
         super(radius, axisray);

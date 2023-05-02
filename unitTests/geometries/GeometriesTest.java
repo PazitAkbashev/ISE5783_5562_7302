@@ -6,6 +6,11 @@ import primitives.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * the class test for the geometries
+ * test the: find intersection
+ * @author Pazit and lea
+ */
 class GeometriesTest {
     Geometries geo = new Geometries(
             new Sphere(new Point(1, 0.5, 1), 2),

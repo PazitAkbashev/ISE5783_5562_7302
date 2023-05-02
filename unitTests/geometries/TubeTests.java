@@ -6,6 +6,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import primitives.*;
 
+/**
+ * the class test for tube
+ * test the: get normal
+ * @author Pazit and lea
+ */
 class TubeTests {
     /**
      * Test method for {@link geometries.Tube#getNormal(primitives.Point)}.
@@ -24,5 +29,4 @@ class TubeTests {
                 "Bad normal to tube - against the axe start point");
 
     }
-
 }
