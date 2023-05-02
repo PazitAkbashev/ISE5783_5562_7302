@@ -1,6 +1,7 @@
 package renderer;
 
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
 
 import static primitives.Util.isZero;
@@ -64,7 +65,7 @@ public class Camera {
         this.vUp = vUp.normalize();
         this.vTo = vTo.normalize();
 
-        //calculate vector vRight by the 2 other vectors
+        //calculate vector vRight by the 2 other normalized vectors
         vRight = this.vTo.crossProduct(this.vUp);
     }
 
@@ -82,7 +83,7 @@ public class Camera {
 
     /**
      * *****    implement after writing its tests     ***********
-     ****************************************************************************
+     A method of creating a beam through the center of a pixel.
      * @param nX amount of *columns* in view plane
      * @param nY amount of *rows* in view plane
      * @param j represent a specific pixel's column
@@ -90,6 +91,26 @@ public class Camera {
      * @return
      */
     public Ray constructRay(int nX, int nY, int j, int i){
-        return null;
+        // Ratio (pixel width & height)
+        double rY = (double) this.height / nY;
+        double rX = (double) this.height / nX;
+
+        // Image center
+        Point Pc = this.p0.add(this.vTo.scale(this.distance));
+
+        // Pixel[i,j] center
+        Point Pij = Pc;
+
+        double yI = -(i -((nY - 1)/2d)) * rY;
+        double xJ = (j -((nX - 1)/2d)) * rX;;
+
+        // move to middle of pixel i,j
+        if (!isZero(xJ))
+            Pij = Pij.add (this.vRight.scale(xJ));
+        if (!isZero(yI))
+            Pij = Pij.add(this.vUp.scale(yI));
+
+        // return ray from camera to viewPlane coordinate (i, j)
+        return new Ray(this.p0, Pij.subtract(this.p0));
     }
 }
