@@ -9,10 +9,8 @@ import java.util.List;
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
-
 /**
- * this class represent an infinite cylinder containing a radius and a ray
- *
+ * Class describe tube, the tube is infinity.
  * @author Pazit and Lea
  */
 public class Tube extends RadialGeometry {
@@ -20,9 +18,8 @@ public class Tube extends RadialGeometry {
 
     /**
      * constructor of tube
-     *
-     * @param radius  radius of tube
-     * @param axisray ray of tube
+     * @param radius  the radius of the tube
+     * @param axisray the ray contains the direction and the center point of the center
      */
     protected Tube(double radius, Ray axisray) {
         super(radius);

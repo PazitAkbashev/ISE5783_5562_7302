@@ -56,12 +56,7 @@ public class Ray {
     public Point getPoint(double t) {
         return p0.add(dir.scale(t));
     }
-    /**
 
-     Checks if this Ray object is equal to another object by comparing their starting points and directions.
-     @param o The object to compare with this Ray object.
-     @return true if the objects are equal, false otherwise.
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -69,11 +64,7 @@ public class Ray {
         Ray ray = (Ray) o;
         return getP0().equals(ray.getP0()) && getDir().equals(ray.getDir());
     }
-    /**
 
-     Returns a string representation of the Ray object in the form of its starting point and direction.
-     @return A string representation of the Ray object.
-     */
     @Override
     public String toString() {
         return p0.toString() + dir.toString();
