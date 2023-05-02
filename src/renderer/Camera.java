@@ -70,6 +70,17 @@ public class Camera {
     }
 
     /**
+     * Sets the distance between the camera and the viewPlane.
+     * ------------function from the tests, not from the file instruction------------
+     * @param distance - represent The distance from the camera to the view plane.
+     * @return the all object itself
+     */
+    public Camera setVPDistance(double distance) {
+        this.distance = distance;
+        return this;
+    }
+
+    /**
      *
      * @param width
      * @param height
@@ -82,35 +93,40 @@ public class Camera {
     }
 
     /**
-     * *****    implement after writing its tests     ***********
+     * *****    לעבור לראות שתקין, עשיתי בלי להבין     ***********
      A method of creating a beam through the center of a pixel.
      * @param nX amount of *columns* in view plane
      * @param nY amount of *rows* in view plane
      * @param j represent a specific pixel's column
      * @param i represent a specific pixel's row
-     * @return
+     * @return ray from camera to viewPlane coordinate (i, j)
      */
     public Ray constructRay(int nX, int nY, int j, int i){
-        // Ratio (pixel width & height)
-        double rY = (double) this.height / nY;
-        double rX = (double) this.height / nX;
 
-        // Image center
-        Point Pc = this.p0.add(this.vTo.scale(this.distance));
+        //view plane center Point
+        Point Pc = p0.add(vTo.scale(distance));
 
-        // Pixel[i,j] center
+        //pixels ratios
+        double Rx = width / nX;
+        double Ry = height / nY;
+
+        //Pij point[i,j] in view-plane coordinates
         Point Pij = Pc;
 
-        double yI = -(i -((nY - 1)/2d)) * rY;
-        double xJ = (j -((nX - 1)/2d)) * rX;;
+        //delta values for moving on the view=plane
+        double Xj = (j - (nX - 1) / 2d) * Rx;
+        double Yi = -(i - (nY - 1) / 2d) * Ry;
 
-        // move to middle of pixel i,j
-        if (!isZero(xJ))
-            Pij = Pij.add (this.vRight.scale(xJ));
-        if (!isZero(yI))
-            Pij = Pij.add(this.vUp.scale(yI));
+        if (!isZero(Xj)) {
+            Pij = Pij.add(vRight.scale(Xj));
+        }
+        if (!isZero(Yi)) {
+            Pij = Pij.add(vUp.scale(Yi));
+        }
 
-        // return ray from camera to viewPlane coordinate (i, j)
-        return new Ray(this.p0, Pij.subtract(this.p0));
+        // vector from camera's eye in the direction of point(i,j) in the viewplane
+        Vector Vij = Pij.subtract(p0);
+
+        return new Ray(p0, Vij);
     }
 }
