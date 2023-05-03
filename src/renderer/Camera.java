@@ -55,7 +55,7 @@ public class Camera {
      * @param vUp
      * @param vTo
      */
-    public Camera(Point p0, Vector vUp, Vector vTo) {
+    public Camera(Point p0, Vector vTo, Vector vUp) {
         if(!isZero(vTo.dotProduct(vUp))){
             throw new IllegalArgumentException("vto  and vup are not orthogonal");
         }
