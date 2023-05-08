@@ -6,13 +6,10 @@ import primitives.Vector;
 
 import static primitives.Util.isZero;
 
-/**
- This class represents a Camera, defined by a position and 3 direction vectors.
-
- - The Camera class has methods for ********************** ******************
- ****************************************************************************
- * @author pazit and lea
- */
+    /**
+      This class represents a Camera, defined by a position and 3 direction vectors.
+      @author pazit and lea
+     **/
 public class Camera {
     //camera's location
     private Point p0;
@@ -50,12 +47,14 @@ public class Camera {
     public double getDistance() {return distance;}
 
     /**
-     * constructor
-     * @param p0
-     * @param vUp
-     * @param vTo
+     * Constructor for Camera class.
+     *
+     * @param p0  the camera's location
+     * @param vTo the direction vector pointing right from the camera's perspective
+     * @param vUp the direction vector pointing up from the camera's perspective
      */
-    public Camera(Point p0, Vector vTo, Vector vUp) {
+
+        public Camera(Point p0, Vector vTo, Vector vUp) {
         if(!isZero(vTo.dotProduct(vUp))){
             throw new IllegalArgumentException("vto  and vup are not orthogonal");
         }
@@ -72,8 +71,8 @@ public class Camera {
     /**
      * Sets the distance between the camera and the viewPlane.
      * ------------function from the tests, not from the file instruction------------
-     * @param distance - represent The distance from the camera to the view plane.
-     * @return the all object itself
+     * @param distance the distance from the camera to the view plane
+     * @return the Camera object itself
      */
     public Camera setVPDistance(double distance) {
         this.distance = distance;
@@ -81,10 +80,11 @@ public class Camera {
     }
 
     /**
+     * Sets the size of the view plane.
      *
-     * @param width
-     * @param height
-     * @return
+     * @param width  the width of the view plane
+     * @param height the height of the view plane
+     * @return the Camera object itself
      */
     public Camera setVPSize(double width, double height){
         this.width = width;
@@ -93,7 +93,8 @@ public class Camera {
     }
 
     /**
-     * *****    לעבור לראות שתקין, עשיתי בלי להבין     ***********
+     * *********    לעבור לראות שתקין, עשיתי בלי להבין     ***********
+
      A method of creating a beam through the center of a pixel.
      * @param nX amount of *columns* in view plane
      * @param nY amount of *rows* in view plane

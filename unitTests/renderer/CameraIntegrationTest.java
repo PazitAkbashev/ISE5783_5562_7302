@@ -19,9 +19,7 @@ import primitives.Vector;
  * @author Pazit and lea
  */
 
-
 public class CameraIntegrationTest {
-
 
     //create camera
     Camera camera1 = new Camera(new Point(0, 0, 0), new Vector(0, 0, -1), new Vector(0, 1, 0))
