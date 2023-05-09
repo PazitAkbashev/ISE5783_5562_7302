@@ -45,13 +45,17 @@ public class Geometries implements Intersectable{
         List<Point> result = null;
         for(var item : intersectables){
             List<Point>  itemPoints = item.findIntersections(ray);
+
             if(itemPoints != null){
+
                 if(result == null){
                     result = new LinkedList();
                 }
+
                 result.addAll(itemPoints);
             }
         }
+
         return result;
     }
 }

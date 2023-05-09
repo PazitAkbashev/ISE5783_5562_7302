@@ -17,7 +17,7 @@ import static primitives.Util.isZero;
  *           find intersection
  * @author Pazit and lea
  */
-class PlaneTest {
+class PlaneTests {
 
     /**
      * Test method for plane.

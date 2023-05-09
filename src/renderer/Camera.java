@@ -95,7 +95,7 @@ public class Camera {
     /**
      * *********    לעבור לראות שתקין, עשיתי בלי להבין     ***********
 
-     A method of creating a beam through the center of a pixel.
+     A method of creating a ray through the center of a pixel.
      * @param nX amount of *columns* in view plane
      * @param nY amount of *rows* in view plane
      * @param j represent a specific pixel's column
@@ -118,6 +118,9 @@ public class Camera {
         double Xj = (j - (nX - 1) / 2d) * Rx;
         double Yi = -(i - (nY - 1) / 2d) * Ry;
 
+        //if not on zero coordinates add the delta distance
+        // to the center of point (i,j)
+        // to reach it
         if (!isZero(Xj)) {
             Pij = Pij.add(vRight.scale(Xj));
         }

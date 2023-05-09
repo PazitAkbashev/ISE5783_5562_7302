@@ -1,21 +1,22 @@
 package renderer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-import geometries.Geometry;
-import geometries.Plane;
-import geometries.Sphere;
-import geometries.Triangle;
+import geometries.*;
 import org.junit.jupiter.api.Test;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 /**
  * the class test for CameraIntegration
  * test the: IntegrationCameraSphere
- *          IntegrationCameraTriangle
- *          IntegrationCameraPlane
+ * IntegrationCameraTriangle
+ * IntegrationCameraPlane
+ *
  * @author Pazit and lea
  */
 
@@ -102,21 +103,36 @@ public class CameraIntegrationTest {
                 "testIntegrationCameraPlane => should return 6 point");
     }
 
+    @Test
+    void testCameraWithTubeIntersections(){
+        int Nx =3;
+        int Ny =3;
+
+        Camera  camera = new Camera(new Point(0,0,0.5), new Vector(0,0,-1),new Vector(0,1,0))
+                .setVPSize(3,3)
+                .setVPDistance(1);
+        Tube tube = new Tube(2.5,new Ray(new Point(0,0,-2.5),new Vector(0,1,0)));
+
+//        assertEquals(18,countIntersection(camera,tube,Nx,Ny));
+    }
     /**
      * @param camera that construct the rays
-     * @param nX row of the view plane
-     * @param nY cow of the view plane
+     * @param nX     row of the view plane
+     * @param nY     cow of the view plane
      * @return count the intersection from the camera to the geometry
      */
     private int countIntersection(Camera camera, Geometry geometry, int nX, int nY) {
-        int countIntersectionOfGeometries = 0;//count the intersection with the geometry
-        for (int i = 0; i < nX; i++) {        //row
-            for (int j = 0; j < nY; j++) {    //cow
-                Ray ray = camera.constructRay(nX, nY, j, i); //create ray to pixel
-                var intersection = geometry.findIntersections(
-                        ray); // find Intersections to the geometry with the ray
-                if (intersection != null) { //if there is intersection
-                    countIntersectionOfGeometries += intersection.size(); //count it
+        //count all the intersections with the geometry
+        int countIntersectionOfGeometries = 0;
+        for (int row = 0; row < nX; row++) {
+            for (int column = 0; column < nY; column++) {
+                // create ray thru pixel(row ,column )
+                Ray ray = camera.constructRay(nX, nY, column, row);
+                // find Intersections points to the geometry with the ray
+                List<Point> intersection = geometry.findIntersections(ray);
+                //if there is intersections ann their amount to the counter
+                if (intersection != null) {
+                    countIntersectionOfGeometries += intersection.size();
                 }
             }
         }

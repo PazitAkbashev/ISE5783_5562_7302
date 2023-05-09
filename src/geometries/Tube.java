@@ -19,26 +19,29 @@ public class Tube extends RadialGeometry {
     /**
      * constructor of tube
      * @param radius  the radius of the tube
-     * @param axisray the ray contains the direction and the center point of the center
+     * @param axisray ray, the ray contains the direction and the center point of the ray
      */
-    protected Tube(double radius, Ray axisray) {
+    public Tube(double radius, Ray axisray) {
         super(radius);
         this.axisray = axisray;
     }
 
     @Override
     public Vector getNormal(Point p) {
+
         Point p0 = axisray.getP0();
         Vector v = axisray.getDir();
 
         Vector p0_p = p.subtract(p0);
         double t = alignZero(p0_p.dotProduct(v));
 
-        if(isZero(t)) return p0_p.normalize();
+        if(isZero(t))
+            return p0_p.normalize();
 
         Point o = p0.add((v.scale(t)));
         Vector o_p = p.subtract(o);
-        return o_p.normalize();
+        Vector n = o_p.normalize();
+        return n;
     }
 
     @Override
