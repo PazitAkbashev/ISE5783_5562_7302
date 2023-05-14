@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.List;
+
 /**
 
  - This class represents a ray, defined by a starting point and a direction vector.
@@ -22,7 +24,30 @@ public class Ray {
     private Vector dir;
 
     /**
+     * find the closest point to the ray from a list of points.
+     * @param intersections list of points
+     * @return the closest point
+     */
+    Point findClosestPoint(List<Point> intersections) {
+        if(intersections == null){
+            return null;
+        }
+        Point result = null;
+        double distance = Double.MAX_VALUE;
+        double temp = 0;
 
+        // checking the all points intersections
+        for (Point p : intersections) {
+            temp = p0.distance(p);
+            if (temp < distance) {
+                distance = temp;
+                result = p;
+            }
+        }
+        return result;
+    }
+
+    /**
      Constructs a new Ray object with a given starting point and direction.
      @param p0 The starting point of the ray as a Point object with x, y, and z coordinates.
      @param dir The direction of the ray as a Vector object.

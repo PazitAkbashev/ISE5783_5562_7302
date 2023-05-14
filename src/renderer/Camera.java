@@ -4,6 +4,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.MissingResourceException;
+
 import static primitives.Util.isZero;
 
     /**
@@ -31,6 +33,10 @@ public class Camera {
 
     //object's distance from camera's center
     private double distance;
+
+    private ImageWriter imageWriter;
+
+    private RayTracerBase rayTracerBase;
 
     public Point getP0() {return p0;}
 
@@ -93,8 +99,6 @@ public class Camera {
     }
 
     /**
-     * *********    לעבור לראות שתקין, עשיתי בלי להבין     ***********
-
      A method of creating a ray through the center of a pixel.
      * @param nX amount of *columns* in view plane
      * @param nY amount of *rows* in view plane
@@ -133,4 +137,20 @@ public class Camera {
 
         return new Ray(p0, Vij);
     }
+
+        /**
+         * checking if all the parameters are initialized
+         */
+    void renderImage() {
+        if(this.height == 0 || this.width == 0 || this.vTo == null
+                || this.vUp == null || this.vRight == null || this.p0 == null || this.distance == 0){
+            throw new MissingResourceException("missing one parameters value or more", null, null);
+        }
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+       void printGrid(int interval, Color color){
+
+       }
+
 }

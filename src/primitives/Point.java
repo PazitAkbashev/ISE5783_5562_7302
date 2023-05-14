@@ -12,19 +12,14 @@ public class Point {
 
     /**
      * A constructor that accepts an object of type Double3 permission
-     *
      * @param xyz value of point
      */
     public Point(Double3 xyz) {
         this.xyz=xyz;
     }
 
-
-
-
     /**
      * A constructor that accepts three double numbers for the coordinate values
-     *
      * @param d1 value of x
      * @param d2 value of y
      * @param d3 value of z
@@ -54,7 +49,6 @@ public class Point {
     /**
      * Vector subtraction - receives a second point in the parameter, returns a vector from the second point to the point on which the subtraction is performed
      * the action
-     *
      * @param point to subtract
      * @return Vector a vector from the second point to the point on which it is performed
      * the action
@@ -65,7 +59,6 @@ public class Point {
 
     /**
      * Adding a vector to a point - returns a new point
-     *
      * @param vec to adding
      * @return point new point
      */
@@ -75,7 +68,6 @@ public class Point {
 
     /**
      * Distance squared-The distance between two points
-     *
      * @param point the point to calculate the distance from
      * @return Distance squared
      */
@@ -86,13 +78,10 @@ public class Point {
 
     /**
      * Distance-Distance between 2 points
-     *
      * @param point the point to calculate the distance from
      * @return Distance the distance between those 2 points
      */
     public double distance(Point point) {
         return Math.sqrt(this.distanceSquared(point));
     }
-
-
 }
