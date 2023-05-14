@@ -11,12 +11,18 @@ import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test for ImageWriter class
+ * @author Pazit and Leah
+ */
 class ImageWriterTests {
-
 
      Color indigo = new Color(75, 0, 130);
      Color silver = new Color(192, 192, 192);
 
+    /**
+     * Test method for {@link ImageWriter#writeToImage()}.
+     */
     @Test
     void writePixel(){
        ImageWriter imageWriter = new ImageWriter("firs image : grid and background", 800, 500);

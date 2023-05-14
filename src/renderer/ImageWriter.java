@@ -21,12 +21,11 @@ public class ImageWriter {
     private int nX;
     private int nY;
 
-    private static final String FOLDER_PATH = System.getProperty("user.dir") + "/images";
-
     //pixels colors matrix
     private BufferedImage image;
     private String imageName;
 
+    private static final String FOLDER_PATH = System.getProperty("user.dir") + "/images";
     private Logger logger = Logger.getLogger("ImageWriter");
 
     // ***************** Constructors ********************** //
