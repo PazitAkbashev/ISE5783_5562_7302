@@ -16,16 +16,16 @@ abstract public class RayTracerBase {
 
     /**
      * constructor for RayTracerBasic class
-     * @param scene the scene we want to render
+     * @param scene the scene we want to
      */
     public RayTracerBase(Scene scene) {
         this.scene = scene;
     }
 
     /**
-     * traceRay function is the basic function for ray tracing in the scene
-     * @param ray the ray we want to trace
-     * @return the color of the pixel
+     * traceRay function is the
+     * @param ray the ray we
+     * @return
      */
     abstract public Color traceRay(Ray ray);
 }

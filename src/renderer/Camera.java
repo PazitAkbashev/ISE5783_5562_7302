@@ -1,5 +1,6 @@
 package renderer;
 
+import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
@@ -118,7 +119,7 @@ public class Camera {
         //Pij point[i,j] in view-plane coordinates
         Point Pij = Pc;
 
-        //delta values for moving on the view=plane
+        //delta values for moving on the view plane
         double Xj = (j - (nX - 1) / 2d) * Rx;
         double Yi = -(i - (nY - 1) / 2d) * Ry;
 
@@ -144,13 +145,40 @@ public class Camera {
     void renderImage() {
         if(this.height == 0 || this.width == 0 || this.vTo == null
                 || this.vUp == null || this.vRight == null || this.p0 == null || this.distance == 0){
-            throw new MissingResourceException("missing one parameters value or more", null, null);
+            throw new MissingResourceException("missing one parameters value or more", ImageWriter.class.getName(), null);
         }
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
-       void printGrid(int interval, Color color){
+        /**
+         * /****** interval not used!!!!!!!! *******
+         *
+         * @param interval
+         * @param color
+         */
+       void printGrid(int interval, Color color) {
+           if (this.imageWriter == null) {
+               throw new MissingResourceException("imageWriter is null", ImageWriter.class.getName(), null);
+           }
+           ImageWriter imageWriter = new ImageWriter("firs image : grid and background", 800, 500);
+           for (int i = 0; i < imageWriter.getNx(); i++) {
+               for (int j = 0; j < imageWriter.getNy(); j++) {
+                   if (i % 50 != 0 && j % 50 != 0) {
+                       imageWriter.writePixel(i, j, color);
+                   }
+               }
+           }
+       }
+              // imageWriter.writeToImage();
 
+        /**
+         *
+         */
+       void writeToImage(){
+           if (this.imageWriter == null) {
+               throw new MissingResourceException("imageWriter is null", ImageWriter.class.getName(), null);
+           }
+           imageWriter.writeToImage();
        }
 
 }
