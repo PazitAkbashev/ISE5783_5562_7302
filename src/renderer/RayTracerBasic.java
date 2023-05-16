@@ -1,8 +1,12 @@
 package renderer;
 
+import geometries.Geometries;
 import primitives.Color;
+import primitives.Point;
 import primitives.Ray;
 import scene.Scene;
+
+import java.util.List;
 
 /**
  * RayTracerBasic class is the basic class for ray tracing in the scene
@@ -23,6 +27,15 @@ public class RayTracerBasic extends RayTracerBase{
 
     @Override
     public Color traceRay(Ray ray) {
-        return null;
+            Color color=scene.background;
+            Geometries geometries = scene.setGeometries();
+            List<Point> intersectionPoints = geometries.findIntersections(ray);
+            if (intersectionPoints != null) {
+                Point closesPoint = ray.findClosestPoint(intersectionPoints);
+                color = calcColor(closesPoint);
+            }
+            return color;
     }
+
+    privet Color calcColor(Point point){return scene.setAmbientLight().getIntensity();}
 }

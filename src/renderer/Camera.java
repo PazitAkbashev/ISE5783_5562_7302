@@ -172,7 +172,8 @@ public class Camera {
               // imageWriter.writeToImage();
 
         /**
-         *
+         * Function writeToImage produces unoptimized png file of the image according to
+         * pixel color matrix in the directory of the project
          */
        void writeToImage(){
            if (this.imageWriter == null) {
@@ -180,5 +181,38 @@ public class Camera {
            }
            imageWriter.writeToImage();
        }
+
+        /**
+         * The actual rendering function , according to data received from the ray tracer - colours each
+         * pixel appropriately thus
+         * rendering the image
+         */
+        public void renderImage() {
+            try {
+                if (imageWriter == null) {
+                    throw new MissingResourceException("missing resource", ImageWriter.class.getName(),
+                            "");
+                }
+                if ( == null) {
+                    throw new MissingResourceException("missing resource", RayTracer.class.getName(),
+                            "");
+                }
+
+                //rendering the image
+                int nX = imageWriter.getNx();
+                int nY = imageWriter.getNy();
+                Ray ray;
+                Color pixelColor;
+                for (int i = 0; i < nX; i++) {
+                    for (int j = 0; j < nY; j++) {
+                        ray = constructRay(nX, nY, i, j);
+                        pixelColor = rayTracer.traceRay(ray);
+                        imageWriter.writePixel(i, j, pixelColor);
+                    }
+                }
+            } catch (MissingResourceException e) {
+                throw new UnsupportedOperationException("Not implemented yet" + e.getClassName());
+            }
+        }
 
 }
