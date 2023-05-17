@@ -181,24 +181,27 @@ public class Camera {
      * @param interval is the width of a square
      * @param color    is the color of the grid
      */
-    void printGrid(int interval, Color color) {
-        if (this.imageWriter == null) {
-            throw new MissingResourceException("imageWriter is null", ImageWriter.class.getName(), null);
-        }
+   void printGrid(int interval, Color color) {
+      if (this.imageWriter == null) {
+          throw new MissingResourceException("imageWriter is null", ImageWriter.class.getName(), null);
+      }
 
-        ImageWriter imageWriter = new ImageWriter("images name", interval, interval);
-        int nX = imageWriter.getNx();
-        int nY = imageWriter.getNy();
-
-        for (int i = 0; i < nX; i++) {
+       int nX = imageWriter.getNx();
+       int nY = imageWriter.getNy();
+        for (int i = 0; i < nX; i+= interval) {
             for (int j = 0; j < nY; j++) {
-                if (i % (interval / nX) == 0 || j % (interval / nY) == 0) {
-                    imageWriter.writePixel(i, j, color);
-                }
+                // _width/interval // _height/interval
+                imageWriter.writePixel(i, j, color);
+
             }
         }
-        //check if it needed
-        //imageWriter.writeToImage();
+        for (int i = 0; i < nX; i++) {
+            for (int j = 0; j < nY; j+= interval) {
+                // _width/interval // _height/interval
+                imageWriter.writePixel(i, j, color);
+
+            }
+        }
     }
 
     /**

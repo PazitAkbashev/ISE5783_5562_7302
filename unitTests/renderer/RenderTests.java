@@ -1,10 +1,7 @@
 package renderer;
 
 import static java.awt.Color.YELLOW;
-import static java.awt.Color.RED;
-import static java.awt.Color.WHITE;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import geometries.Sphere;
