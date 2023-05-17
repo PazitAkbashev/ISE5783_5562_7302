@@ -9,6 +9,7 @@ import primitives.*;
 /**
  * the class test for tube
  * test the: get normal, first test was required, the second was for explanation from Eliezer
+ *
  * @author Pazit and lea
  */
 class TubeTests {
@@ -35,13 +36,13 @@ class TubeTests {
      * wasn't required test
      */
     @Test
-    void testGetNormal2(){
+    void testGetNormal2() {
         //thanks to Eliezer
         // ============ Equivalence Partitions Tests ==============
 
-        Tube tube = new Tube(2.5,new Ray(new Point(0,0,-2.5),new Vector(0,1,0)));
+        Tube tube = new Tube(2.5, new Ray(new Point(0, 0, -2.5), new Vector(0, 1, 0)));
 
         // TC01:
-        assertEquals(new Vector(0,0,1),tube.getNormal(new Point(0,0,0.5)),"bad luck");
+        assertEquals(new Vector(0, 0, 1), tube.getNormal(new Point(0, 0, 0.5)), "bad luck");
     }
 }

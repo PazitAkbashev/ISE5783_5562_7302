@@ -11,6 +11,7 @@ import static primitives.Util.isZero;
 
 /**
  * Class describe tube, the tube is infinity.
+ *
  * @author Pazit and Lea
  */
 public class Tube extends RadialGeometry {
@@ -18,6 +19,7 @@ public class Tube extends RadialGeometry {
 
     /**
      * constructor of tube
+     *
      * @param radius  the radius of the tube
      * @param axisray ray, the ray contains the direction and the center point of the ray
      */
@@ -35,7 +37,7 @@ public class Tube extends RadialGeometry {
         Vector p0_p = p.subtract(p0);
         double t = alignZero(p0_p.dotProduct(v));
 
-        if(isZero(t))
+        if (isZero(t))
             return p0_p.normalize();
 
         Point o = p0.add((v.scale(t)));

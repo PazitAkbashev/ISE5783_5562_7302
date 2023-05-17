@@ -10,7 +10,6 @@ import primitives.*;
  * Testing Camera Class
  *
  * @author Dan
- *
  */
 class CameraTests {
     static final Point ZERO_POINT = new Point(0, 0, 0);

@@ -2,6 +2,7 @@ package geometries;
 
 /**
  * Polygon class RadialGeometry is an abstract class that is implemented by all classes that contain a radius
+ *
  * @author Pazit and Lea
  */
 public abstract class RadialGeometry implements Geometry {
@@ -9,6 +10,7 @@ public abstract class RadialGeometry implements Geometry {
 
     /**
      * constructor to initialize radius
+     *
      * @param radius
      */
     protected RadialGeometry(double radius) {

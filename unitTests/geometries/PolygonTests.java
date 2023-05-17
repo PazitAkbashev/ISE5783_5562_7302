@@ -9,7 +9,8 @@ import static primitives.Util.*;
 /**
  * Testing Polygons
  * test for: constructor
- *           get normal
+ * get normal
+ *
  * @author Dan
  */
 public class PolygonTests {

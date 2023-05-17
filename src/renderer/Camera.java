@@ -9,10 +9,11 @@ import java.util.MissingResourceException;
 
 import static primitives.Util.isZero;
 
-    /**
-      This class represents a Camera, defined by a position and 3 direction vectors.
-      @author pazit and lea
-     **/
+/**
+ * This class represents a Camera, defined by a position and 3 direction vectors.
+ *
+ * @author pazit and lea
+ **/
 public class Camera {
     //camera's location
     private Point p0;
@@ -35,23 +36,38 @@ public class Camera {
     //object's distance from camera's center
     private double distance;
 
+    //image writer, contain parameters: image name, Nx, Ny, width, height
     private ImageWriter imageWriter;
 
     private RayTracerBase rayTracerBase;
 
-    public Point getP0() {return p0;}
+    public Point getP0() {
+        return p0;
+    }
 
-    public Vector getvRight() {return vRight;}
+    public Vector getvRight() {
+        return vRight;
+    }
 
-    public Vector getvUp() {return vUp;}
+    public Vector getvUp() {
+        return vUp;
+    }
 
-    public Vector getvTo() {return vTo;}
+    public Vector getvTo() {
+        return vTo;
+    }
 
-    public double getHeight() {return height;}
+    public double getHeight() {
+        return height;
+    }
 
-    public double getWidth() {return width;}
+    public double getWidth() {
+        return width;
+    }
 
-    public double getDistance() {return distance;}
+    public double getDistance() {
+        return distance;
+    }
 
     /**
      * Constructor for Camera class.
@@ -60,9 +76,8 @@ public class Camera {
      * @param vTo the direction vector pointing right from the camera's perspective
      * @param vUp the direction vector pointing up from the camera's perspective
      */
-
-        public Camera(Point p0, Vector vTo, Vector vUp) {
-        if(!isZero(vTo.dotProduct(vUp))){
+    public Camera(Point p0, Vector vTo, Vector vUp) {
+        if (!isZero(vTo.dotProduct(vUp))) {
             throw new IllegalArgumentException("vto  and vup are not orthogonal");
         }
         this.p0 = p0;
@@ -78,6 +93,7 @@ public class Camera {
     /**
      * Sets the distance between the camera and the viewPlane.
      * ------------function from the tests, not from the file instruction------------
+     *
      * @param distance the distance from the camera to the view plane
      * @return the Camera object itself
      */
@@ -93,26 +109,27 @@ public class Camera {
      * @param height the height of the view plane
      * @return the Camera object itself
      */
-    public Camera setVPSize(double width, double height){
+    public Camera setVPSize(double width, double height) {
         this.width = width;
         this.height = height;
         return this;
     }
 
     /**
-     A method of creating a ray through the center of a pixel.
+     * A method of creating a ray through the center of a pixel.
+     *
      * @param nX amount of *columns* in view plane
      * @param nY amount of *rows* in view plane
-     * @param j represent a specific pixel's column
-     * @param i represent a specific pixel's row
+     * @param j  represent a specific pixel's column
+     * @param i  represent a specific pixel's row
      * @return ray from camera to viewPlane coordinate (i, j)
      */
-    public Ray constructRay(int nX, int nY, int j, int i){
+    public Ray constructRay(int nX, int nY, int j, int i) {
 
         //view plane center Point
         Point Pc = p0.add(vTo.scale(distance));
 
-        //pixels ratios
+        //pixels ratios (pixels width and height)
         double Rx = width / nX;
         double Ry = height / nY;
 
@@ -133,86 +150,119 @@ public class Camera {
             Pij = Pij.add(vUp.scale(Yi));
         }
 
-        // vector from camera's eye in the direction of point(i,j) in the viewplane
+        // vector from camera's eye in the direction of point(i,j) in the view plane
         Vector Vij = Pij.subtract(p0);
 
         return new Ray(p0, Vij);
     }
 
-        /**
-         * checking if all the parameters are initialized
-         */
-    void renderImage() {
-        if(this.height == 0 || this.width == 0 || this.vTo == null
-                || this.vUp == null || this.vRight == null || this.p0 == null || this.distance == 0){
-            throw new MissingResourceException("missing one parameters value or more", ImageWriter.class.getName(), null);
+    /**
+     * implemented later in code
+     */
+//        /**
+//         * checking if all the parameters are initialized
+//         */
+//    void renderImage() {
+//        if(this.height == 0 || this.width == 0 || this.vTo == null
+//                || this.vUp == null || this.vRight == null || this.p0 == null || this.distance == 0){
+//            throw new MissingResourceException("missing one parameters value or more", ImageWriter.class.getName(), null);
+//        }
+//        throw new UnsupportedOperationException("Not implemented yet");
+//    }
+
+    /**
+     * The method prints a grid on existing image
+     *
+     * @param interval is the width of a square
+     * @param color    is the color of the grid
+     */
+    void printGrid(int interval, Color color) {
+        if (this.imageWriter == null) {
+            throw new MissingResourceException("imageWriter is null", ImageWriter.class.getName(), null);
         }
-        throw new UnsupportedOperationException("Not implemented yet");
-    }
 
-        /**
-         * /****** interval not used!!!!!!!! *******
-         *
-         * @param interval
-         * @param color
-         */
-       void printGrid(int interval, Color color) {
-           if (this.imageWriter == null) {
-               throw new MissingResourceException("imageWriter is null", ImageWriter.class.getName(), null);
-           }
-           ImageWriter imageWriter = new ImageWriter("firs image : grid and background", 800, 500);
-           for (int i = 0; i < imageWriter.getNx(); i++) {
-               for (int j = 0; j < imageWriter.getNy(); j++) {
-                   if (i % 50 != 0 && j % 50 != 0) {
-                       imageWriter.writePixel(i, j, color);
-                   }
-               }
-           }
-       }
-              // imageWriter.writeToImage();
+        ImageWriter imageWriter = new ImageWriter("images name", interval, interval);
+        int nX = imageWriter.getNx();
+        int nY = imageWriter.getNy();
 
-        /**
-         * Function writeToImage produces unoptimized png file of the image according to
-         * pixel color matrix in the directory of the project
-         */
-       void writeToImage(){
-           if (this.imageWriter == null) {
-               throw new MissingResourceException("imageWriter is null", ImageWriter.class.getName(), null);
-           }
-           imageWriter.writeToImage();
-       }
-
-        /**
-         * The actual rendering function , according to data received from the ray tracer - colours each
-         * pixel appropriately thus
-         * rendering the image
-         */
-        public void renderImage() {
-            try {
-                if (imageWriter == null) {
-                    throw new MissingResourceException("missing resource", ImageWriter.class.getName(),
-                            "");
+        for (int i = 0; i < nX; i++) {
+            for (int j = 0; j < nY; j++) {
+                if (i % (interval / nX) == 0 || j % (interval / nY) == 0) {
+                    imageWriter.writePixel(i, j, color);
                 }
-                if ( == null) {
-                    throw new MissingResourceException("missing resource", RayTracer.class.getName(),
-                            "");
-                }
-
-                //rendering the image
-                int nX = imageWriter.getNx();
-                int nY = imageWriter.getNy();
-                Ray ray;
-                Color pixelColor;
-                for (int i = 0; i < nX; i++) {
-                    for (int j = 0; j < nY; j++) {
-                        ray = constructRay(nX, nY, i, j);
-                        pixelColor = rayTracer.traceRay(ray);
-                        imageWriter.writePixel(i, j, pixelColor);
-                    }
-                }
-            } catch (MissingResourceException e) {
-                throw new UnsupportedOperationException("Not implemented yet" + e.getClassName());
             }
         }
+        //check if it needed
+        imageWriter.writeToImage();
+    }
+
+
+    /**
+     * Function writeToImage produces unoptimized png file of the image according to
+     * pixel color matrix in the directory of the project
+     */
+    void writeToImage() {
+        if (this.imageWriter == null) {
+            throw new MissingResourceException("imageWriter is null", ImageWriter.class.getName(), null);
+        }
+        imageWriter.writeToImage();
+    }
+
+    /**
+     * The actual rendering function , according to data received from the ray tracer - colours each
+     * pixel appropriately thus
+     * rendering the image
+     */
+//        public void renderImage() {
+//            try {
+//                if (imageWriter == null) {
+//                    throw new MissingResourceException("missing resource", ImageWriter.class.getName(),
+//                            "");
+//                }
+//                if ( == null) {
+//                    throw new MissingResourceException("missing resource", RayTracer.class.getName(),
+//                            "");
+//                }
+//
+//                //rendering the image
+//                int nX = imageWriter.getNx();
+//                int nY = imageWriter.getNy();
+//                Ray ray;
+//                Color pixelColor;
+//                for (int i = 0; i < nX; i++) {
+//                    for (int j = 0; j < nY; j++) {
+//                        ray = constructRay(nX, nY, i, j);
+//                        pixelColor = rayTracer.traceRay(ray);
+//                        imageWriter.writePixel(i, j, pixelColor);
+//                    }
+//                }
+//            } catch (MissingResourceException e) {
+//                throw new UnsupportedOperationException("Not implemented yet" + e.getClassName());
+//            }
+//        }
+
+    /**
+     * -----wasn't required in the file instruction-----
+     * getter for the imageWriter
+     *
+     * @param imageWriter the imageWriter to set
+     * @return the camera itself with the new imageWriter
+     */
+    public Camera setImageWriter(ImageWriter imageWriter) {
+        this.imageWriter = imageWriter;
+        return this;
+    }
+
+    /**
+     * -----wasn't required in the file instruction-----
+     * getter for the rayTracer object
+     *
+     * @param rayTracer the rayTracer to set for the camera
+     * @return the camera itself with the new rayTracer
+     */
+    public Camera setRayTracer(RayTracerBasic rayTracer) {
+        this.rayTracerBase = rayTracer;
+        return this;
+    }
 
 }

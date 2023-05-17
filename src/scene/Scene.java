@@ -7,17 +7,35 @@ import primitives.Color;
 /**
  * Scene class is the basic class representing a scene
  * It is responsible for the geometries in the scene
+ * holding the name of the scene, the background color of the scene,
+ * the ambient light of the scene and the geometries.
  *
  * @author Pazit and Leah
  */
 public class Scene {
-    private final String name;
-    private final Color background;
-    //private AmbientLight ambientLight = AmbientLight.NONE;
 
+    /**name of the scene*/
+    private final String name;
+
+    /**background color of the scene*/
+    private final Color background;
+
+    /**ambient light of the scene, default in builder is black color*/
     private AmbientLight ambientLight;
+
+    /**geometries of the scene*/
     private final Geometries geometries;
 
+    /**
+     * constructor
+     * @param builder - the builder of the scene
+     * @param name - the name of the scene
+     * @param background - the background color of the scene
+     * @param geometries - the geometries of the scene
+     * @param ambientLight - the ambient light of the scene
+     *
+     * @return Scene
+     */
     public Scene(SceneBuilder builder) {
         this.name = builder.name;
         this.background = builder.background;
@@ -25,6 +43,7 @@ public class Scene {
         this.ambientLight = builder.ambientLight;
     }
 
+    /**getters for the fields*/
     public String getName() {
         return name;
     }
@@ -41,22 +60,40 @@ public class Scene {
         return geometries;
     }
 
+    /**
+     * inner class,
+     * --------builder pattern--------
+     * SceneBuilder class is the basic class representing a builder of scene matries of the scene
+     *
+     * @return SceneBuilder
+     */
     public static class SceneBuilder {
 
+        /**name of the scene*/
         private final String name;
+
+        /**background color of the scene*/
         private Color background = Color.BLACK;
-        private AmbientLight ambientLight = new AmbientLight();
+
+        /**ambient light of the scene, default is black color*/
+        private AmbientLight ambientLight = AmbientLight.NONE;
+
+        /**geometries of the scene*/
         private Geometries geometries = new Geometries();
 
+        /**
+         * constructor
+         * @param name - the name of the scene
+         */
         public SceneBuilder(String name) {
             this.name = name;
         }
 
+        /**setters for the fields*/
         public SceneBuilder setBackground(Color background) {
             this.background = background;
             return this;
         }
-
 
         public SceneBuilder setAmbientLight(AmbientLight ambientLight) {
             this.ambientLight = ambientLight;
@@ -68,9 +105,9 @@ public class Scene {
             return this;
         }
 
+        /**build method*/
         public Scene build() {
-            //            validateObject(scene);
             return new Scene(this);
         }
-
     }
+}

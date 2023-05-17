@@ -16,6 +16,7 @@ abstract public class RayTracerBase {
 
     /**
      * constructor for RayTracerBasic class
+     *
      * @param scene the scene we want to
      */
     public RayTracerBase(Scene scene) {
@@ -23,9 +24,10 @@ abstract public class RayTracerBase {
     }
 
     /**
-     * traceRay function is the
-     * @param ray the ray we
-     * @return
+     * traceRay function is the function that calculate the color of the closest point to the camera
+     *
+     * @param ray the ray we want to find the closest intersection with
+     * @return the color of the closest point to the camera which on the ray
      */
     abstract public Color traceRay(Ray ray);
 }

@@ -9,9 +9,10 @@ import java.util.List;
 
 /**
  * Composite class for all geometries.
+ *
  * @author pazit and Lea
  */
-public class Geometries implements Intersectable{
+public class Geometries implements Intersectable {
     private final List<Intersectable> intersectables;
 
     /**
@@ -25,6 +26,7 @@ public class Geometries implements Intersectable{
 
     /**
      * Constructor for Geometries
+     *
      * @param intersectables one or more interfaces to add to the geometries list
      */
     public Geometries(Intersectable... intersectables) {
@@ -34,21 +36,22 @@ public class Geometries implements Intersectable{
 
     /**
      * Add interfaces to the list of the geometries
+     *
      * @param intersectables one or more interfaces to add to the geometries list
      */
-    public void add(Intersectable... intersectables){
+    public void add(Intersectable... intersectables) {
         Collections.addAll(this.intersectables, intersectables);
     }
 
     @Override
     public List<Point> findIntersections(Ray ray) {
         List<Point> result = null;
-        for(var item : intersectables){
-            List<Point>  itemPoints = item.findIntersections(ray);
+        for (var item : intersectables) {
+            List<Point> itemPoints = item.findIntersections(ray);
 
-            if(itemPoints != null){
+            if (itemPoints != null) {
 
-                if(result == null){
+                if (result == null) {
                     result = new LinkedList();
                 }
 

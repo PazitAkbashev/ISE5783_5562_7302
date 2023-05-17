@@ -104,17 +104,18 @@ public class CameraIntegrationTest {
     }
 
     @Test
-    void testCameraWithTubeIntersections(){
-        int Nx =3;
-        int Ny =3;
+    void testCameraWithTubeIntersections() {
+        int Nx = 3;
+        int Ny = 3;
 
-        Camera  camera = new Camera(new Point(0,0,0.5), new Vector(0,0,-1),new Vector(0,1,0))
-                .setVPSize(3,3)
+        Camera camera = new Camera(new Point(0, 0, 0.5), new Vector(0, 0, -1), new Vector(0, 1, 0))
+                .setVPSize(3, 3)
                 .setVPDistance(1);
-        Tube tube = new Tube(2.5,new Ray(new Point(0,0,-2.5),new Vector(0,1,0)));
+        Tube tube = new Tube(2.5, new Ray(new Point(0, 0, -2.5), new Vector(0, 1, 0)));
 
 //        assertEquals(18,countIntersection(camera,tube,Nx,Ny));
     }
+
     /**
      * @param camera that construct the rays
      * @param nX     row of the view plane

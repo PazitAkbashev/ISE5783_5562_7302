@@ -18,12 +18,6 @@ class CylinderTest {
     /**
      * Test method for {@link geometries.Cylinder#getNormal(primitives.Point)}.
      */
-
-
-
-
-
-
     /**
      * *********!!!!!!!!!!!the tests here are for example only!!!!!*******************
      */

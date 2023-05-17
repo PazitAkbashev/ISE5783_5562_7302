@@ -3,12 +3,14 @@ package primitives;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * the class test for point
  * test the: Subtract
- *          Add
- *          DistanceSquared
- *          Distance
+ * Add
+ * DistanceSquared
+ * Distance
+ *
  * @author Pazit and lea
  */
 
@@ -16,7 +18,8 @@ class PointTests {
     /**
      * Test method for {@link primitives.Point#add(primitives.Vector)}.
      */
-    Point p = new Point(1,1,1);
+    Point p = new Point(1, 1, 1);
+
     @Test
     void testAdd() {
         // ============ Equivalence Partitions Tests ==============

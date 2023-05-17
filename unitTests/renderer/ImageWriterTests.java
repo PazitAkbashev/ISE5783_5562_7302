@@ -13,33 +13,36 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test for ImageWriter class
+ *
  * @author Pazit and Leah
  */
 class ImageWriterTests {
 
-     Color indigo = new Color(75, 0, 130);
-     Color silver = new Color(192, 192, 192);
+    Color indigo = new Color(75, 0, 130);
+    Color silver = new Color(192, 192, 192);
 
     /**
      * Test method for {@link ImageWriter#writeToImage()}.
      */
     @Test
-    void writePixel(){
-       ImageWriter imageWriter = new ImageWriter("first image grid and background", 800, 500);
-       for(int i = 0; i <imageWriter.getNx(); i++){
-           for(int j = 0; j < imageWriter.getNy(); j++){
-               // 800 / 16 = 50
-               if(i % 50 == 0){
-                   imageWriter.writePixel(i, j, indigo);
-                   // 500 / 10 = 50
-               } else if (j % 50 == 0) {
-                   imageWriter.writePixel(i, j, indigo);
-               }
-               else{
-                   imageWriter.writePixel(i, j, silver);
-               }
-           }
+    void writePixel() {
+        ImageWriter imageWriter = new ImageWriter("first image - grid and background", 800, 500);
+        int nX = imageWriter.getNx();
+        int nY = imageWriter.getNy();
+
+        for (int i = 0; i < nX; i++) {
+            for (int j = 0; j < nY; j++) {
+                // 800 / 16 = 50
+                if (i % 50 == 0) {
+                    imageWriter.writePixel(i, j, indigo);
+                    // 500 / 10 = 50
+                } else if (j % 50 == 0) {
+                    imageWriter.writePixel(i, j, indigo);
+                } else {
+                    imageWriter.writePixel(i, j, silver);
+                }
+            }
         }
-       imageWriter.writeToImage();
-   }
+        imageWriter.writeToImage();
+    }
 }

@@ -1,6 +1,7 @@
 package renderer;
 
 import primitives.Color;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class ImageWriter {
     private int nX;
     private int nY;
 
-    //pixels colors matrix
+    //picture's data
     private BufferedImage image;
     private String imageName;
 
@@ -29,11 +30,13 @@ public class ImageWriter {
     private Logger logger = Logger.getLogger("ImageWriter");
 
     // ***************** Constructors ********************** //
+
     /**
      * Image Writer constructor accepting image name and View Plane parameters,
+     *
      * @param imageName the name of jpeg file
-     * @param nX amount of pixels by Width
-     * @param nY amount of pixels by height
+     * @param nX        amount of pixels by Width
+     * @param nY        amount of pixels by height
      */
     public ImageWriter(String imageName, int nX, int nY) {
         this.imageName = imageName;
@@ -42,7 +45,6 @@ public class ImageWriter {
 
         image = new BufferedImage(nX, nY, BufferedImage.TYPE_INT_RGB);
     }
-
 
     /**
      * View Plane Y axis resolution
@@ -87,5 +89,4 @@ public class ImageWriter {
     public void writePixel(int xIndex, int yIndex, Color color) {
         image.setRGB(xIndex, yIndex, color.getColor().getRGB());
     }
-
 }

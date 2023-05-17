@@ -46,7 +46,7 @@ public class Cylinder extends Tube {
         double t = alignZero(p0_p.dotProduct(v));
 
         //if point is on one of the bases of the cylinder
-        if(t == length || t == 0){
+        if (t == length || t == 0) {
             return v.normalize();
         }
 
