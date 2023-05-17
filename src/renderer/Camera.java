@@ -157,18 +157,23 @@ public class Camera {
     }
 
     /**
-     * implemented later in code
+     * checking the colors of all the pixels
      */
-//        /**
-//         * checking if all the parameters are initialized
-//         */
-//    void renderImage() {
-//        if(this.height == 0 || this.width == 0 || this.vTo == null
-//                || this.vUp == null || this.vRight == null || this.p0 == null || this.distance == 0){
-//            throw new MissingResourceException("missing one parameters value or more", ImageWriter.class.getName(), null);
-//        }
-//        throw new UnsupportedOperationException("Not implemented yet");
-//    }
+    public void renderImage() {
+        if (this.height == 0 || this.width == 0 || this.vTo == null
+                || this.vUp == null || this.vRight == null || this.p0 == null || this.distance == 0) {
+            throw new MissingResourceException("missing one parameters value or more", ImageWriter.class.getName(), null);
+        }
+
+        Color color = Color.BLACK;
+        for(int i = 0; i < imageWriter.getNx(); i++){
+            for(int j = 0; j < imageWriter.getNy(); j++){
+                Ray ray = constructRay(imageWriter.getNx(), imageWriter.getNy(), j, i);
+                 color = rayTracerBase.traceRay(ray);
+                imageWriter.writePixel(i, j, color);
+            }
+        }
+    }
 
     /**
      * The method prints a grid on existing image
@@ -193,9 +198,8 @@ public class Camera {
             }
         }
         //check if it needed
-        imageWriter.writeToImage();
+        //imageWriter.writeToImage();
     }
-
 
     /**
      * Function writeToImage produces unoptimized png file of the image according to
@@ -207,39 +211,6 @@ public class Camera {
         }
         imageWriter.writeToImage();
     }
-
-    /**
-     * The actual rendering function , according to data received from the ray tracer - colours each
-     * pixel appropriately thus
-     * rendering the image
-     */
-//        public void renderImage() {
-//            try {
-//                if (imageWriter == null) {
-//                    throw new MissingResourceException("missing resource", ImageWriter.class.getName(),
-//                            "");
-//                }
-//                if ( == null) {
-//                    throw new MissingResourceException("missing resource", RayTracer.class.getName(),
-//                            "");
-//                }
-//
-//                //rendering the image
-//                int nX = imageWriter.getNx();
-//                int nY = imageWriter.getNy();
-//                Ray ray;
-//                Color pixelColor;
-//                for (int i = 0; i < nX; i++) {
-//                    for (int j = 0; j < nY; j++) {
-//                        ray = constructRay(nX, nY, i, j);
-//                        pixelColor = rayTracer.traceRay(ray);
-//                        imageWriter.writePixel(i, j, pixelColor);
-//                    }
-//                }
-//            } catch (MissingResourceException e) {
-//                throw new UnsupportedOperationException("Not implemented yet" + e.getClassName());
-//            }
-//        }
 
     /**
      * -----wasn't required in the file instruction-----

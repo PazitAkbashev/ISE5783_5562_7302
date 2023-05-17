@@ -3,14 +3,6 @@ package renderer;
 import org.junit.jupiter.api.Test;
 import primitives.Color;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * Test for ImageWriter class
  *
@@ -25,8 +17,8 @@ class ImageWriterTests {
      * Test method for {@link ImageWriter#writeToImage()}.
      */
     @Test
-    void writePixel() {
-        ImageWriter imageWriter = new ImageWriter("first image - grid and background", 800, 500);
+    void writePixelTest() {
+        ImageWriter imageWriter = new ImageWriter("second try image", 800, 500);
         int nX = imageWriter.getNx();
         int nY = imageWriter.getNy();
 

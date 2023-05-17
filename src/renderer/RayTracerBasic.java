@@ -29,7 +29,10 @@ public class RayTracerBasic extends RayTracerBase {
 
     @Override
     public Color traceRay(Ray ray) {
+
+        /**if not found intersections points return the background color*/
         Color color = scene.getBackground();
+
         Geometries geometries = scene.getGeometries();
 
         List<Point> intersectionPoints = geometries.findIntersections(ray);
