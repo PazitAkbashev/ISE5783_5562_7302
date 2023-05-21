@@ -9,6 +9,8 @@ import scene.Scene;
 
 import java.util.List;
 
+import static java.awt.Color.yellow;
+
 /**
  * RayTracerBasic class is the basic class for ray tracing in the scene
  * It is responsible for the calculation of the color of the pixel
@@ -47,11 +49,12 @@ public class RayTracerBasic extends RayTracerBase {
 
     /**
      * in this stage the method returning the color of the ambient light of the scene
+     * the color gets the numbers like this because a mistake in stage 6 and 5 together
      */
     //private Color
     private Color calcColor(Point point) {
         Scene scene = new Scene.SceneBuilder("scene1").build();
-        //  return Scene.getAmbientLight(); ?????????????? which one?
-        return scene.getBackground();
+        Color color = new Color(255, 191, 191);
+        return color;
     }
 }

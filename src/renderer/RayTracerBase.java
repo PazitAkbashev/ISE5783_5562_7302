@@ -11,8 +11,8 @@ import scene.Scene;
  *
  * @author Pazit and Leah
  */
-abstract public class RayTracerBase {
-    protected Scene scene;
+public abstract class RayTracerBase {
+    protected Scene scene;  //final????????????
 
     /**
      * constructor for RayTracerBasic class
@@ -29,5 +29,5 @@ abstract public class RayTracerBase {
      * @param ray the ray we want to find the closest intersection with
      * @return the color of the closest point to the camera which on the ray
      */
-    abstract public Color traceRay(Ray ray);
+    public abstract Color traceRay(Ray ray);
 }

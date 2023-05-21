@@ -2,6 +2,7 @@ package renderer;
 
 import static java.awt.Color.YELLOW;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import geometries.Sphere;
@@ -24,21 +25,24 @@ public class RenderTests {
     @Test
     public void basicRenderTwoColorTest() {
         Scene scene = new Scene.SceneBuilder("Test scene")
+                //background is green
                 .setBackground(new Color(75, 127, 90))
+                //AmbientLight is pink
                 .setAmbientLight(new AmbientLight(
                         new Color(255, 191, 191),
                         new Double3(1, 1, 1))) //
                 .build();
 
+
         scene.getGeometries().add(new Sphere(new Point(0, 0, -100), 50d),
                 new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100),
-                        new Point(-100, 100, -100)), // up
-                // left
+                        new Point(-100, 100, -100)), // up left
+
                 new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100),
-                        new Point(-100, -100, -100)), // down
-                // left
+                        new Point(-100, -100, -100)), // down left
+
                new Triangle(new Point(100, 0, -100), new Point(0, -100, -100),
-                       new Point(100, -100, -100))); // down
+                       new Point(100, -100, -100))); // down right
 
         // right
         Camera camera = new Camera(Point.ZERO, new Vector(0, 0, -1),
@@ -53,8 +57,12 @@ public class RenderTests {
         camera.writeToImage();
     }
 
+
+
+
     /**
      * Eliezer's test
+     ****** FOR STAGE 6*******
      * Produce a scene with basic 3D model and render it into a png image with a grid
      */
 //    @Test

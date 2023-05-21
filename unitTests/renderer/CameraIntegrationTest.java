@@ -78,7 +78,6 @@ public class CameraIntegrationTest {
                 "testIntegrationCameraTriangle => should return 2 point");
     }
 
-
     @Test
     void testIntegrationCameraPlane() {
         // TC01: The plane is against camera => 9 points
@@ -125,8 +124,8 @@ public class CameraIntegrationTest {
     private int countIntersection(Camera camera, Geometry geometry, int nX, int nY) {
         //count all the intersections with the geometry
         int countIntersectionOfGeometries = 0;
-        for (int row = 0; row < nX; row++) {
-            for (int column = 0; column < nY; column++) {
+        for (int row = 0; row < nY; row++) {
+            for (int column = 0; column < nX; column++) {
                 // create ray thru pixel(row ,column )
                 Ray ray = camera.constructRay(nX, nY, column, row);
                 // find Intersections points to the geometry with the ray

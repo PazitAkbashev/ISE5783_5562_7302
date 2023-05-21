@@ -39,8 +39,9 @@ public class Camera {
     //image writer, contain parameters: image name, Nx, Ny, width, height
     private ImageWriter imageWriter;
 
-    private RayTracerBase rayTracerBase;
+    private RayTracerBase rayTracer;
 
+    //camera's getters
     public Point getP0() {
         return p0;
     }
@@ -159,20 +160,21 @@ public class Camera {
     /**
      * checking the colors of all the pixels
      */
-    public void renderImage() {
+    public Camera renderImage() {
         if (this.height == 0 || this.width == 0 || this.vTo == null
-                || this.vUp == null || this.vRight == null || this.p0 == null || this.distance == 0) {
+                || this.vUp == null || this.vRight == null || this.p0 == null || this.distance == 0 ||
+                this.imageWriter == null || this.rayTracer == null)
             throw new MissingResourceException("missing one parameters value or more", ImageWriter.class.getName(), null);
-        }
 
-        Color color = Color.BLACK;
-        for(int i = 0; i < imageWriter.getNx(); i++){
-            for(int j = 0; j < imageWriter.getNy(); j++){
-                Ray ray = constructRay(imageWriter.getNx(), imageWriter.getNy(), j, i);
-                 color = rayTracerBase.traceRay(ray);
-                imageWriter.writePixel(i, j, color);
+        int nX = imageWriter.getNx();
+        int nY = imageWriter.getNy();
+
+        for (int i = 0; i < nY; i++) {
+            for (int j = 0; j < nX; j++) {
+                imageWriter.writePixel(j, i, castRay(j, i));
             }
         }
+        return this;
     }
 
     /**
@@ -181,25 +183,18 @@ public class Camera {
      * @param interval is the width of a square
      * @param color    is the color of the grid
      */
-   void printGrid(int interval, Color color) {
-      if (this.imageWriter == null) {
-          throw new MissingResourceException("imageWriter is null", ImageWriter.class.getName(), null);
-      }
-
-       int nX = imageWriter.getNx();
-       int nY = imageWriter.getNy();
-        for (int i = 0; i < nX; i+= interval) {
-            for (int j = 0; j < nY; j++) {
-                // _width/interval // _height/interval
-                imageWriter.writePixel(i, j, color);
-
-            }
+    void printGrid(int interval, Color color) {
+        if (this.imageWriter == null) {
+            throw new MissingResourceException("imageWriter is null", ImageWriter.class.getName(), null);
         }
-        for (int i = 0; i < nX; i++) {
-            for (int j = 0; j < nY; j+= interval) {
-                // _width/interval // _height/interval
-                imageWriter.writePixel(i, j, color);
 
+        int nX = imageWriter.getNx();
+        int nY = imageWriter.getNy();
+
+        for (int i = 0; i < nY; i++) {
+            for (int j = 0; j < nX; j++) {
+                if (j % interval == 0 || i % interval == 0)
+                    imageWriter.writePixel(j, i, color);
             }
         }
     }
@@ -235,8 +230,13 @@ public class Camera {
      * @return the camera itself with the new rayTracer
      */
     public Camera setRayTracer(RayTracerBasic rayTracer) {
-        this.rayTracerBase = rayTracer;
+        this.rayTracer = rayTracer;
         return this;
     }
 
+    private Color castRay(int j, int i) {
+        Ray ray = constructRay(imageWriter.getNx(), imageWriter.getNx(), j, i);
+        var tmp = rayTracer.traceRay(ray);
+        return tmp == null ? Color.BLACK : tmp;
+    }
 }

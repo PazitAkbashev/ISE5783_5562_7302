@@ -18,20 +18,20 @@ class ImageWriterTests {
      */
     @Test
     void writePixelTest() {
-        ImageWriter imageWriter = new ImageWriter("second try image", 800, 500);
+        ImageWriter imageWriter = new ImageWriter("Grid and background", 800, 500);
         int nX = imageWriter.getNx();
         int nY = imageWriter.getNy();
 
-        for (int i = 0; i < nX; i++) {
-            for (int j = 0; j < nY; j++) {
+        for (int i = 0; i < nY; i++) {
+            for (int j = 0; j < nX; j++) {
                 // 800 / 16 = 50
-                if (i % 50 == 0) {
-                    imageWriter.writePixel(i, j, indigo);
+                if (j % 50 == 0) {
+                    imageWriter.writePixel(j, i, indigo);
                     // 500 / 10 = 50
-                } else if (j % 50 == 0) {
-                    imageWriter.writePixel(i, j, indigo);
+                } else if (i % 50 == 0) {
+                    imageWriter.writePixel(j, i, indigo);
                 } else {
-                    imageWriter.writePixel(i, j, silver);
+                    imageWriter.writePixel(j, i, silver);
                 }
             }
         }
