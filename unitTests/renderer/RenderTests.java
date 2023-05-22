@@ -2,6 +2,7 @@ package renderer;
 
 import static java.awt.Color.YELLOW;
 
+import com.google.gson.Gson;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -10,6 +11,9 @@ import geometries.Triangle;
 import lighting.AmbientLight;
 import primitives.*;
 import scene.Scene;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 /**
  * Test rendering a basic image
@@ -58,13 +62,36 @@ public class RenderTests {
     }
 
 
+    //--------only if doing the bonus --------//
+    /** Test for Json based scene - for bonus */
+    @Test
+    @Disabled
+    public void basicRenderJson() {
+        Gson gson = new Gson();
+        try {
+            FileReader reader = new FileReader("basicRenderTwoColors.json");
+            Scene jsonScene =gson.fromJson(reader, Scene.class);
+
+            Camera camera = new Camera(Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0))  //
+                    .setVPDistance(100)                                                                //
+                    .setVPSize(500, 500).setImageWriter(new ImageWriter
+                            ("Json render test", 1000, 1000))
+                    .setRayTracer(new RayTracerBasic(jsonScene));
+            camera.renderImage();
+            camera.printGrid(100, new Color(YELLOW));
+            camera.writeToImage();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
 
-    /**
-     * Eliezer's test
-     ****** FOR STAGE 6*******
-     * Produce a scene with basic 3D model and render it into a png image with a grid
-     */
+
+
+        /**
+         * Eliezer's test
+         ****** FOR STAGE 6*******
+         * Produce a scene with basic 3D model and render it into a png image with a grid
+         */
 //    @Test
 //    void testRedtriangle() {
 //        Scene scene = new Scene.SceneBuilder("Test scene")//
@@ -93,8 +120,8 @@ public class RenderTests {
 
 
     // For stage 6 - please disregard in stage 5
-    /** Produce a scene with basic 3D model - including individual lights of the
-     * bodies and render it into a png image with a grid */
+  //  /** Produce a scene with basic 3D model - including individual lights of the
+   //  * bodies and render it into a png image with a grid */
     // @Test
     // public void basicRenderMultiColorTest() {
     // Scene scene = new Scene("Test scene")//
@@ -128,15 +155,13 @@ public class RenderTests {
     // }
 
 
-    //--------only if doing the bonus --------//
-//    /** Test for XML based scene - for bonus */
-//    @Test
-//    public void basicRenderXml() {
-//        Scene  scene  = new Scene("XML Test scene");
-//        // enter XML file name and parse from XML file into scene object
+
+
+//        Scene  scene  = new Scene("Json Test scene");
+//        // enter Json file name and parse from Json file into scene object
 //        // using the code you added in appropriate packages
 //        // ...
-//        // NB: unit tests is not the correct place to put XML parsing code
+//        // NB: unit tests is not the correct place to put Json parsing code
 //
 //        Camera camera = new Camera(Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0))     //
 //                .setVPDistance(100)                                                                //
@@ -145,5 +170,5 @@ public class RenderTests {
 //        camera.renderImage();
 //        camera.printGrid(100, new Color(YELLOW));
 //        camera.writeToImage();
-//    }
+    }
 }
