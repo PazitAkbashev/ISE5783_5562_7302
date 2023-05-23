@@ -14,7 +14,7 @@ import primitives.Vector;
  *
  * @author Dan
  */
-public class Polygon implements Geometry {  //add abstract
+public class Polygon extends Geometry {  //add abstract
     /**
      * List of polygon's vertices
      */
@@ -93,8 +93,7 @@ public class Polygon implements Geometry {  //add abstract
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         return null;
     }
-
 }

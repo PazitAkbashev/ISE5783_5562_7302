@@ -8,12 +8,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Composite class for all geometries.
+ *
  *
  * @author pazit and Lea
  */
-public class Geometries implements Intersectable {
-    private final List<Intersectable> intersectables;
+public class Geometries extends Intersectable {
+    private  List<Intersectable> intersectables = null;
 
     /**
      * Default constructor for Geometries
@@ -44,10 +44,10 @@ public class Geometries implements Intersectable {
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
-        List<Point> result = null;
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        List<GeoPoint> result = null;
         for (var item : intersectables) {
-            List<Point> itemPoints = item.findIntersections(ray);
+            List<GeoPoint> itemPoints = item.findGeoIntersections(ray);
 
             if (itemPoints != null) {
 

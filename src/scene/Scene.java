@@ -18,22 +18,20 @@ public class Scene {
     private final String name;
 
     /**background color of the scene*/
-    private final Color background;
+    public final Color background;
 
     /**ambient light of the scene, default in builder is black color*/
-    private AmbientLight ambientLight;
+    public AmbientLight ambientLight;
 
     /**geometries of the scene*/
-    private final Geometries geometries;
+    public final Geometries geometries;
+
+
 
     /**
      * constructor
      * @param builder - the builder of the scene
-     * @param name - the name of the scene
-     * @param background - the background color of the scene
-     * @param geometries - the geometries of the scene
-     * @param ambientLight - the ambient light of the scene
-     *
+      *
      * @return Scene
      */
     public Scene(SceneBuilder builder) {
@@ -43,22 +41,6 @@ public class Scene {
         this.ambientLight = builder.ambientLight;
     }
 
-    /**getters for the fields*/
-    public String getName() {
-        return name;
-    }
-
-    public Color getBackground() {
-        return background;
-    }
-
-    public AmbientLight getAmbientLight() {
-        return ambientLight;
-    }
-
-    public Geometries getGeometries() {
-        return geometries;
-    }
 
     /**
      * inner class,
