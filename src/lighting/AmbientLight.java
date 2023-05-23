@@ -11,7 +11,9 @@ import primitives.Double3;
  */
 public class AmbientLight extends Light {
 
-    //default ambient light
+    /**
+     * default ambient light
+     */
     public static AmbientLight NONE = new AmbientLight(Color.BLACK, Double3.ZERO);
 
     /**
@@ -33,6 +35,5 @@ public class AmbientLight extends Light {
     public AmbientLight(Color iA, double kA) {
         super(iA.scale(kA));
     }
-
 
 }

@@ -19,7 +19,7 @@ public class Material {
         return this;
     }
   public Material setKs(double ks) {
-        this.kS = new Double3(ks)
+        this.kS = new Double3(ks);
         return this;
     }
 

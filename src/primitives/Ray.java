@@ -1,8 +1,8 @@
 package primitives;
 
 import java.util.List;
-import geometries.Intersectable.GeoPoint;
 
+import geometries.Intersectable.GeoPoint;
 /**
  * - This class represents a ray, defined by a starting point and a direction vector.
  * <p>
@@ -23,29 +23,34 @@ public class Ray {
     private Point p0;
     private Vector dir;
 
-    /**
-     * find the closest point to the ray from a list of points.
-     *
-     * @param intersections list of points
-     * @return the closest point
-     */
-    public Point findClosestPoint(List<Point> intersections) {
-        if (intersections == null) {
-            return null;
-        }
-        Point result = null;
-        double distance = Double.MAX_VALUE;
-        double temp = 0;
+//    /**
+//     * find the closest point to the ray from a list of points.
+//     *
+//     * @param intersections list of points
+//     * @return the closest point
+//     */
+//    public Point findClosestPoint(List<Point> intersections) {
+//        if (intersections == null) {
+//            return null;
+//        }
+//        Point result = null;
+//        double distance = Double.MAX_VALUE;
+//        double temp = 0;
+//
+//        // checking the all points intersections
+//        for (Point p : intersections) {
+//            temp = p0.distance(p);
+//            if (temp < distance) {
+//                distance = temp;
+//                result = p;
+//            }
+//        }
+//        return result;
+//    }
 
-        // checking the all points intersections
-        for (Point p : intersections) {
-            temp = p0.distance(p);
-            if (temp < distance) {
-                distance = temp;
-                result = p;
-            }
-        }
-        return result;
+    public Point findClosestPoint(List<Point> points) {
+        return points == null || points.isEmpty() ? null :
+                findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
     }
 
     /**
@@ -98,5 +103,30 @@ public class Ray {
     @Override
     public String toString() {
         return p0.toString() + dir.toString();
+    }
+
+    /**
+     * find the closest point to the ray from a list of points.
+     *
+     * @param intersections list of points
+     * @return the closest point
+     */
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> intersections) {
+        if (intersections == null) {
+            return null;
+        }
+        GeoPoint result = null;
+        double distance = Double.MAX_VALUE;
+        double temp = 0;
+
+        // checking the all points intersections
+        for (GeoPoint p : intersections) {
+            temp = p0.distance(p.point);
+            if (temp < distance) {
+                distance = temp;
+                result = p;
+            }
+        }
+        return result;
     }
 }
