@@ -4,29 +4,51 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
 
-public class SpotLight extends PointLight{
-   private final Vector direction;
-   private double narrowBeam=3;
+/**
+ * SpotLight class is the class representing a spot light
+ * extends PointLight
+ * in spot light there is attenuation with distance and the light is in a cone
+ *
+ * @author pazit and leah
+ */
+public class SpotLight extends PointLight {
 
-   /**
-    * constructor
-    *
-    * @param position
-    * @param intensity
-    */
-   public SpotLight( Color intensity,Point position,Vector dir) {
-      super(intensity,position);
-      this.direction = dir;
-   }
+    /**
+     * the direction of the light
+     */
+    private final Vector direction;
 
-   @Override
-   public Color getIntensity(Point p) {
-      Vector l = getL(p);
-      return super.getIntensity(p).scale(Math.max(0, direction.dotProduct(l)));
-   }
+    /**
+     * the narrow beam of the light
+     */
+    private double narrowBeam = 3;
 
-   public SpotLight setNarrowBeam(double num) {
-      this.narrowBeam=num;
-      return this;
-   }
+    /**
+     * constructor
+     *
+     * @param position  the position of the light
+     * @param intensity the intensity of the light
+     */
+    public SpotLight(Color intensity, Point position, Vector dir) {
+        super(intensity, position);
+        this.direction = dir;
+    }
+
+    /**
+     * getL function is the function that return the direction of the light
+     * according to design pattern builder
+     *
+     * @param num the point to calculate the vector to
+     * @return the object itself
+     */
+    public SpotLight setNarrowBeam(double num) {
+        this.narrowBeam = num;
+        return this;
+    }
+
+    @Override
+    public Color getIntensity(Point p) {
+        Vector l = getL(p);
+        return super.getIntensity(p).scale(Math.max(0, direction.dotProduct(l)));
+    }
 }

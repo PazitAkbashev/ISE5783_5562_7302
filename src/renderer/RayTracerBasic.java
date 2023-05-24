@@ -31,23 +31,22 @@ public class RayTracerBasic extends RayTracerBase {
         super(scene);
     }
 
-    @Override
-    public Color traceRay(Ray ray) {
-        List<GeoPoint> list = scene.geometries.findGeoIntersectionsHelper(ray);
-        return list == null ? scene.background : calcColor(ray.findClosestGeoPoint(list), ray);
-    }
-
-    //--------access to ambientLight by builder--------
-
     /**
      * in this stage the method returning the color of the ambient light of the scene
      * the color gets the numbers like this because a mistake in stage 6 and 5 together
      */
-
     private Color calcColor(GeoPoint gp, Ray ray) {
         return scene.ambientLight.getIntensity()
                 .add(calcLocalEffects(gp, ray));
     }
+
+    /**
+     * calcLocalEffects function is the function that calculate the local effects of the light
+     *
+     * @param gp the intersection point
+     * @param ray the ray from the camera
+     * @return the color of the local effects
+     */
     private Color calcLocalEffects(GeoPoint gp, Ray ray) {
         Color color = gp.geometry.getEmission();
         Vector v = ray.getDir();
@@ -73,7 +72,6 @@ public class RayTracerBasic extends RayTracerBase {
         return color;
     }
 
-
 //TODO
     private double calcSpecular(Material material, Vector n, Vector l, double nl, Vector v) {
     }
@@ -81,4 +79,9 @@ public class RayTracerBasic extends RayTracerBase {
     private double calcDiffusive(Material material, double nl) {
     }
 
+    @Override
+    public Color traceRay(Ray ray) {
+        List<GeoPoint> list = scene.geometries.findGeoIntersectionsHelper(ray);
+        return list == null ? scene.background : calcColor(ray.findClosestGeoPoint(list), ray);
+    }
 }
