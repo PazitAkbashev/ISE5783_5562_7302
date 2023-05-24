@@ -1,9 +1,14 @@
 package primitives;
 
+/**
+ * Material class is the basic class representing a material of a geometry
+ *
+ * @author Pazit and Leah
+ */
 public class Material {
-    private Double3 kD;
-    private Double3 kS;
-    private int nShininess;
+    public Double3 kD = new Double3(0, 0, 0);
+    public Double3 kS = new Double3(0, 0, 0);
+    public int nShininess = 0;
 
     public Material setKd(Double3 kd3) {
         this.kD = kd3;

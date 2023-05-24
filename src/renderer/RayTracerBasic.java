@@ -45,8 +45,9 @@ public class RayTracerBasic extends RayTracerBase {
      */
     //private Color
     private Color calcColor(GeoPoint gp, Ray ray) {
-            Scene scene = new Scene.SceneBuilder("scene1").build();
-            Color color = new Color(255, 191, 191);
-            return color;
+        Scene scene = new Scene.SceneBuilder("scene1").build();
+        return scene.ambientLight.getIntensity().add(gp.geometry.getEmission());
+        //Color color = new Color(255, 191, 191);
+       // return color;
     }
 }

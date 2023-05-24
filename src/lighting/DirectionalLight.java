@@ -5,7 +5,9 @@ import primitives.Point;
 import primitives.Vector;
 
 /**
- * ************לשים לב מה שצריך להיות פיינאל!!!!!!!!!!! **
+ * A class to represent directional light.
+ * extends Light implements LightSource
+ * in direction light no attenuation with distance
  */
 public class DirectionalLight extends Light implements LightSource {
 
@@ -23,12 +25,12 @@ public class DirectionalLight extends Light implements LightSource {
 
     @Override
     public Color getIntensity(Point p) {
-        return null;
+        return this.getIntensity();
     }
 
     @Override
     public Vector getL(Point p) {
-        return null;
+        return this.direction;
     }
 
 //    @Override
