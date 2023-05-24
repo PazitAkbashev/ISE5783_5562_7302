@@ -4,14 +4,14 @@ import geometries.Intersectable.GeoPoint;
 
 import geometries.Geometries;
 import lighting.AmbientLight;
-import primitives.Color;
-import primitives.Point;
-import primitives.Ray;
+import lighting.LightSource;
+import primitives.*;
 import scene.Scene;
 
 import java.util.List;
 
 import static java.awt.Color.yellow;
+import static primitives.Util.alignZero;
 
 /**
  * RayTracerBasic class is the basic class for ray tracing in the scene
@@ -43,11 +43,42 @@ public class RayTracerBasic extends RayTracerBase {
      * in this stage the method returning the color of the ambient light of the scene
      * the color gets the numbers like this because a mistake in stage 6 and 5 together
      */
-    //private Color
+
     private Color calcColor(GeoPoint gp, Ray ray) {
-        Scene scene = new Scene.SceneBuilder("scene1").build();
-        return scene.ambientLight.getIntensity().add(gp.geometry.getEmission());
-        //Color color = new Color(255, 191, 191);
-       // return color;
+        return scene.ambientLight.getIntensity()
+                .add(calcLocalEffects(gp, ray));
     }
+    private Color calcLocalEffects(GeoPoint gp, Ray ray) {
+        Color color = gp.geometry.getEmission();
+        Vector v = ray.getDir();
+        Vector n = gp.geometry.getNormal(gp.point);
+        double nv = alignZero(n.dotProduct(v));
+
+        if (nv == 0)
+            return color;
+
+        Material material = gp.geometry.getMaterial();
+
+        for (LightSource lightSource : scene.lights) {
+            Vector l = lightSource.getL(gp.point);
+            double nl = alignZero(n.dotProduct(l));
+
+            if (nl * nv > 0) { // sign(nl) == sign(nv)
+                Color iL = lightSource.getIntensity(gp.point);
+                color = color.add(iL.scale(calcDiffusive(material, nl)),
+                        iL.scale(calcSpecular(material, n, l, nl, v)));
+            }
+        }
+
+        return color;
+    }
+
+
+//TODO
+    private double calcSpecular(Material material, Vector n, Vector l, double nl, Vector v) {
+    }
+//TODO
+    private double calcDiffusive(Material material, double nl) {
+    }
+
 }

@@ -11,7 +11,7 @@ import java.util.List;
  */
 public abstract class Geometry extends Intersectable {
 
-    private Material material;
+    private Material material=new Material();
 
     /**
      * Calculate the normal vector by the point.
@@ -36,5 +36,9 @@ public abstract class Geometry extends Intersectable {
     public Geometry setMaterial(Material material) {
         this.material = material;
         return this;
+    }
+
+    public Material getMaterial() {
+        return material;
     }
 }
