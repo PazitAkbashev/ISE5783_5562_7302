@@ -7,6 +7,7 @@ import lighting.AmbientLight;
 import lighting.LightSource;
 import primitives.*;
 import scene.Scene;
+import primitives.Double3;
 
 import java.util.List;
 
@@ -72,14 +73,14 @@ public class RayTracerBasic extends RayTracerBase {
         return color;
     }
 
-//TODO
-    private double calcSpecular(Material material, Vector n, Vector l, double nl, Vector v) {
-        return 0;
-    }
-//TODO
-    private double calcDiffusive(Material material, double nl) {
-        return 0;
-    }
+private Double3 calcSpecular(Material material, Vector n, Vector l, double nl, Vector v) {
+    Vector r = l.subtract(n.scale(alignZero(l.dotProduct(n)) * 2));
+    return material.kS.scale(Math.pow(Math.max(0, alignZero(v.scale((-1)).dotProduct(r))), material.nShininess));
+}
+
+private Double3 calcDiffusive(Material material, double nl) {
+    return material.kD.scale(Math.abs(nl));
+}
 
     @Override
     public Color traceRay(Ray ray) {
