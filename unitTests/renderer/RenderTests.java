@@ -11,6 +11,8 @@ import scene.Scene;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import static java.awt.Color.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -71,20 +73,28 @@ public class RenderTests {
     public void basicRenderJson() {
         Gson gson = new Gson();
         try {
-            FileReader reader = new FileReader("basicRenderTwoColors.json");
-            Scene jsonScene = gson.fromJson(reader, Scene.class);
-
-            Camera camera = new Camera(Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0))  //
-                    .setVPDistance(100)                                                                //
-                    .setVPSize(500, 500).setImageWriter(new ImageWriter
-                            ("Json render test", 1000, 1000))
-                    .setRayTracer(new RayTracerBasic(jsonScene));
-            camera.renderImage();
-            camera.printGrid(100, new Color(YELLOW));
-            camera.writeToImage();
-        } catch (FileNotFoundException e) {
+            FileWriter writer = new FileWriter("basicRenderTwoColors2.json");
+            gson.toJson(Scene.class, writer);
+            writer.close();
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+//        try {
+//            FileReader reader = new FileReader("basicRenderTwoColors.json");
+//            Scene jsonScene = gson.fromJson(reader, Scene.class);
+//
+//            Camera camera = new Camera(Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0))  //
+//                    .setVPDistance(100)                                                                //
+//                    .setVPSize(500, 500).setImageWriter(new ImageWriter
+//                            ("Json render test", 1000, 1000))
+//                    .setRayTracer(new RayTracerBasic(jsonScene));
+//            camera.renderImage();
+//            camera.printGrid(100, new Color(YELLOW));
+//            camera.writeToImage();
+//        } catch (FileNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
 

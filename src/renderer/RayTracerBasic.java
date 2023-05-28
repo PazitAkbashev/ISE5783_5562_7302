@@ -74,9 +74,11 @@ public class RayTracerBasic extends RayTracerBase {
 
 //TODO
     private double calcSpecular(Material material, Vector n, Vector l, double nl, Vector v) {
+        return 0;
     }
 //TODO
     private double calcDiffusive(Material material, double nl) {
+        return 0;
     }
 
     @Override
