@@ -230,6 +230,7 @@ public class LightsTests {
                 .writeToImage(); //
     }
 
+
     private final Color SpotLightColor2 = new Color(250, 250, 250);
     private final Point SpotLightPosition2 = new Point(-100, -100, 25);
 
@@ -237,6 +238,9 @@ public class LightsTests {
     private final Color DirectionalLightColor4 = new Color(800, 500, 0);
     private final Point DirectionalLightPosition4 = new Point(50, 50, 40);
 
+    /**
+     * sphere with all the light source
+     */
     @Test
     public void sphereManyLightsTest() {
         scene1.geometries.add(sphere);
