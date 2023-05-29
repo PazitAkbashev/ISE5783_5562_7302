@@ -192,4 +192,37 @@ public class LightsTests {
                 .writeToImage(); //
     }
 
+    /**
+     * two triangles with all the light source
+     */
+    private final Color trianglesSpotLightColor2 = new Color(255, 250, 250);
+    private final Point trianglesSpotLightPosition2 = new Point(0, -10, 0);
+    private final Vector trianglesSpotLightDirection2 = new Vector(50, 400, 2);
+
+    private final Color trianglesPointLightColor3 = new Color(255, 255, 255);
+    private final Point trianglesPointLightPosition3 = new Point(20, -20, -10);
+
+    private final Color trianglesDirectionalLightColor4 = new Color(255, 210, 0);
+    private final Vector trianglesDirectionalLightDirection4 = new Vector(100, -400, 50);
+    @Test
+    public void trianglesManyLightsTest() {
+
+        scene2.geometries.add(triangle1, triangle2);
+        scene2.lights.add(new SpotLight
+                (trianglesSpotLightColor2,
+                trianglesSpotLightPosition2,
+                trianglesSpotLightDirection2)
+                .setNarrowBeam(10).setKL(0.0001).setKQ(0.00001));
+        scene2.lights.add(new PointLight(trianglesPointLightColor3, trianglesPointLightPosition3)
+                .setKL(0.0001).setKQ(0.0002));
+        scene2.lights.add(new DirectionalLight(trianglesDirectionalLightColor4, trianglesDirectionalLightDirection4));
+
+        ImageWriter imageWriter = new ImageWriter("lightTrianglesManySource", 500, 500);
+        camera2.setImageWriter(imageWriter) //
+                .setRayTracer(new RayTracerBasic(scene2)) //
+                .renderImage() //
+                .writeToImage(); //
+    }
+
+
 }

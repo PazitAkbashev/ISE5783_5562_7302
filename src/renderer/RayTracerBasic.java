@@ -63,7 +63,8 @@ public class RayTracerBasic extends RayTracerBase {
             Vector l = lightSource.getL(gp.point);
             double nl = alignZero(n.dotProduct(l));
 
-            if (nl * nv > 0) { // sign(nl) == sign(nv)
+            // sign(nl) == sign(nv)
+            if (nl * nv > 0) {
                 Color iL = lightSource.getIntensity(gp.point);
                 color = color.add(iL.scale(calcDiffusive(material, nl)),
                         iL.scale(calcSpecular(material, n, l, nl, v)));
@@ -75,7 +76,9 @@ public class RayTracerBasic extends RayTracerBase {
 
 private Double3 calcSpecular(Material material, Vector n, Vector l, double nl, Vector v) {
     Vector r = l.subtract(n.scale(alignZero(l.dotProduct(n)) * 2));
-    return material.kS.scale(Math.pow(Math.max(0, alignZero(v.scale((-1)).dotProduct(r))), material.nShininess));
+    return material.kS.scale(Math.pow(Math.max(0,
+            alignZero(v.scale((-1)).dotProduct(r))),
+            material.nShininess));
 }
 
 private Double3 calcDiffusive(Material material, double nl) {

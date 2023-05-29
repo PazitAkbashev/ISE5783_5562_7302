@@ -14,7 +14,7 @@ public class AmbientLight extends Light {
     /**
      * default ambient light
      */
-    public static AmbientLight NONE = new AmbientLight(Color.BLACK, Double3.ZERO);
+    public static final AmbientLight NONE = new AmbientLight(Color.BLACK, Double3.ZERO);
 
     /**
      * constructor for D3

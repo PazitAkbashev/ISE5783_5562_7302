@@ -6,10 +6,19 @@ package primitives;
  * @author Pazit and Leah
  */
 public class Material {
-    public Double3 kD = new Double3(0, 0, 0);
-    public Double3 kS = new Double3(0, 0, 0);
-    public int nShininess = 0;
 
+    /** Diffusive factor*/
+    public Double3 kD = Double3.ZERO;
+
+    /** Specular factor*/
+    public Double3 kS = Double3.ZERO;
+
+    /** how shiny is the material*/
+    public int nShininess = 1;
+
+    /**setters of Material class by builder pattern
+     * returning the object itself
+     */
     public Material setKd(Double3 kd3) {
         this.kD = kd3;
         return this;
