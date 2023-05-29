@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import geometries.*;
 import lighting.*;
 import primitives.*;
-import renderer.*;
 import scene.Scene;
 
 /**
@@ -208,14 +207,21 @@ public class LightsTests {
     public void trianglesManyLightsTest() {
 
         scene2.geometries.add(triangle1, triangle2);
+
         scene2.lights.add(new SpotLight
                 (trianglesSpotLightColor2,
                 trianglesSpotLightPosition2,
                 trianglesSpotLightDirection2)
                 .setNarrowBeam(10).setKL(0.0001).setKQ(0.00001));
-        scene2.lights.add(new PointLight(trianglesPointLightColor3, trianglesPointLightPosition3)
+
+        scene2.lights.add(new PointLight(
+                trianglesPointLightColor3,
+                trianglesPointLightPosition3)
                 .setKL(0.0001).setKQ(0.0002));
-        scene2.lights.add(new DirectionalLight(trianglesDirectionalLightColor4, trianglesDirectionalLightDirection4));
+
+        scene2.lights.add(new DirectionalLight(
+                trianglesDirectionalLightColor4,
+                trianglesDirectionalLightDirection4));
 
         ImageWriter imageWriter = new ImageWriter("lightTrianglesManySource", 500, 500);
         camera2.setImageWriter(imageWriter) //
@@ -224,5 +230,37 @@ public class LightsTests {
                 .writeToImage(); //
     }
 
+    private final Color SpotLightColor2 = new Color(250, 250, 250);
+    private final Point SpotLightPosition2 = new Point(-100, -100, 25);
+
+    private final Color DirectionalLightColor3 = new Color(0, 225, 0);
+    private final Color DirectionalLightColor4 = new Color(800, 500, 0);
+    private final Point DirectionalLightPosition4 = new Point(50, 50, 40);
+
+    @Test
+    public void sphereManyLightsTest() {
+        scene1.geometries.add(sphere);
+
+        scene1.lights.add(new SpotLight(
+                SpotLightColor2,
+                SpotLightPosition2,
+                new Vector(50, 50, -50))
+                .setKL(0.001).setKQ(0.0001));
+
+        scene1.lights.add(new DirectionalLight(
+                DirectionalLightColor3,
+                new Vector(-400, -400, -100)));
+
+        scene1.lights.add(new PointLight(
+                DirectionalLightColor4,
+                DirectionalLightPosition4)
+                .setKL(0.001).setKQ(0.0002));
+
+        ImageWriter imageWriter = new ImageWriter("lightSphereManySource", 500, 500);
+        camera1.setImageWriter(imageWriter) //
+                .setRayTracer(new RayTracerBasic(scene1)) //
+                .renderImage() //
+                .writeToImage(); //
+    }
 
 }
