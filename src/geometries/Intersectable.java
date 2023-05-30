@@ -24,11 +24,15 @@ public abstract class Intersectable {
                 .toList();
     }
 
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
-        return this.findGeoIntersectionsHelper(ray);
+    public final List<GeoPoint> findGeoIntersections(Ray ray) {
+        return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
     }
 
-    abstract protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
+    public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
+        return this.findGeoIntersectionsHelper(ray, maxDistance);
+    }
+
+    abstract protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance);
 
     /**
      * inner class

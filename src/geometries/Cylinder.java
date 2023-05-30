@@ -4,8 +4,6 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
-import java.util.List;
-
 import static primitives.Util.alignZero;
 
 /**
@@ -27,11 +25,6 @@ public class Cylinder extends Tube {
     protected Cylinder(double radius, Ray axisray, double length) {
         super(radius, axisray);
         this.length = length;
-    }
-
-    @Override
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
-        return super.findGeoIntersections(ray);
     }
 
     //bonus, otherwise returned null

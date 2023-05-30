@@ -19,6 +19,44 @@ import static primitives.Util.alignZero;
 public class RayTracerBasic extends RayTracerBase {
 
     /**
+     *
+     */
+    private static final double DELTA = 0.1;
+
+    /**
+     *
+     * @param gp
+     * @param l
+     * @param n
+     * @return
+     */
+    private boolean unshaded(GeoPoint gp, LightSource lightSource, Vector l, Vector n, double nv) {
+
+        Vector lightDirection = l.scale(-1); // from point to light source
+        double nl = n.dotProduct(lightDirection);
+
+        Vector delta = n.scale(nl > 0 ? DELTA : -DELTA);
+        Point pointRay = gp.point.add(delta);
+        Ray shadowRay = new Ray(pointRay, lightDirection);
+
+        double maxDistance = lightSource.getDistance(gp.point);
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(shadowRay, maxDistance);
+
+        if (intersections == null) {
+            return true;
+        }
+
+        for (GeoPoint item : intersections) {
+            if (item.geometry.) {
+                return true;//TODO
+            }
+        }
+
+        return false;
+    }
+
+
+    /**
      * constructor for RayTracerBasic class
      *
      * @param scene the scene we want to render
@@ -83,7 +121,7 @@ public class RayTracerBasic extends RayTracerBase {
 
     @Override
     public Color traceRay(Ray ray) {
-        List<GeoPoint> list = scene.geometries.findGeoIntersectionsHelper(ray);
+        List<GeoPoint> list = scene.geometries.findGeoIntersections(ray);
         return list == null ? scene.background : calcColor(ray.findClosestGeoPoint(list), ray);
     }
 }
