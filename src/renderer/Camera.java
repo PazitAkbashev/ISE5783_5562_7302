@@ -16,16 +16,16 @@ import static primitives.Util.isZero;
  **/
 public class Camera {
     //camera's location
-    private Point p0;
+    private final Point p0;
 
     //vRight - represent Z axis – scene depth (in the canonic orientation, Z is opposite to Vto)
-    private Vector vRight;
+    private final Vector vRight;
 
     //vUp - represent Y axis – scene bottom to top
-    private Vector vUp;
+    private final Vector vUp;
 
     //vTo - represent X axis – scene left to right
-    private Vector vTo;
+    private final Vector vTo;
 
     //height of the view plane
     private double height;
@@ -40,6 +40,27 @@ public class Camera {
     private ImageWriter imageWriter;
 
     private RayTracerBase rayTracer;
+
+    /**
+     * Constructor for Camera class.
+     *
+     * @param p0  the camera's location
+     * @param vTo the direction vector pointing right from the camera's perspective
+     * @param vUp the direction vector pointing up from the camera's perspective
+     */
+    public Camera(Point p0, Vector vTo, Vector vUp) {
+        if (!isZero(vTo.dotProduct(vUp))) {
+            throw new IllegalArgumentException("vto  and vup are not orthogonal");
+        }
+        this.p0 = p0;
+
+        //saving only normalize vectors
+        this.vUp = vUp.normalize();
+        this.vTo = vTo.normalize();
+
+        //calculate vector vRight by the 2 other normalized vectors
+        vRight = this.vTo.crossProduct(this.vUp);
+    }
 
     //camera's getters
     public Point getP0() {
@@ -68,27 +89,6 @@ public class Camera {
 
     public double getDistance() {
         return distance;
-    }
-
-    /**
-     * Constructor for Camera class.
-     *
-     * @param p0  the camera's location
-     * @param vTo the direction vector pointing right from the camera's perspective
-     * @param vUp the direction vector pointing up from the camera's perspective
-     */
-    public Camera(Point p0, Vector vTo, Vector vUp) {
-        if (!isZero(vTo.dotProduct(vUp))) {
-            throw new IllegalArgumentException("vto  and vup are not orthogonal");
-        }
-        this.p0 = p0;
-
-        //saving only normalize vectors
-        this.vUp = vUp.normalize();
-        this.vTo = vTo.normalize();
-
-        //calculate vector vRight by the 2 other normalized vectors
-        vRight = this.vTo.crossProduct(this.vUp);
     }
 
     /**
@@ -161,9 +161,15 @@ public class Camera {
      * checking the colors of all the pixels
      */
     public Camera renderImage() {
-        if (this.height == 0 || this.width == 0 || this.vTo == null
-                || this.vUp == null || this.vRight == null || this.p0 == null || this.distance == 0 ||
-                this.imageWriter == null || this.rayTracer == null)
+        if (this.height == 0
+                || this.width == 0
+                || this.vTo == null
+                || this.vUp == null
+                || this.vRight == null
+                || this.p0 == null
+                || this.distance == 0
+                || this.imageWriter == null
+                || this.rayTracer == null)
             throw new MissingResourceException("missing one parameters value or more", ImageWriter.class.getName(), null);
 
         int nX = imageWriter.getNx();
@@ -203,7 +209,7 @@ public class Camera {
      * Function writeToImage produces unoptimized png file of the image according to
      * pixel color matrix in the directory of the project
      */
-    void writeToImage() {
+    public void writeToImage() {
         if (this.imageWriter == null) {
             throw new MissingResourceException("imageWriter is null", ImageWriter.class.getName(), null);
         }

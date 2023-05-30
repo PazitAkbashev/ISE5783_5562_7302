@@ -1,17 +1,17 @@
 package geometries;
 
-import primitives.*;
-
-import java.util.List;
+import primitives.Color;
+import primitives.Material;
+import primitives.Point;
+import primitives.Vector;
 
 /**
- *
- *
  * @author Pazit and Leah
  */
 public abstract class Geometry extends Intersectable {
 
-    private Material material=new Material();
+    protected Color emission = Color.BLACK;
+    private Material material = new Material();
 
     /**
      * Calculate the normal vector by the point.
@@ -21,16 +21,20 @@ public abstract class Geometry extends Intersectable {
      */
     abstract public Vector getNormal(Point point);
 
-    protected Color emission = Color.BLACK;
-
     public Color getEmission() {
         return emission;
     }
 
-    /** as builder pattern*/
+    /**
+     * as builder pattern
+     */
     public Geometry setEmission(Color emission) {
         this.emission = emission;
         return this;
+    }
+
+    public Material getMaterial() {
+        return material;
     }
 
     public Geometry setMaterial(Material material) {
@@ -38,7 +42,4 @@ public abstract class Geometry extends Intersectable {
         return this;
     }
 
-    public Material getMaterial() {
-        return material;
-    }
 }

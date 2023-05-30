@@ -1,6 +1,8 @@
 package geometries;
 
-import primitives.*;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
 import java.util.List;
 
@@ -123,9 +125,9 @@ public class Plane extends Geometry {
             return null;
         }
 
-       // Point point = ray.getPoint(t);
+        // Point point = ray.getPoint(t);
 
-        GeoPoint point = new GeoPoint(this , ray.getPoint(t));
+        GeoPoint point = new GeoPoint(this, ray.getPoint(t));
         return List.of(point);
     }
 }

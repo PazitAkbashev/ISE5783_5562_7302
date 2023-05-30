@@ -1,21 +1,22 @@
 package renderer;
 
 import com.google.gson.Gson;
-import org.junit.jupiter.api.*;
-
-
-import geometries.*;
-import lighting.*;
-import primitives.*;
+import geometries.Sphere;
+import geometries.Triangle;
+import lighting.AmbientLight;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import primitives.Color;
+import primitives.Double3;
+import primitives.Point;
+import primitives.Vector;
 import scene.Scene;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
 import static java.awt.Color.*;
-import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * Test rendering a basic image
  *

@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- *
- *
  * @author Pazit and Leah
  */
 public abstract class Intersectable {
@@ -26,13 +24,15 @@ public abstract class Intersectable {
                 .toList();
     }
 
-    public List<GeoPoint> findGeoIntersections(Ray ray){
-        return  this.findGeoIntersectionsHelper(ray);
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
+        return this.findGeoIntersectionsHelper(ray);
     }
 
     abstract protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
 
-    /**inner class*/
+    /**
+     * inner class
+     */
     public static class GeoPoint {
         public final Geometry geometry;
         public final Point point;

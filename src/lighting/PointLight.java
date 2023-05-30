@@ -11,19 +11,38 @@ import primitives.Vector;
  *
  * @author Pazit and Leah
  */
-public class PointLight  extends Light implements  LightSource{
+public class PointLight extends Light implements LightSource {
 
-    /** the position of the light*/
-    private Point position;
+    /**
+     * the position of the light
+     */
+    private final Point position;
 
-    /** the attenuation factors*/
-   private double kC = 1;
+    /**
+     * the attenuation factors
+     */
+    private double kC = 1d;
 
-   /** the attenuation factors*/
-    private double kL = 0;
+    /**
+     * the attenuation factors
+     */
+    private double kL = 0d;
 
-    /** the attenuation factors*/
-    private double kQ = 0;
+    /**
+     * the attenuation factors
+     */
+    private double kQ = 0d;
+
+    /**
+     * constructor
+     *
+     * @param intensity the intensity of the light
+     * @param position  the position of the light
+     */
+    public PointLight(Color intensity, Point position) {
+        super(intensity);
+        this.position = position;
+    }
 
     /**
      * setter for the attenuation factors
@@ -41,17 +60,6 @@ public class PointLight  extends Light implements  LightSource{
     public PointLight setKQ(double kQ) {
         this.kQ = kQ;
         return this;
-    }
-
-    /**
-     * constructor
-     *
-     * @param intensity the intensity of the light
-     * @param position the position of the light
-     */
-    public PointLight(Color intensity,Point position) {
-        super(intensity);
-        this.position = position;
     }
 
     @Override

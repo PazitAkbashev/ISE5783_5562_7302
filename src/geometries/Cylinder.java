@@ -7,7 +7,6 @@ import primitives.Vector;
 import java.util.List;
 
 import static primitives.Util.alignZero;
-import static primitives.Util.isZero;
 
 /**
  * this  class represent a Cylinder
@@ -17,11 +16,6 @@ import static primitives.Util.isZero;
 public class Cylinder extends Tube {
 
     final double length;
-
-    @Override
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
-        return super.findGeoIntersections(ray);
-    }
 
     /**
      * constructor for finite Cylinder
@@ -33,6 +27,11 @@ public class Cylinder extends Tube {
     protected Cylinder(double radius, Ray axisray, double length) {
         super(radius, axisray);
         this.length = length;
+    }
+
+    @Override
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
+        return super.findGeoIntersections(ray);
     }
 
     //bonus, otherwise returned null

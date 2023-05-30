@@ -1,8 +1,5 @@
 package renderer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import geometries.*;
 import org.junit.jupiter.api.Test;
 import primitives.Point;
@@ -10,6 +7,8 @@ import primitives.Ray;
 import primitives.Vector;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * the class test for CameraIntegration

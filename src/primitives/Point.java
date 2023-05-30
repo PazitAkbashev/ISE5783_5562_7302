@@ -35,15 +35,15 @@ public class Point {
      * @param d3 value of z
      */
     public Point(double d1, double d2, double d3) {
-        this.xyz = new Double3(d1, d2, d3);
+        this(new Double3(d1, d2, d3));
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Point)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Point point = (Point) o;
-        return xyz.equals(point.xyz);
+        return Objects.equals(xyz, point.xyz);
     }
 
     @Override
@@ -65,7 +65,8 @@ public class Point {
      * the action
      */
     public Vector subtract(Point point) {
-        return new Vector(xyz.subtract(point.xyz));
+        Double3 result = this.xyz.subtract(point.xyz);
+        return new Vector(result);
     }
 
     /**
@@ -75,7 +76,8 @@ public class Point {
      * @return point new point
      */
     public Point add(Vector vec) {
-        return new Point(this.xyz.add(vec.xyz));
+        Double3 result = this.xyz.add(vec.xyz);
+        return new Point(result);
     }
 
     /**

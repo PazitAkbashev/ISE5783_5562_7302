@@ -1,6 +1,8 @@
 package geometries;
 
-import primitives.*;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
 import java.util.List;
 
@@ -59,15 +61,15 @@ public class Sphere extends RadialGeometry {
             Point p1 = ray.getPoint(t1);
             Point p2 = ray.getPoint(t2);
 
-            return List.of(new GeoPoint(this,p1), new GeoPoint(this,p2));
+            return List.of(new GeoPoint(this, p1), new GeoPoint(this, p2));
         }
 
         if (t1 > 0) {
-            return List.of(new GeoPoint(this,ray.getPoint(t1)));
+            return List.of(new GeoPoint(this, ray.getPoint(t1)));
         }
 
         if (t2 > 0) {
-            return List.of(new GeoPoint(this,ray.getPoint(t2)));
+            return List.of(new GeoPoint(this, ray.getPoint(t2)));
         }
 
         return null; // 0 points

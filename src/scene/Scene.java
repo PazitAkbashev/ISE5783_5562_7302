@@ -19,25 +19,31 @@ import java.util.List;
  */
 public class Scene {
 
-    /**name of the scene*/
-    private final String name;
-
-    /**background color of the scene*/
+    /**
+     * background color of the scene
+     */
     public final Color background;
-
-    /**ambient light of the scene, default in builder is black color*/
+    /**
+     * ambient light of the scene, default in builder is black color
+     */
     public final AmbientLight ambientLight;
-
-    /**geometries of the scene*/
+    /**
+     * geometries of the scene
+     */
     public final Geometries geometries;
-
-    /**lights of the scene*/
+    /**
+     * lights of the scene
+     */
     public final List<LightSource> lights;
+    /**
+     * name of the scene
+     */
+    private final String name;
 
     /**
      * constructor
+     *
      * @param builder - the builder of the scene
-      *
      * @return Scene
      */
     public Scene(SceneBuilder builder) {
@@ -57,29 +63,43 @@ public class Scene {
      */
     public static class SceneBuilder {
 
-        /**name of the scene*/
+        /**
+         * name of the scene
+         */
         private final String name;
 
-        /**background color of the scene*/
+        /**
+         * background color of the scene
+         */
         private Color background = Color.BLACK;
 
-        /**ambient light of the scene, default is black color*/
+        /**
+         * ambient light of the scene, default is black color
+         */
         private AmbientLight ambientLight = AmbientLight.NONE;
 
-        /**geometries of the scene*/
+        /**
+         * geometries of the scene
+         */
         private Geometries geometries = new Geometries();
 
-        /**lights of the scene*/
+        /**
+         * lights of the scene
+         */
         private List<LightSource> lights = new LinkedList<>();
+
         /**
          * constructor
+         *
          * @param name - the name of the scene
          */
         public SceneBuilder(String name) {
             this.name = name;
         }
 
-        /**setters for the fields*/
+        /**
+         * setters for the fields
+         */
         public SceneBuilder setBackground(Color background) {
             this.background = background;
             return this;
@@ -97,11 +117,13 @@ public class Scene {
 
         public SceneBuilder setLights(List<LightSource> lights) {
             Collections.copy(this.lights, lights);
-           // this.lights = lights;
+            // this.lights = lights;
             return this;
         }
 
-        /**build method*/
+        /**
+         * build method
+         */
         public Scene build() {
             return new Scene(this);
         }

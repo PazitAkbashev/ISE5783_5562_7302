@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.Objects;
+
 /**
  * A fundamental object in geometry with direction and size, according to the approach of linear algebra, is like a point, defined by the end point.
  *
@@ -81,7 +83,11 @@ public class Vector extends Point {
      * = (y1*z2 -z1*y2, z1*x2 - x1*z2, x1*y2 - y1*x2)
      */
     public Vector crossProduct(Vector vec) {
-        return new Vector(xyz.d2 * vec.xyz.d3 - xyz.d3 * vec.xyz.d2, xyz.d3 * vec.xyz.d1 - xyz.d1 * vec.xyz.d3, xyz.d1 * vec.xyz.d2 - xyz.d2 * vec.xyz.d1);
+        double xx = xyz.d2 * vec.xyz.d3 - xyz.d3 * vec.xyz.d2;
+        double yy = xyz.d3 * vec.xyz.d1 - xyz.d1 * vec.xyz.d3;
+        double zz = xyz.d1 * vec.xyz.d2 - xyz.d2 * vec.xyz.d1;
+
+        return new Vector(xx, yy, zz);
     }
 
     /**
@@ -101,4 +107,18 @@ public class Vector extends Point {
     public double length() {
         return Math.sqrt(this.lengthSquared());
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vector vector = (Vector) o;
+        return Objects.equals(xyz, vector.xyz);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(xyz);
+    }
+
 }

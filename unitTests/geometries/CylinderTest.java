@@ -6,7 +6,7 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * the class test for plan
@@ -23,7 +23,8 @@ class CylinderTest {
      * *********!!!!!!!!!!!the tests here are for example only!!!!!*******************
      */
     @Test
-    @Disabled //TODO
+    @Disabled
+    //TODO
     void testGetNormal() {
         Ray ray = new Ray(new Point(0, 1, 0), new Vector(0, 1, 0));
         Cylinder cylinder = new Cylinder(2, ray, 4);

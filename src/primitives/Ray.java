@@ -1,8 +1,11 @@
 package primitives;
 
+import geometries.Intersectable.GeoPoint;
+
 import java.util.List;
 
-import geometries.Intersectable.GeoPoint;
+import static primitives.Util.isZero;
+
 /**
  * - This class represents a ray, defined by a starting point and a direction vector.
  * <p>
@@ -48,11 +51,6 @@ public class Ray {
 //        return result;
 //    }
 
-    public Point findClosestPoint(List<Point> points) {
-        return points == null || points.isEmpty() ? null :
-                findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
-    }
-
     /**
      * Constructs a new Ray object with a given starting point and direction.
      *
@@ -62,6 +60,11 @@ public class Ray {
     public Ray(Point p0, Vector dir) {
         this.p0 = p0;
         this.dir = dir.normalize();
+    }
+
+    public Point findClosestPoint(List<Point> points) {
+        return points == null || points.isEmpty() ? null :
+                findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
     }
 
     /**
@@ -89,6 +92,9 @@ public class Ray {
      * @return A new Point object at distance t along the direction of the ray.
      */
     public Point getPoint(double t) {
+        // if t is zero, return the starting point of the ray
+        if (isZero(t))
+            return p0;
         return p0.add(dir.scale(t));
     }
 
@@ -121,7 +127,7 @@ public class Ray {
 
         // checking the all points intersections
         for (GeoPoint p : intersections) {
-            temp = p0.distance(p.point);
+            temp = p0.distanceSquared(p.point);
             if (temp < distance) {
                 distance = temp;
                 result = p;

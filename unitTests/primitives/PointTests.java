@@ -2,7 +2,8 @@ package primitives;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * the class test for point
@@ -40,7 +41,7 @@ class PointTests {
         // ============ Equivalence Partitions Tests ==============
 
         // TC01: Simple test
-        assertEquals(p, new Point(2, 3, 4).subtract(new Point(1, 2, 3)), //
+        assertEquals(p.xyz, new Point(2, 3, 4).subtract(new Point(1, 2, 3)).xyz, //
                 "Wrong point subtract");
 
         // =============== Boundary Values Tests ==================

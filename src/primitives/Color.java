@@ -11,14 +11,13 @@ package primitives;
 public class Color {
 
     /**
-     * The internal fields maintain RGB components as double numbers from 0 to whatever...
-     */
-    private final Double3 rgb;
-
-    /**
      * Black color = (0,0,0)
      */
     public static final Color BLACK = new Color();
+    /**
+     * The internal fields maintain RGB components as double numbers from 0 to whatever...
+     */
+    private final Double3 rgb;
 
     /**
      * Default constructor - to generate Black Color (privately)
