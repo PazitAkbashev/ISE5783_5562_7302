@@ -25,35 +25,42 @@ public class RayTracerBasic extends RayTracerBase {
 
     /**
      *
-     * @param gp
-     * @param l
-     * @param n
-     * @return
+     * @param gp the intersection point
+     * @param l the light source
+     * @param n the normal
+     * @return true if the point is unshaded, else false
      */
-    private boolean unshaded(GeoPoint gp, LightSource lightSource, Vector l, Vector n, double nv) {
-
+    private boolean unshaded(GeoPoint gp, Vector l, Vector n) {
         Vector lightDirection = l.scale(-1); // from point to light source
-        double nl = n.dotProduct(lightDirection);
-
-        Vector delta = n.scale(nl > 0 ? DELTA : -DELTA);
-        Point pointRay = gp.point.add(delta);
-        Ray shadowRay = new Ray(pointRay, lightDirection);
-
-        double maxDistance = lightSource.getDistance(gp.point);
-        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(shadowRay, maxDistance);
-
-        if (intersections == null) {
-            return true;
-        }
-
-        for (GeoPoint item : intersections) {
-            if (item.geometry.) {
-                return true;//TODO
-            }
-        }
-
-        return false;
+        Vector epsVector = n.scale(DELTA);
+        Point point = gp.point.add(epsVector);
+        Ray lightRay = new Ray(point, lightDirection);
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
+        return intersections.isEmpty();
     }
+
+//        Vector lightDirection = l.scale(-1); // from point to light source
+//        double nl = n.dotProduct(lightDirection);
+//
+//        Vector delta = n.scale(nl > 0 ? DELTA : -DELTA);
+//        Point pointRay = gp.point.add(delta);
+//        Ray shadowRay = new Ray(pointRay, lightDirection);
+//
+//        double maxDistance = lightSource.getDistance(gp.point);
+//        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(shadowRay, maxDistance);
+//
+//        if (intersections == null) {
+//            return true;
+//        }
+//
+//        for (GeoPoint item : intersections) {
+//            if (item.geometry.) {
+//                return true;//TODO
+//            }
+//        }
+//
+//        return false;
+//    }
 
 
     /**
@@ -70,8 +77,14 @@ public class RayTracerBasic extends RayTracerBase {
      * the color gets the numbers like this because a mistake in stage 6 and 5 together
      */
     private Color calcColor(GeoPoint gp, Ray ray) {
-        return scene.ambientLight.getIntensity()
-                .add(calcLocalEffects(gp, ray));
+        //if the point is not shaded
+        if (unshaded(gp, scene.lights.get(0).getL(gp.point), gp.geometry.getNormal(gp.point))) {
+            Color color = scene.ambientLight.getIntensity().add(calcLocalEffects(gp, ray));
+            return color;
+        }
+            //else- if shaded:
+            return scene.background;
+
     }
 
     /**
