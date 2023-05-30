@@ -45,6 +45,22 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
+     *
+     * @param intensity the intensity of the light
+     * @param position the position of the light
+     * @param kC attenuation factors
+     * @param kL attenuation factors
+     * @param kQ attenuation factors
+     */
+    public PointLight(Color intensity, Point position, double kC, double kL, double kQ) {
+        super(intensity);
+        this.position = position;
+        this.kC = kC;
+        this.kL = kL;
+        this.kQ = kQ;
+    }
+
+    /**
      * setter for the attenuation factors
      */
     public PointLight setKC(double kC) {
