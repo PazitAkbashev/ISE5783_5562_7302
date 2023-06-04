@@ -37,6 +37,7 @@ public class RayTracerBasic extends RayTracerBase {
         Ray lightRay = new Ray(point, lightDirection);
         List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
         return intersections.isEmpty(); //TODO
+        //return bdika
     }
 
 //        Vector lightDirection = l.scale(-1); // from point to light source
