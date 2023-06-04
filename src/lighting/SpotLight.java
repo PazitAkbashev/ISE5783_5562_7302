@@ -21,7 +21,7 @@ public class SpotLight extends PointLight {
     /**
      * the narrow beam of the light
      */
-    private double narrowBeam = 3;
+   // private double narrowBeam = 3;
 
     /**
      * constructor
@@ -41,10 +41,10 @@ public class SpotLight extends PointLight {
      * @param num the point to calculate the vector to
      * @return the object itself
      */
-    public SpotLight setNarrowBeam(double num) {
-        this.narrowBeam = num;
-        return this;
-    }
+//    public SpotLight setNarrowBeam(double num) {
+//        this.narrowBeam = num;
+//        return this;
+//    }
 
     @Override
     public Color getIntensity(Point p) {

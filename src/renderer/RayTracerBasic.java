@@ -46,11 +46,11 @@ public class RayTracerBasic extends RayTracerBase {
             return true;
         }
 
-        for (GeoPoint item : intersections) {
-            if (item.geometry.) {
-                return true;//TODO
-            }
-        }
+//        for (GeoPoint item : intersections) {
+//            if (item.geometry.getMaterial().kT) {
+//                return true;//TODO
+//            }
+//        }
 
         return false;
     }
