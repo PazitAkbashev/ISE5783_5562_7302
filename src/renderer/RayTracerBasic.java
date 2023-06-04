@@ -30,13 +30,13 @@ public class RayTracerBasic extends RayTracerBase {
      * @param n the normal
      * @return true if the point is unshaded, else false
      */
-    private boolean unshaded(GeoPoint gp, Vector l, Vector n) {
+    private boolean unshaded(GeoPoint gp, Vector l, Vector n, LightSource lightSource) {
         Vector lightDirection = l.scale(-1); // from point to light source
         Vector epsVector = n.scale(DELTA);
         Point point = gp.point.add(epsVector);
         Ray lightRay = new Ray(point, lightDirection);
         List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
-        return intersections.isEmpty();
+        return intersections.isEmpty(); //TODO
     }
 
 //        Vector lightDirection = l.scale(-1); // from point to light source
@@ -78,12 +78,12 @@ public class RayTracerBasic extends RayTracerBase {
      */
     private Color calcColor(GeoPoint gp, Ray ray) {
         //if the point is not shaded
-        if (unshaded(gp, scene.lights.get(0).getL(gp.point), gp.geometry.getNormal(gp.point))) {
+        if (unshaded(gp, scene.lights.get(0).getL(gp.point), gp.geometry.getNormal(gp.point), scene.lights.get(0))) {
             Color color = scene.ambientLight.getIntensity().add(calcLocalEffects(gp, ray));
             return color;
         }
             //else- if shaded:
-            return scene.background;
+            return Color.BLACK;
 
     }
 
