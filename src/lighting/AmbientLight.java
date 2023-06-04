@@ -36,4 +36,5 @@ public class AmbientLight extends Light {
         super(iA.scale(kA));
     }
 
+
 }

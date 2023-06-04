@@ -78,13 +78,13 @@ public class RayTracerBasic extends RayTracerBase {
      */
     private Color calcColor(GeoPoint gp, Ray ray) {
         //if the point is not shaded
-        if (unshaded(gp, scene.lights.get(0).getL(gp.point), gp.geometry.getNormal(gp.point), scene.lights.get(0))) {
-            Color color = scene.ambientLight.getIntensity().add(calcLocalEffects(gp, ray));
-            return color;
-        }
-            //else- if shaded:
-            return Color.BLACK;
-
+//        if (unshaded(gp, scene.lights.get(0).getL(gp.point), gp.geometry.getNormal(gp.point), scene.lights.get(0))) {
+//            Color color = scene.ambientLight.getIntensity().add(calcLocalEffects(gp, ray));
+//            return color;
+//        }
+//            //else- if shaded:
+//            return Color.BLACK;
+        return Color.BLACK;
     }
 
     /**
