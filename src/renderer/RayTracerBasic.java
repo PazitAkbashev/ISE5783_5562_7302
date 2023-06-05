@@ -27,10 +27,9 @@ public class RayTracerBasic extends RayTracerBase {
     private static final double DELTA = 0.1;
 
     /**
-     *
      * @param gp the intersection point
-     * @param l the light source
-     * @param n the normal
+     * @param l  the light source
+     * @param n  the normal
      * @return true if the point is unshaded, else false
      */
     private boolean unshaded(GeoPoint gp, Vector l, Vector n, LightSource lightSource) {
@@ -131,14 +130,17 @@ public class RayTracerBasic extends RayTracerBase {
                 material.nShininess));
     }
 
-    private Double3 calcDiffusive(Material material, double nl) {
+    private Double3 calcDiffusive(Material material, double nl)
+    {
         return material.kD.scale(Math.abs(nl));
     }
 
     @Override
     public Color traceRay(Ray ray) {
-        List<GeoPoint> list = scene.geometries.findGeoIntersections(ray);
-        return list == null ? scene.background : calcColor(ray.findClosestGeoPoint(list), ray);
+        GeoPoint clossestGeoPoint = findClosestIntersection(ray);
+        if (clossestGeoPoint == null)
+            return scene.background;
+        return calcColor(clossestGeoPoint, ray);
     }
 
     private Ray constructReflected(GeoPoint geoPoint, Ray ray) {
@@ -152,8 +154,16 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
 
-    private Ray constructRefracted(GeoPoint geoPoint, Ray inRay) {
-        //return new Ray(geoPoint.point, inRay.getDir(), geoPoint.geometry.getNormal(geoPoint.point));
-        return
+//    private Ray constructRefracted(GeoPoint geoPoint, Ray inRay) {
+//        //return new Ray(geoPoint.point, inRay.getDir(), geoPoint.geometry.getNormal(geoPoint.point));
+//        return new Ray()
+//    }//TODO
+
+    private GeoPoint findClosestIntersection(Ray ray) {
+        if (ray == null) {
+            return null;
+        }
+        List<GeoPoint> points = scene.geometries.findGeoIntersections(ray);
+        return ray.findClosestGeoPoint(points);
     }
 }
