@@ -6,6 +6,29 @@ package primitives;
  * @author Pazit and Leah
  */
 public class Material {
+    public Material setkT(Double3 kT) {
+        this.kT = kT;
+        return this;
+    }
+
+    public Material setkR(Double3 kR) {
+        this.kR = kR;
+        return this;
+    }
+
+    public Material setkT(Double kT) {
+        this.kT = new Double3(kT);
+        return this;
+    }
+
+    public Material setkR(Double kR) {
+        this.kR = new Double3(kR);
+        return this;
+    }
+
+
+    public Double3 kT=Double3.ZERO;//TODO HEAROT
+    public Double3 kR=Double3.ZERO;//TODO HEAROT
 
     /**
      * Diffusive factor

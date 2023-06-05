@@ -21,6 +21,9 @@ public class RayTracerBasic extends RayTracerBase {
     /**
      *
      */
+    private static final int MAX_CALC_COLOR_LEVEL = 10;
+    private static final double MIN_CALC_COLOR_K = 0.001;
+
     private static final double DELTA = 0.1;
 
     /**
@@ -136,5 +139,21 @@ public class RayTracerBasic extends RayTracerBase {
     public Color traceRay(Ray ray) {
         List<GeoPoint> list = scene.geometries.findGeoIntersections(ray);
         return list == null ? scene.background : calcColor(ray.findClosestGeoPoint(list), ray);
+    }
+
+    private Ray constructReflected(GeoPoint geoPoint, Ray ray) {
+        Vector v = ray.getDir();
+        Vector n = geoPoint.geometry.getNormal(geoPoint.point);
+        double nv = alignZero(v.dotProduct(n));
+        // r = v - 2*(v * n) * n
+        Vector r = v.subtract(n.scale(2d * nv)).normalize();
+
+        return new Ray(geoPoint.point, r); //needs to add the normal?
+    }
+
+
+    private Ray constructRefracted(GeoPoint geoPoint, Ray inRay) {
+        //return new Ray(geoPoint.point, inRay.getDir(), geoPoint.geometry.getNormal(geoPoint.point));
+        return
     }
 }
