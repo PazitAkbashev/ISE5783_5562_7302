@@ -16,7 +16,7 @@ import scene.Scene;
  * (with transparency)
  * @author dzilb */
 public class ReflectionRefractionTests {
-    private Scene scene = new Scene("Test scene");
+    private Scene scene =  new Scene.SceneBuilder("Test scene").build();
 
     /** Produce a picture of a sphere lighted by a spot light */
     @Test
@@ -26,7 +26,7 @@ public class ReflectionRefractionTests {
 
         scene.geometries.add( //
                 new Sphere(new Point(0, 0, -50), 50d).setEmission(new Color(BLUE)) //
-                        .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setKt(0.3)),
+                        .setMaterial(new Material().setKd(0.4).setKs(0.3).setShininess(100).setkT(0.3)),
                 new Sphere(new Point(0, 0, -50), 25d).setEmission(new Color(RED)) //
                         .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100)));
         scene.lights.add( //
@@ -45,7 +45,8 @@ public class ReflectionRefractionTests {
         Camera camera = new Camera(new Point(0, 0, 10000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
                 .setVPSize(2500, 2500).setVPDistance(10000); //
 
-        scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
+       // scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
+
 
         scene.geometries.add( //
                 new Sphere(new Point(-950, -900, -1000), 400d).setEmission(new Color(0, 50, 100)) //
@@ -56,7 +57,7 @@ public class ReflectionRefractionTests {
                 new Triangle(new Point(1500, -1500, -1500), new Point(-1500, 1500, -1500),
                         new Point(670, 670, 3000)) //
                         .setEmission(new Color(20, 20, 20)) //
-                        .setMaterial(new Material().setKr(1)),
+                        .setMaterial(new Material().setKr(1d)),
                 new Triangle(new Point(1500, -1500, -1500), new Point(-1500, 1500, -1500),
                         new Point(-1500, -1500, -2000)) //
                         .setEmission(new Color(20, 20, 20)) //

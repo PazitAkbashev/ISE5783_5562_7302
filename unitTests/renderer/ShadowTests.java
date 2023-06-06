@@ -59,9 +59,9 @@ public class ShadowTests {
      */
     @Test
     public void sphereTriangleMove1() {
-        sphereTriangleHelper("shadowSphereTriangleMove2", //
-                new Triangle(new Point( ? ? ?, ???, ???),new Point( ???, ???, ???),new Point( ???, ???, ???)), //
-        new Point(-100, -100, 200));
+//        sphereTriangleHelper("shadowSphereTriangleMove2", //
+//                new Triangle(new Point( ? ? ?, ???, ???),new Point( ???, ???, ???),new Point( ???, ???, ???)), //
+//        new Point(-100, -100, 200));
     }
 
     /**
@@ -69,9 +69,9 @@ public class ShadowTests {
      */
     @Test
     public void sphereTriangleMove2() {
-        sphereTriangleHelper("shadowSphereTriangleMove1", //
-                new Triangle(new Point( ? ? ?, ???, ???),new Point( ???, ???, ???),new Point( ???, ???, ???)), //
-        new Point(-100, -100, 200));
+//        sphereTriangleHelper("shadowSphereTriangleMove1", //
+//                new Triangle(new Point( ? ? ?, ???, ???),new Point( ???, ???, ???),new Point( ???, ???, ???)), //
+//        new Point(-100, -100, 200));
     }
 
     /**
@@ -79,9 +79,9 @@ public class ShadowTests {
      */
     @Test
     public void sphereTriangleSpot1() {
-        sphereTriangleHelper("shadowSphereTriangleSpot1", //
-                new Triangle(new Point(-70, -40, 0), new Point(-40, -70, 0), new Point(-68, -68, -4)), //
-                new Point( ? ??, ???, ???));
+//        sphereTriangleHelper("shadowSphereTriangleSpot1", //
+//                new Triangle(new Point(-70, -40, 0), new Point(-40, -70, 0), new Point(-68, -68, -4)), //
+//                new Point( ? ??, ???, ???));
     }
 
     /**
@@ -89,9 +89,9 @@ public class ShadowTests {
      */
     @Test
     public void sphereTriangleSpot2() {
-        sphereTriangleHelper("shadowSphereTriangleSpot2", //
-                new Triangle(new Point(-70, -40, 0), new Point(-40, -70, 0), new Point(-68, -68, -4)), //
-                new Point( ? ??, ???, ???));
+//        sphereTriangleHelper("shadowSphereTriangleSpot2", //
+//                new Triangle(new Point(-70, -40, 0), new Point(-40, -70, 0), new Point(-68, -68, -4)), //
+//                new Point( ? ??, ???, ???));
     }
 
     /**

@@ -23,8 +23,10 @@ import static primitives.Util.isZero;
  * @author Pazit and Leah
  */
 public class Ray {
-    private Point p0;
-    private Vector dir;
+    private final Point p0;
+    private final Vector dir;
+
+    private static final double DELTA = 0.1;
 
 //    /**
 //     * find the closest point to the ray from a list of points.
@@ -60,6 +62,23 @@ public class Ray {
     public Ray(Point p0, Vector dir) {
         this.p0 = p0;
         this.dir = dir.normalize();
+    }
+
+    /**
+     * Constructs a new Ray object with a given starting point and direction.
+     * offset by the normal of the geometry
+     *
+     * @param point original point
+     * @param l direction of the ray
+     * @param n normal of trhe geometry at this point
+     */
+    public Ray(Point point, Vector l, Vector n) {
+        double nl = n.dotProduct(l);
+        Vector delta = n.scale(nl > 0 ? DELTA : -DELTA);
+        this.p0 = point.add(delta);
+        this.dir = l;
+
+
     }
 
     public Point findClosestPoint(List<Point> points) {

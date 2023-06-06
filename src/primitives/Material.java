@@ -6,12 +6,24 @@ package primitives;
  * @author Pazit and Leah
  */
 public class Material {
-    public Material setkT(Double3 kT) {
+
+    /**
+     * Transparency factor (=SHKIFUT) - between 0 and 1
+     */
+    public Double3 kT = Double3.ZERO;
+
+    /**
+     * Reflection factor - between 0 and 1
+     */
+    public Double3 kR = Double3.ZERO;
+
+
+    public Material setKt(Double3 kT) {
         this.kT = kT;
         return this;
     }
 
-    public Material setkR(Double3 kR) {
+    public Material setKr(Double3 kR) {
         this.kR = kR;
         return this;
     }
@@ -21,14 +33,10 @@ public class Material {
         return this;
     }
 
-    public Material setkR(Double kR) {
+    public Material setKr(Double kR) {
         this.kR = new Double3(kR);
         return this;
     }
-
-
-    public Double3 kT=Double3.ZERO;//TODO HEAROT
-    public Double3 kR=Double3.ZERO;//TODO HEAROT
 
     /**
      * Diffusive factor
@@ -73,4 +81,5 @@ public class Material {
         this.nShininess = shininess;
         return this;
     }
+
 }
