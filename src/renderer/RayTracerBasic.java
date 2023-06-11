@@ -18,9 +18,7 @@ import static primitives.Util.alignZero;
  */
 public class RayTracerBasic extends RayTracerBase {
 
-    /**
-     * the maximum level for calcColor function (the maximum level for the recursive call)
-     */
+    /**the maximum level for calcColor function (the maximum level for the recursive call)*/
     private static final int MAX_CALC_COLOR_LEVEL = 10;
 
     /**
@@ -34,30 +32,6 @@ public class RayTracerBasic extends RayTracerBase {
     private static final Double3 INITIAL_K = new Double3(1d);
 
     /**
-     * @param gp the intersection point
-     * @param l  the light source
-     * @param n  the normal
-     * @return true if the point is unshaded, else false
-     */
-    private boolean unshaded(GeoPoint gp, Vector l, Vector n, LightSource lightSource) {
-        Vector lightDirection = l.scale(-1); // from point to light source
-
-        Ray lightRay = new Ray(gp.point, lightDirection, n);
-
-        double maxDistance = lightSource.getDistance(gp.point);
-
-        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay, maxDistance);
-
-        if (intersections == null || intersections.isEmpty()) {
-            return true;
-        }
-
-        return false;
-
-    }
-
-
-    /**
      * constructor for RayTracerBasic class
      *
      * @param scene the scene we want to render
@@ -66,32 +40,45 @@ public class RayTracerBasic extends RayTracerBase {
         super(scene);
     }
 
-    /**
-     * helper function for calcColor function
-     */
+    private Double3 transparency(GeoPoint geopoint, LightSource light, Vector l, Vector n) {
+        Vector lightDirection = l.scale(-1); // from point to light source
+        Ray lightRay = new Ray(geopoint.point, lightDirection, n); //build ray with delta
+        double lightDistance = light.getDistance(geopoint.point);
+        var intersections = scene.geometries.findGeoIntersections(lightRay);
+        if (intersections == null) return Double3.ONE; //no intersections
+        Double3 ktr = new Double3(1d);
 
+        for (GeoPoint gp : intersections) {
+            if (alignZero(gp.point.distance(geopoint.point) - lightDistance) <= 0) {
+                ktr = ktr.product(gp.geometry.getMaterial().kT); //the more transparency the less shadow
+                if (ktr.lowerThan(MIN_CALC_COLOR_K)) return Double3.ZERO;
+            }
+        }
+        return ktr;
+    }
+
+    /**helper function for calcColor function */
     private Color calcColor(GeoPoint gp, Ray ray) {
         return calcColor(gp, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K)
                 .add(scene.ambientLight.getIntensity());
     }
 
-    /**
-     * calcColor function is the recursive function that calculate the color of the pixel
-     * using calcColor function for recursive call
-     *
-     * @param intersection
-     * @param ray
-     * @param level
-     * @param k
-     * @return
-     */
-    private Color calcColor(GeoPoint intersection, Ray ray, int level, Double3 k) {
-        Color color = calcLocalEffects(intersection, ray);
-        return 1 == level ?
-                color :
-                color.add(calcGlobalEffects(intersection, ray, level, k));
+//    private Color calcColor(GeoPoint intersection, Ray ray, int level, Double3 k) {
+//        Color color = calcLocalEffects(intersection, ray);
+//        return 1 == level ?
+//                color :
+//                color.add(calcGlobalEffects(intersection, ray, level, k));
+//    }
+    private Color calcColor(GeoPoint geoPoint, Ray ray, int level, Double3 k) {
+        Color color = geoPoint.geometry.getEmission()
+                //calcLocalEffects with only 2 parameters? or with k either?
+                .add(calcLocalEffects(geoPoint, ray));
+
+        return 1 == level ? color : color.add(calcGlobalEffects(geoPoint, ray, level, k));
     }
 
+
+    //check if correct????? from here and down
     /**
      * calcLocalEffects function is the function that calculate the local effects of the light
      *
@@ -189,28 +176,6 @@ public class RayTracerBasic extends RayTracerBase {
      * constructReflectedRay function is the function that checks if the object is reflective
      * and if it is, it calculates the reflected ray
      */
-    private Double3 transparency(GeoPoint geopoint, LightSource light, Vector l, Vector n) {
-        // from point to light source
-        Vector lightDirection = l.scale(-1);
-        //build ray with delta
-        Ray lightRay = new Ray(geopoint.point, lightDirection, n);
-
-        double lightDistance = light.getDistance(geopoint.point);
-        var intersections = scene.geometries.findGeoIntersections(lightRay);
-        //case no intersections:
-        if (intersections == null)
-            return Double3.ONE;
-        Double3 ktr = new Double3(1d);
-        for (GeoPoint gp : intersections) {
-            if (alignZero(gp.point.distance(geopoint.point) - lightDistance) <= 0) {
-                //ktr - the transparency var. the more transparency the less shadow
-                ktr = ktr.product(gp.geometry.getMaterial().kT);
-                if (ktr.lowerThan(MIN_CALC_COLOR_K))
-                    return Double3.ZERO;
-            }
-        }
-        return ktr;
-    }
 
     /**
      * find the closest intersection of the ray with the objects in the scene
