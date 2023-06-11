@@ -5,24 +5,26 @@ import primitives.Ray;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Pazit and Leah
  */
 public abstract class Intersectable {
+
     /**
      * Find all Intersections points from the ray.
      *
      * @param ray MUST be not null, The ray tested at the intersection of the object
      * @return List of points that intersection with the object
      */
-
     public List<Point> findIntersections(Ray ray) {
         var geoList = findGeoIntersections(ray);
-        return geoList == null ? null : geoList.stream()
-                .map(gp -> gp.point)
-                .toList();
+        return geoList == null ? null
+                : geoList.stream().map(gp -> gp.point).toList();
     }
+
+
 
     public final List<GeoPoint> findGeoIntersections(Ray ray) {
         return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
@@ -66,6 +68,5 @@ public abstract class Intersectable {
                     ", point=" + point +
                     '}';
         }
-
     }
 }

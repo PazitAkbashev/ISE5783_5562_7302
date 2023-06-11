@@ -188,6 +188,7 @@ public class RayTracerBasic extends RayTracerBase {
         if (ray == null) {
             return null;
         }
+
         List<GeoPoint> points = scene.geometries.findGeoIntersections(ray);
         return ray.findClosestGeoPoint(points);
     }
