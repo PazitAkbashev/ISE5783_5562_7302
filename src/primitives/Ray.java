@@ -7,49 +7,12 @@ import java.util.List;
 import static primitives.Util.isZero;
 
 /**
- * - This class represents a ray, defined by a starting point and a direction vector.
- * <p>
- * - The Ray class has methods for getting the starting point and direction of the ray,
- * and for calculating a new point along the ray given a specific distance.
- * <p>
- * - The class also overrides the equals() method to check if two Ray objects are equal by comparing their
- * starting point and direction.
- * <p>
- * - It also provides a toString() method that returns a string representation of the ray in the form of its
- * starting point and direction.
- * <p>
- * - The class requires a Point object to define the starting point and a Vector object to define the direction.
  *
- * @author Pazit and Leah
  */
 public class Ray {
-    private Point p0;
-    private Vector dir;
-
-//    /**
-//     * find the closest point to the ray from a list of points.
-//     *
-//     * @param intersections list of points
-//     * @return the closest point
-//     */
-//    public Point findClosestPoint(List<Point> intersections) {
-//        if (intersections == null) {
-//            return null;
-//        }
-//        Point result = null;
-//        double distance = Double.MAX_VALUE;
-//        double temp = 0;
-//
-//        // checking the all points intersections
-//        for (Point p : intersections) {
-//            temp = p0.distance(p);
-//            if (temp < distance) {
-//                distance = temp;
-//                result = p;
-//            }
-//        }
-//        return result;
-//    }
+    private final Point p0;
+    private final Vector dir;
+    private static final double DELTA = 0.1d;
 
     /**
      * Constructs a new Ray object with a given starting point and direction.
@@ -62,9 +25,20 @@ public class Ray {
         this.dir = dir.normalize();
     }
 
-    public Point findClosestPoint(List<Point> points) {
-        return points == null || points.isEmpty() ? null :
-                findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
+
+    /**
+     * Constructs a new Ray object with a given starting point and direction.
+     * offset by the normal of the geometry
+     *
+     * @param point original point
+     * @param l direction of the ray
+     * @param n normal of the geometry at this point
+     */
+    public Ray(Point point, Vector dir, Vector n) {
+        double nl = n.dotProduct(dir);
+        Vector delta = n.scale(nl > 0 ? DELTA : -DELTA);
+        this.p0 = point.add(delta);
+        this.dir = dir;
     }
 
     /**
@@ -98,6 +72,37 @@ public class Ray {
         return p0.add(dir.scale(t));
     }
 
+    public Point findClosestPoint(List<Point> points) {
+        return points == null || points.isEmpty() ? null :
+                findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
+    }
+
+    /**
+     * find the closest point to the ray from a list of points.
+     *
+     * @param intersections list of points
+     * @return the closest point
+     */
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> intersections) {
+        if (intersections == null) {
+            return null;
+        }
+
+        GeoPoint closestGeoPoint = null;
+        double distance = Double.MAX_VALUE;
+        double temp = 0;
+
+        // checking the all points intersections
+        for (GeoPoint p : intersections) {
+            temp = p0.distanceSquared(p.point);
+            if (temp < distance) {
+                distance = temp;
+                closestGeoPoint = p;
+            }
+        }
+        return closestGeoPoint;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -111,28 +116,5 @@ public class Ray {
         return p0.toString() + dir.toString();
     }
 
-    /**
-     * find the closest point to the ray from a list of points.
-     *
-     * @param intersections list of points
-     * @return the closest point
-     */
-    public GeoPoint findClosestGeoPoint(List<GeoPoint> intersections) {
-        if (intersections == null) {
-            return null;
-        }
-        GeoPoint result = null;
-        double distance = Double.MAX_VALUE;
-        double temp = 0;
 
-        // checking the all points intersections
-        for (GeoPoint p : intersections) {
-            temp = p0.distanceSquared(p.point);
-            if (temp < distance) {
-                distance = temp;
-                result = p;
-            }
-        }
-        return result;
-    }
 }

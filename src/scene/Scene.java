@@ -19,25 +19,19 @@ import java.util.List;
  */
 public class Scene {
 
-    /**
-     * background color of the scene
-     */
+    /*background color of the scene*/
     public final Color background;
-    /**
-     * ambient light of the scene, default in builder is black color
-     */
+
+    /*ambient light of the scene, default in builder is black color*/
     public final AmbientLight ambientLight;
-    /**
-     * geometries of the scene
-     */
+
+    /*geometries of the scene*/
     public final Geometries geometries;
-    /**
-     * lights of the scene
-     */
+
+    /*lights of the scene*/
     public final List<LightSource> lights;
-    /**
-     * name of the scene
-     */
+
+    /*name of the scene*/
     private final String name;
 
     /**
@@ -63,29 +57,19 @@ public class Scene {
      */
     public static class SceneBuilder {
 
-        /**
-         * name of the scene
-         */
+        /*name of the scene */
         private final String name;
 
-        /**
-         * background color of the scene
-         */
+        /*background color of the scene*/
         private Color background = Color.BLACK;
 
-        /**
-         * ambient light of the scene, default is black color
-         */
+        /*ambient light of the scene, default is black color*/
         private AmbientLight ambientLight = AmbientLight.NONE;
 
-        /**
-         * geometries of the scene
-         */
+        /*geometries of the scene*/
         private Geometries geometries = new Geometries();
 
-        /**
-         * lights of the scene
-         */
+        /*lights of the scene*/
         private List<LightSource> lights = new LinkedList<>();
 
         /**
@@ -121,9 +105,7 @@ public class Scene {
             return this;
         }
 
-        /**
-         * build method
-         */
+        /*build method*/
         public Scene build() {
             return new Scene(this);
         }

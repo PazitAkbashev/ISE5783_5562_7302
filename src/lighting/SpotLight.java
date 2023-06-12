@@ -13,15 +13,8 @@ import primitives.Vector;
  */
 public class SpotLight extends PointLight {
 
-    /**
-     * the direction of the light
-     */
+    /**the direction of the light */
     private final Vector direction;
-
-    /**
-     * the narrow beam of the light
-     */
-   // private double narrowBeam = 3;
 
     /**
      * constructor
@@ -34,23 +27,18 @@ public class SpotLight extends PointLight {
         this.direction = dir.normalize();
     }
 
-    /**
-     * getL function is the function that return the direction of the light
-     * according to design pattern builder
-     *
-     * @param num the point to calculate the vector to
-     * @return the object itself
-     */
-//    public SpotLight setNarrowBeam(double num) {
-//        this.narrowBeam = num;
-//        return this;
-//    }
-
     @Override
+//    public Color getIntensity(Point p) {
+//        Vector l = getL(p);
+//        Color itensity = super.getIntensity(p).scale(Math.max(0, direction.dotProduct(l)));
+//        return itensity;
+//    }
     public Color getIntensity(Point p) {
-        Vector l = getL(p);
-        Color itensity = super.getIntensity(p).scale(Math.max(0, direction.dotProduct(l)));
-        return itensity;
+        Vector l = getL(p); // direction to the point
+        double angle = direction.dotProduct(l); // the angle between the spot direction and the point direction
+        double factor =  angle > 0 ? angle : 0;
+
+        return super.getIntensity(p).scale(factor);
     }
 
 }

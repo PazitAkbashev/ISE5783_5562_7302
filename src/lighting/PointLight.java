@@ -14,26 +14,17 @@ import primitives.Vector;
  */
 public class PointLight extends Light implements LightSource {
 
-    /**
-     * the position of the light
-     */
+    /**the position of the light*/
     private final Point position;
 
-    /**
-     * the attenuation factors
-     */
+    /**the attenuation factors*/
     private Double3 kC = Double3.ONE;
 
-    /**
-     * the attenuation factors
-     */
+    /** the attenuation factors*/
     private Double3 kL = Double3.ZERO;
 
-    /**
-     * the attenuation factors
-     */
+    /**the attenuation factors*/
     private Double3 kQ = Double3.ZERO;
-
 
     /**
      * constructor
@@ -47,6 +38,7 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
+     * constructor
      * @param intensity the intensity of the light
      * @param position  the position of the light
      * @param kC        attenuation factors
@@ -66,27 +58,26 @@ public class PointLight extends Light implements LightSource {
         return this;
     }
 
-    public PointLight setKl(Double3 kL) {
-        this.kL = kL;
-        return this;
-    }
-
-    public PointLight setKq(Double3 kQ) {
-        this.kQ = kQ;
-        return this;
-    }
-
     /**
      * setter for the attenuation factors
      */
-
     public PointLight setKc(double kC) {
         this.kC = new Double3(kC);
         return this;
     }
 
+    public PointLight setKl(Double3 kL) {
+        this.kL = kL;
+        return this;
+    }
+
     public PointLight setKl(double kL) {
         this.kL = new Double3(kL);
+        return this;
+    }
+
+    public PointLight setKq(Double3 kQ) {
+        this.kQ = kQ;
         return this;
     }
 
@@ -98,18 +89,24 @@ public class PointLight extends Light implements LightSource {
     @Override
     public Color getIntensity(Point p) {
         double d = position.distance(p);
+        if(d <=0) {
+            return getIntensity();
+        }
         Double3 factor = kC.add(kL.scale(d).add(kQ.scale(d * d)));
-        return getIntensity().reduce(factor);
+        Color intensity = getIntensity().reduce(factor);
+        return intensity;
     }
 
     @Override
     public Vector getL(Point p) {
-        return p.subtract(position).normalize();
+        Vector l = p.subtract(position).normalize();
+        return l;
     }
 
     @Override
     public double getDistance(Point point) {
-        return  this.position.distance(point);
+        double dis = this.position.distance(point);
+        return dis;
     }
 
 
