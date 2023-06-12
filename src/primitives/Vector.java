@@ -109,12 +109,19 @@ public class Vector extends Point {
     }
 
     @Override
+    /**
+     * Checks if the current Vector object is equal to another object.
+     *
+     * @param o The object to compare for equality.
+     * @return true if the objects are equal, false otherwise.
+     */
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Vector vector = (Vector) o;
-        return Objects.equals(xyz, vector.xyz);
+        if (this == o) return true;  // If the objects are the same instance, they are equal
+        if (o == null || getClass() != o.getClass()) return false;  // If the object is null or of a different class, they are not equal
+        Vector vector = (Vector) o;  // Cast the object to Vector type for comparison
+        return Objects.equals(xyz, vector.xyz);  // Compare the xyz field of the vectors for equality using the Objects.equals() method
     }
+
 
     @Override
     public int hashCode() {

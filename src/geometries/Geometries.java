@@ -23,7 +23,6 @@ public class Geometries extends Intersectable {
 
     /**
      * Constructor for Geometries
-     *
      * @param intersectables one or more interfaces to add to the geometries list
      */
     public Geometries(Intersectable... intersectables) {
@@ -33,7 +32,6 @@ public class Geometries extends Intersectable {
 
     /**
      * Add interfaces to the list of the geometries
-     *
      * @param intersectables one or more interfaces to add to the geometries list
      */
     public void add(Intersectable... intersectables) {
@@ -41,21 +39,29 @@ public class Geometries extends Intersectable {
     }
 
     @Override
-    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
+    /**
+     * Finds the intersection points between a given ray and a collection of intersectable objects.
+     * @param ray         The ray to find intersections with.
+     * @param maxDistance The maximum distance for valid intersections.
+     * @return A list of GeoPoint objects representing the intersection points, or null if no intersections are found.
+     */
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         List<GeoPoint> result = null;
-        for (var item : intersectables) {
-            List<GeoPoint> itemPoints = item.findGeoIntersections(ray,maxDistance);
+        // Iterate through each intersect item
+        for (var item : intersectables)
 
+        {
+            List<GeoPoint> itemPoints = item.findGeoIntersections(ray, maxDistance);// Find intersection points between the item and the ray
+            // If there are intersection points
             if (itemPoints != null) {
-
-                if (result == null) {
-                    result = new LinkedList();
+                // Initialize the result list if it's null
+                if (result == null)
+                {
+                    result = new LinkedList<>();
                 }
-
-                result.addAll(itemPoints);
+                result.addAll(itemPoints);// Add the item's intersection points to the result list
             }
         }
-
         return result;
     }
 }

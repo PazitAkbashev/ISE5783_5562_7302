@@ -28,17 +28,20 @@ public class SpotLight extends PointLight {
     }
 
     @Override
-//    public Color getIntensity(Point p) {
-//        Vector l = getL(p);
-//        Color itensity = super.getIntensity(p).scale(Math.max(0, direction.dotProduct(l)));
-//        return itensity;
-//    }
+    /**
+     * Calculates the intensity of light at a given point for a spotlight.
+     *
+     * @param p The point at which to calculate the intensity.
+     * @return The intensity of light at the given point.
+     */
     public Color getIntensity(Point p) {
-        Vector l = getL(p); // direction to the point
-        double angle = direction.dotProduct(l); // the angle between the spot direction and the point direction
-        double factor =  angle > 0 ? angle : 0;
+        Vector l = getL(p);  // Calculate the direction vector from the light source position to the given point
 
-        return super.getIntensity(p).scale(factor);
+        double angle = direction.dotProduct(l);  // Calculate the angle between the spotlight direction and the direction to the point
+        double factor = angle > 0 ? angle : 0;   // If the angle is positive, use it as the factor; otherwise, set it to 0
+
+        return super.getIntensity(p).scale(factor);  // Scale the overall intensity of the light source by the factor
     }
+
 
 }

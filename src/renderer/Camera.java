@@ -158,9 +158,13 @@ public class Camera {
     }
 
     /**
-     * checking the colors of all the pixels
+     * Renders the image by casting rays and setting the colors of the pixels.
+     *
+     * @return The Camera object after rendering the image.
+     * @throws MissingResourceException If any required parameter is missing or has an invalid value.
      */
-    public Camera renderImage() {
+    public Camera renderImage() throws MissingResourceException {
+        // Check if any required parameter is missing or has an invalid value
         if (this.height == 0
                 || this.width == 0
                 || this.vTo == null
@@ -169,19 +173,24 @@ public class Camera {
                 || this.p0 == null
                 || this.distance == 0
                 || this.imageWriter == null
-                || this.rayTracer == null)
-            throw new MissingResourceException("missing one parameters value or more", ImageWriter.class.getName(), null);
+                || this.rayTracer == null) {
+            throw new MissingResourceException("Missing one or more parameter values", ImageWriter.class.getName(), null);
+        }
 
-        int nX = imageWriter.getNx();
-        int nY = imageWriter.getNy();
+        int nX = imageWriter.getNx();  // Number of pixels in the x direction
+        int nY = imageWriter.getNy();  // Number of pixels in the y direction
 
+        // Iterate over each pixel in the image
         for (int i = 0; i < nY; i++) {
             for (int j = 0; j < nX; j++) {
+                // Cast a ray for the current pixel and set the color of the pixel
                 imageWriter.writePixel(j, i, castRay(j, i));
             }
         }
-        return this;
+
+        return this;  // Return the Camera object after rendering the image
     }
+
 
     /**
      * The method prints a grid on existing image
@@ -240,9 +249,17 @@ public class Camera {
         return this;
     }
 
+    /**
+     * Casts a ray through a pixel and traces it to determine the color.
+     *
+     * @param j The x-coordinate of the pixel.
+     * @param i The y-coordinate of the pixel.
+     * @return The color obtained by tracing the ray through the pixel.
+     */
     private Color castRay(int j, int i) {
-        Ray ray = constructRay(imageWriter.getNx(), imageWriter.getNx(), j, i);
-        var tmp = rayTracer.traceRay(ray);
-        return tmp == null ? Color.BLACK : tmp;
+        Ray ray = constructRay(imageWriter.getNx(), imageWriter.getNy(), j, i);  // Construct the ray for the given pixel coordinates
+        var tmp = rayTracer.traceRay(ray);  // Trace the ray to determine the color
+        return tmp == null ? Color.BLACK : tmp;  // Return the color obtained from the ray tracing, or Color.BLACK if no color is obtained
     }
+
 }
