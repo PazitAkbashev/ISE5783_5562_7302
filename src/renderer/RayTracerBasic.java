@@ -63,19 +63,22 @@ public class RayTracerBasic extends RayTracerBase {
                 .add(scene.ambientLight.getIntensity());
     }
 
-//    private Color calcColor(GeoPoint intersection, Ray ray, int level, Double3 k) {
-//        Color color = calcLocalEffects(intersection, ray);
-//        return 1 == level ?
-//                color :
-//                color.add(calcGlobalEffects(intersection, ray, level, k));
-//    }
-    private Color calcColor(GeoPoint geoPoint, Ray ray, int level, Double3 k) {
-        Color color = geoPoint.geometry.getEmission()
-                //calcLocalEffects with only 2 parameters? or with k either?
-                .add(calcLocalEffects(geoPoint, ray));
-
-        return 1 == level ? color : color.add(calcGlobalEffects(geoPoint, ray, level, k));
+    /* taken from instruction's slides*/
+    private Color calcColor(GeoPoint intersection, Ray ray, int level, Double3 k) {
+        Color color = calcLocalEffects(intersection, ray);
+        return 1 == level ?
+                color :
+                color.add(calcGlobalEffects(intersection, ray, level, k));
     }
+    /* with Rivki's help*/
+//    private Color calcColor(GeoPoint intersection, Ray ray, int level, Double3 k) {
+//        Color color = intersection.geometry.getEmission()
+//                //calcLocalEffects with only 2 parameters? or with k either?
+//                .add(calcLocalEffects(intersection, ray));
+//
+//        return 1 == level ? color
+//                : color.add(calcGlobalEffects(intersection, ray, level, k));
+//    }
 
 
     //check if correct????? from here and down
@@ -193,6 +196,7 @@ public class RayTracerBasic extends RayTracerBase {
         return ray.findClosestGeoPoint(points);
     }
 
+    /* taken from instruction's slides*/
     @Override
     public Color traceRay(Ray ray) {
         GeoPoint clossestGeoPoint = findClosestIntersection(ray);
