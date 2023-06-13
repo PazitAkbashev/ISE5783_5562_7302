@@ -144,6 +144,7 @@ public class CameraIntegrationTest {
         assertEquals(18, countIntersection(camera, tube, Nx, Ny));
     }
 
+
     /**
      * @param camera that construct the rays
      * @param nX     row of the view plane
