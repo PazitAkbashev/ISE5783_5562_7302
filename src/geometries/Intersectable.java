@@ -21,7 +21,9 @@ public abstract class Intersectable {
     public List<Point> findIntersections(Ray ray) {
         var geoList = findGeoIntersections(ray);
         return geoList == null ? null
-                : geoList.stream().map(gp -> gp.point).toList();
+                : geoList.stream()
+                .map(gp -> gp.point)
+                .toList();
     }
 
 
@@ -69,6 +71,14 @@ public abstract class Intersectable {
         public GeoPoint(Geometry geometry, Point point) {
             this.point = point;
             this.geometry = geometry;
+        }
+
+        public Geometry getGeometry() {
+            return geometry;
+        }
+
+        public Point getPoint() {
+            return point;
         }
 
         /**

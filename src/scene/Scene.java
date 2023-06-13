@@ -81,9 +81,7 @@ public class Scene {
             this.name = name;
         }
 
-        /**
-         * setters for the fields
-         */
+        /**setters for the fields*/
         public SceneBuilder setBackground(Color background) {
             this.background = background;
             return this;

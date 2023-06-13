@@ -3,7 +3,8 @@ package primitives;
 import java.util.Objects;
 
 /**
- * A fundamental object in geometry with direction and size, according to the approach of linear algebra, is like a point, defined by the end point.
+ * A fundamental object in geometry with direction and size,
+ * according to the approach of linear algebra, is like a point, defined by the end point.
  *
  * @author Pazit and Leah
  */
@@ -16,9 +17,7 @@ public class Vector extends Point {
      * @param z value of z
      */
     public Vector(double x, double y, double z) {
-        super(x, y, z);
-        if (Double3.ZERO.equals(new Double3(x, y, z)))
-            throw new IllegalArgumentException("vector 0");
+        this (new Double3(x, y, z));
     }
 
     /**
@@ -117,7 +116,8 @@ public class Vector extends Point {
      */
     public boolean equals(Object o) {
         if (this == o) return true;  // If the objects are the same instance, they are equal
-        if (o == null || getClass() != o.getClass()) return false;  // If the object is null or of a different class, they are not equal
+        if (o == null || getClass() != o.getClass())
+            return false;  // If the object is null or of a different class, they are not equal
         Vector vector = (Vector) o;  // Cast the object to Vector type for comparison
         return Objects.equals(xyz, vector.xyz);  // Compare the xyz field of the vectors for equality using the Objects.equals() method
     }

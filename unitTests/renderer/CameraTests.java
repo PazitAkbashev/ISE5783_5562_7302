@@ -79,5 +79,6 @@ class CameraTests {
                         .constructRay(4, 4, 1, 0),
                 badRay);
     }
+    
 
 }

@@ -18,17 +18,13 @@ import static primitives.Util.alignZero;
  */
 public class RayTracerBasic extends RayTracerBase {
 
-    /**the maximum level for calcColor function (the maximum level for the recursive call)*/
+    /*the maximum level for calcColor function (the maximum level for the recursive call)*/
     private static final int MAX_CALC_COLOR_LEVEL = 10;
 
-    /**
-     * the minimum k for calcColor function (the minimum k for the recursive call)
-     */
+    /*the minimum k for calcColor function (the minimum k for the recursive call)*/
     private static final double MIN_CALC_COLOR_K = 0.001;
 
-    /**
-     * the initial k for calcColor function (the initial k for the recursive call)
-     */
+    /*the initial k for calcColor function (the initial k for the recursive call)*/
     private static final Double3 INITIAL_K = new Double3(1d);
 
     /**
@@ -109,8 +105,6 @@ public class RayTracerBasic extends RayTracerBase {
 //                : color.add(calcGlobalEffects(intersection, ray, level, k));
 //    }
 
-
-    //check if correct????? from here and down
     /**
      * Calculates the local effects of the light at the intersection point.
      *
@@ -255,12 +249,6 @@ public class RayTracerBasic extends RayTracerBase {
 
     /* taken from instruction's slides*/
     @Override
-    /**
-     * Traces a ray and calculates the color of the closest intersection point.
-     *
-     * @param ray The ray to trace.
-     * @return The color of the closest intersection point, or the background color if no intersection is found.
-     */
     public Color traceRay(Ray ray) {
         GeoPoint closestGeoPoint = findClosestIntersection(ray);
 

@@ -114,14 +114,14 @@ public class Plane extends Geometry {
         //numerator
         double nP0Q0 = n.dotProduct(P0_Q0);
 
-        // ray parallel to the plane
+        // ray starting from to the plane
         if (isZero(nP0Q0)) {
             return null;
         }
 
         double t = alignZero(nP0Q0 / nv);
 
-        if (alignZero(t - maxDistance) <= 0) {
+        if (alignZero(t - maxDistance)  > 0) {
             return null;
         }
 

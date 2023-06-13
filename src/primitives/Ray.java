@@ -38,7 +38,7 @@ public class Ray {
         double nl = n.dotProduct(dir);
         Vector delta = n.scale(nl > 0 ? DELTA : -DELTA);
         this.p0 = point.add(delta);
-        this.dir = dir;
+        this.dir = dir.normalize();
     }
 
     /**
