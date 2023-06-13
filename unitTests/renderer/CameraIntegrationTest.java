@@ -155,7 +155,7 @@ public class CameraIntegrationTest {
         int countIntersectionOfGeometries = 0;
         for (int row = 0; row < nY; row++) {
             for (int column = 0; column < nX; column++) {
-                // create ray thru pixel(row ,column )
+                // create ray through pixel(row ,column )
                 Ray ray = camera.constructRay(nX, nY, column, row);
                 // find Intersections points to the geometry with the ray
                 List<Point> intersection = geometry.findIntersections(ray);
