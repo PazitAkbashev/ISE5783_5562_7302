@@ -69,7 +69,6 @@ public class ReflectionRefractionTests {
        Scene.SceneBuilder sceneBuilder = new Scene.SceneBuilder("Test scene")
                .setAmbientLight(new AmbientLight(new Color(255,255,255), 0.1));
 
-
         scene.geometries.add( //
                 new Sphere(new Point(-950, -900, -1000), 400d)
                         .setEmission(new Color(0, 50, 100)) //
