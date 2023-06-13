@@ -50,9 +50,10 @@ public class Plane extends Geometry {
         if (p1.equals(p2) || p1.equals(p3) || p2.equals(p3)) {
             throw new IllegalArgumentException("Two of the points are identical");
         }
-
-        Vector v1 = p2.subtract(p1);  //vector from p1 towards p2
-        Vector v2 = p3.subtract(p1);  //vector from p1 towards p3
+        //vector from p1 towards p2
+        Vector v1 = p2.subtract(p1);
+        //vector from p1 towards p3
+        Vector v2 = p3.subtract(p1);
 
         if (v1.normalize().equals(v2.normalize())) {
             throw new IllegalArgumentException("There is a linear dependence between the vectors");

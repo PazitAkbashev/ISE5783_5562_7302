@@ -29,29 +29,32 @@ public class Tube extends RadialGeometry {
     }
 
     @Override
-    /**
-     * Calculates the normal vector at a given point on the object.
-     *
-     * @param p The point at which to calculate the normal vector.
-     * @return The normal vector at the given point.
-     */
     public Vector getNormal(Point p) {
-        Point p0 = axisRay.getP0();           // Starting point of the axis ray
-        Vector v = axisRay.getDir();          // Direction of the axis ray
+        // Starting point of the axis ray
+        Point p0 = axisRay.getP0();
+        // Direction of the axis ray
+        Vector v = axisRay.getDir();
 
-        Vector p0_p = p.subtract(p0);         // Vector from the starting point of the axis ray to the given point
-        double t = alignZero(p0_p.dotProduct(v));  // Projection of the vector p0_p onto the axis ray
+        // Vector from the starting point of the axis ray to the given point
+        Vector p0_p = p.subtract(p0);
+        // Projection of the vector p0_p onto the axis ray
+        double t = alignZero(p0_p.dotProduct(v));
 
+        // If the projection is close to zero, the point is very close to the axis ray
         if (isZero(t)) {
-            // If the projection is close to zero, the point is very close to the axis ray
-            return p0_p.normalize();         // Return the normalized p0_p vector as the normal vector
+            // Return the normalized p0_p vector as the normal vector
+            return p0_p.normalize();
         }
 
-        Point o = p0.add(v.scale(t));         // Calculate the point on the axis ray closest to the given point
-        Vector o_p = p.subtract(o);           // Vector from the closest point on the axis ray to the given point
-        Vector n = o_p.normalize();           // Normalize the o_p vector to obtain the normal vector
+        // Calculate the point on the axis ray closest to the given point
+        Point o = p0.add(v.scale(t));
+        // Vector from the closest point on the axis ray to the given point
+        Vector o_p = p.subtract(o);
+        // Normalize the o_p vector to obtain the normal vector
+        Vector n = o_p.normalize();
 
-        return n;                             // Return the normal vector
+        // Return the normal vector
+        return n;
     }
 
 
@@ -90,7 +93,8 @@ public class Tube extends RadialGeometry {
         try {
             deltaP = p0.subtract(axisRay.getP0());
         } catch (IllegalArgumentException e1) { // the ray begins at axis P0
-            if (vVa == 0 && alignZero(radius - maxDistance) <= 0) { // the ray is orthogonal to Axis
+            // the ray is orthogonal to Axis
+            if (vVa == 0 && alignZero(radius - maxDistance) <= 0) {
                 return List.of(new GeoPoint(this, ray.getPoint(radius)));
             }
             double t = alignZero(Math.sqrt(radius * radius / vMinusVVaVa.lengthSquared()));

@@ -46,24 +46,33 @@ public class RayTracerBasic extends RayTracerBase {
      * @return The transparency factor as a Double3 value.
      */
     private Double3 transparency(GeoPoint geopoint, LightSource light, Vector l, Vector n) {
-        Vector lightDirection = l.scale(-1);  // Calculate the direction from the intersection point to the light source
-        Ray lightRay = new Ray(geopoint.point, lightDirection, n);  // Build a ray from the intersection point towards the light source with a small delta
-        double lightDistance = light.getDistance(geopoint.point);  // Calculate the distance between the intersection point and the light source
-        var intersections = scene.geometries.findGeoIntersections(lightRay);  // Find the intersections of the ray with the scene geometries
-        if (intersections == null) return Double3.ONE;  // If there are no intersections, the transparency factor is 1 (fully transparent)
+        // Calculate the direction from the intersection point to the light source
+        Vector lightDirection = l.scale(-1);
+        // Build a ray from the intersection point towards the light source with a small delta
+        Ray lightRay = new Ray(geopoint.point, lightDirection, n);
+        // Calculate the distance between the intersection point and the light source
+        double lightDistance = light.getDistance(geopoint.point);
+        // Find the intersections of the ray with the scene geometries
+        var intersections = scene.geometries.findGeoIntersections(lightRay);
+        // If there are no intersections, the transparency factor is 1 (fully transparent)
+        if (intersections == null) return Double3.ONE;
 
-        Double3 ktr = new Double3(1d);  // Initialize the transparency factor as 1 (fully transparent)
+        // Initialize the transparency factor as 1 (fully transparent)
+        Double3 ktr = new Double3(1d);
 
         for (GeoPoint gp : intersections) {
+            // If the distance between the intersection point and the light source is close to the actual light distance,
+            // calculate the transparency factor based on the material's transparency coefficient
             if (alignZero(gp.point.distance(geopoint.point) - lightDistance) <= 0) {
-                // If the distance between the intersection point and the light source is close to the actual light distance,
-                // calculate the transparency factor based on the material's transparency coefficient
-                ktr = ktr.product(gp.geometry.getMaterial().kT);  // Multiply the transparency factor with the material's transparency coefficient
-                if (ktr.lowerThan(MIN_CALC_COLOR_K)) return Double3.ZERO;  // If the transparency factor falls below a minimum threshold, return zero (fully opaque)
+                // Multiply the transparency factor with the material's transparency coefficient
+                ktr = ktr.product(gp.geometry.getMaterial().kT);
+                // If the transparency factor falls below a minimum threshold, return zero (fully opaque)
+                if (ktr.lowerThan(MIN_CALC_COLOR_K)) return Double3.ZERO;
             }
         }
 
-        return ktr;  // Return the calculated transparency factor
+        // Return the calculated transparency factor
+        return ktr;
     }
 
 
@@ -89,10 +98,12 @@ public class RayTracerBasic extends RayTracerBase {
      * @return The calculated color.
      */
     private Color calcColor(GeoPoint intersection, Ray ray, int level, Double3 k) {
-        Color color = calcLocalEffects(intersection, ray);  // Calculate the local effects at the intersection point
+        // Calculate the local effects at the intersection point
+        Color color = calcLocalEffects(intersection, ray);
         return 1 == level ?
                 color :
-                color.add(calcGlobalEffects(intersection, ray, level, k));  // Add the global effects recursively if the level is not 1
+                // Add the global effects recursively if the level is not 1
+                color.add(calcGlobalEffects(intersection, ray, level, k));
     }
 
     /* with Rivki's help*/
@@ -114,28 +125,40 @@ public class RayTracerBasic extends RayTracerBase {
      */
     private Color calcLocalEffects(GeoPoint gp, Ray ray) {
         Point intersectionPoint = gp.point;
-        Color color = gp.geometry.getEmission();  // Start with the emission color of the geometry
-        Vector v = ray.getDir();  // Direction of the ray from the camera
-        Vector n = gp.geometry.getNormal(intersectionPoint);  // Normal vector at the intersection point
-        double nv = alignZero(n.dotProduct(v));  // Dot product between the normal vector and the ray direction
+        // Start with the emission color of the geometry
+        Color color = gp.geometry.getEmission();
+        // Direction of the ray from the camera
+        Vector v = ray.getDir();
+        // Normal vector at the intersection point
+        Vector n = gp.geometry.getNormal(intersectionPoint);
+        // Dot product between the normal vector and the ray direction
+        double nv = alignZero(n.dotProduct(v));
 
         if (nv == 0)
-            return color;  // If the dot product is zero, return the emission color (no lighting effect)
+            // If the dot product is zero, return the emission color (no lighting effect)
+            return color;
 
-        Material material = gp.geometry.getMaterial();  // Material of the geometry
+        // Material of the geometry
+        Material material = gp.geometry.getMaterial();
 
         for (LightSource lightSource : scene.lights) {
-            Vector l = lightSource.getL(intersectionPoint);  // Direction to the light source
-            double nl = alignZero(n.dotProduct(l));  // Dot product between the normal vector and the light direction
+            // Direction to the light source
+            Vector l = lightSource.getL(intersectionPoint);
+            // Dot product between the normal vector and the light direction
+            double nl = alignZero(n.dotProduct(l));
 
             // sign(nl) == sign(nv)
             if (nl * nv > 0) {
-                Color iL = lightSource.getIntensity(intersectionPoint);  // Intensity of the light source at the intersection point
-                color = color.add(iL.scale(calcDiffusive(material, nl)),  // Add the diffuse component of the light
-                        iL.scale(calcSpecular(material, n, l, nl, v)));  // Add the specular component of the light
+                // Intensity of the light source at the intersection point
+                Color iL = lightSource.getIntensity(intersectionPoint);
+                // Add the diffuse component of the light
+                color = color.add(iL.scale(calcDiffusive(material, nl)),
+                        // Add the specular component of the light
+                        iL.scale(calcSpecular(material, n, l, nl, v)));
             }
         }
-        return color;  // Return the final color after considering all light sources
+        // Return the final color after considering all light sources
+        return color;
     }
 
 
@@ -168,7 +191,8 @@ public class RayTracerBasic extends RayTracerBase {
         }
         //
         Double3 kt = material.kT;
-        Double3 kkt = k.product(kt); //in each recursive iteration the impact of the refraction decreases
+        //in each recursive iteration the impact of the refraction decreases
+        Double3 kkt = k.product(kt);
         if (!kkt.lowerThan(MIN_CALC_COLOR_K)) {
             Ray refractedRay = constructReflected(gp, ray);
             GeoPoint refractedPoint = findClosestIntersection(refractedRay);
@@ -189,7 +213,8 @@ public class RayTracerBasic extends RayTracerBase {
      * @return The specular component of the light reflection.
      */
     private Double3 calcSpecular(Material material, Vector n, Vector l, double nl, Vector v) {
-        Vector r = l.subtract(n.scale(alignZero(l.dotProduct(n)) * 2));  // Calculate the reflected light direction
+        // Calculate the reflected light direction
+        Vector r = l.subtract(n.scale(alignZero(l.dotProduct(n)) * 2));
         return material.kS.scale(Math.pow(Math.max(0, alignZero(v.scale((-1)).dotProduct(r))), material.nShininess));
     }
 

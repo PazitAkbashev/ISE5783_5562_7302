@@ -60,8 +60,10 @@ public abstract class Intersectable {
      * Represents a point of intersection between a ray and a geometry object.
      */
     public static class GeoPoint {
-        public final Geometry geometry;  // The geometry object of the intersection
-        public final Point point;        // The point of intersection
+        // The geometry object of the intersection
+        public final Geometry geometry;
+        // The point of intersection
+        public final Point point;
 
         /**
          * Constructs a GeoPoint object with the given geometry and point.
@@ -81,11 +83,6 @@ public abstract class Intersectable {
             return point;
         }
 
-        /**
-         * Checks if this GeoPoint is equal to another object.
-         * @param o The object to compare to.
-         * @return True if the objects are equal, false otherwise.
-         */
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -94,19 +91,11 @@ public abstract class Intersectable {
             return geometry.equals(geoPoint.geometry) && point.equals(geoPoint.point);
         }
 
-        /**
-         * Generates the hash code for this GeoPoint.
-         * @return The hash code.
-         */
         @Override
         public int hashCode() {
             return Objects.hash(geometry, point);
         }
 
-        /**
-         * Returns a string representation of this GeoPoint.
-         * @return The string representation.
-         */
         @Override
         public String toString() {
             return "GeoPoint{" +

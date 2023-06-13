@@ -7,7 +7,7 @@ import primitives.Vector;
 /**
  * SpotLight class is the class representing a spot light
  * extends PointLight
- * in spot light there is attenuation with distance and the light is in a cone
+ * in spotlight there is attenuation with distance and the light is in a cone
  *
  * @author pazit and leah
  */
@@ -28,19 +28,17 @@ public class SpotLight extends PointLight {
     }
 
     @Override
-    /**
-     * Calculates the intensity of light at a given point for a spotlight.
-     *
-     * @param p The point at which to calculate the intensity.
-     * @return The intensity of light at the given point.
-     */
     public Color getIntensity(Point p) {
-        Vector l = getL(p);  // Calculate the direction vector from the light source position to the given point
+        // Calculate the direction vector from the light source position to the given point
+        Vector l = getL(p);
 
-        double angle = direction.dotProduct(l);  // Calculate the angle between the spotlight direction and the direction to the point
-        double factor = angle > 0 ? angle : 0;   // If the angle is positive, use it as the factor; otherwise, set it to 0
+        // Calculate the angle between the spotlight direction and the direction to the point
+        double angle = direction.dotProduct(l);
+        // If the angle is positive, use it as the factor; otherwise, set it to 0
+        double factor = angle > 0 ? angle : 0;
 
-        return super.getIntensity(p).scale(factor);  // Scale the overall intensity of the light source by the factor
+        // Scale the overall intensity of the light source by the factor
+        return super.getIntensity(p).scale(factor);
     }
 
 

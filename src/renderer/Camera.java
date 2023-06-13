@@ -177,8 +177,10 @@ public class Camera {
             throw new MissingResourceException("Missing one or more parameter values", ImageWriter.class.getName(), null);
         }
 
-        int nX = imageWriter.getNx();  // Number of pixels in the x direction
-        int nY = imageWriter.getNy();  // Number of pixels in the y direction
+        // Number of pixels in the x direction
+        int nX = imageWriter.getNx();
+        // Number of pixels in the y direction
+        int nY = imageWriter.getNy();
 
         // Iterate over each pixel in the image
         for (int i = 0; i < nY; i++) {
@@ -188,7 +190,8 @@ public class Camera {
             }
         }
 
-        return this;  // Return the Camera object after rendering the image
+        // Return the Camera object after rendering the image
+        return this;
     }
 
 
@@ -257,9 +260,12 @@ public class Camera {
      * @return The color obtained by tracing the ray through the pixel.
      */
     private Color castRay(int j, int i) {
-        Ray ray = constructRay(imageWriter.getNx(), imageWriter.getNy(), j, i);  // Construct the ray for the given pixel coordinates
-        var tmp = rayTracer.traceRay(ray);  // Trace the ray to determine the color
-        return tmp == null ? Color.BLACK : tmp;  // Return the color obtained from the ray tracing, or Color.BLACK if no color is obtained
+        // Construct the ray for the given pixel coordinates
+        Ray ray = constructRay(imageWriter.getNx(), imageWriter.getNy(), j, i);
+        // Trace the ray to determine the color
+        var tmp = rayTracer.traceRay(ray);
+        // Return the color obtained from the ray tracing, or Color.BLACK if no color is obtained
+        return tmp == null ? Color.BLACK : tmp;
     }
 
 }

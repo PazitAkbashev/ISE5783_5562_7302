@@ -87,52 +87,43 @@ public class PointLight extends Light implements LightSource {
     }
 
     @Override
-    /**
-     * Calculates the intensity of light at a given point.
-     *
-     * @param p The point at which to calculate the intensity.
-     * @return The intensity of light at the given point.
-     */
     public Color getIntensity(Point p) {
-        double d = position.distance(p);  // Distance between the light source position and the given point
+        // Distance between the light source position and the given point
+        double d = position.distance(p);
 
         if (d <= 0) {
-            return getIntensity();  // If the distance is close to zero or negative, return the overall intensity of the light source
+            // If the distance is close to zero or negative, return the overall intensity of the light source
+            return getIntensity();
         }
 
-        Double3 factor = kC.add(kL.scale(d).add(kQ.scale(d * d)));  // Calculate the attenuation factor based on distance and coefficients
+        // Calculate the attenuation factor based on distance and coefficients
+        Double3 factor = kC.add(kL.scale(d).add(kQ.scale(d * d)));
 
-        Color intensity = getIntensity().reduce(factor);  // Reduce the overall intensity of the light source based on the attenuation factor
+        // Reduce the overall intensity of the light source based on the attenuation factor
+        Color intensity = getIntensity().reduce(factor);
 
-        return intensity;  // Return the resulting intensity at the given point
+        // Return the resulting intensity at the given point
+        return intensity;
     }
 
 
     @Override
-    /**
-     * Calculates the direction vector from the light source position to a given point.
-     *
-     * @param p The point at which to calculate the direction vector.
-     * @return The direction vector from the light source position to the given point.
-     */
     public Vector getL(Point p) {
-        Vector l = p.subtract(position).normalize();  // Calculate the vector from the light source position to the given point and normalize it
+        // Calculate the vector from the light source position to the given point and normalize it
+        Vector l = p.subtract(position).normalize();
 
-        return l;  // Return the resulting direction vector
+        // Return the resulting direction vector
+        return l;
     }
 
 
     @Override
-    /**
-     * Calculates the distance between the light source position and a given point.
-     *
-     * @param point The point to which the distance is calculated.
-     * @return The distance between the light source position and the given point.
-     */
     public double getDistance(Point point) {
-        double dis = this.position.distance(point);  // Calculate the distance between the light source position and the given point
+        // Calculate the distance between the light source position and the given point
+        double dis = this.position.distance(point);
 
-        return dis;  // Return the resulting distance
+        // Return the resulting distance
+        return dis;
     }
 
 

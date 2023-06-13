@@ -104,17 +104,15 @@ public class Ray {
     }
 
     @Override
-    /**
-     * Checks if the current Ray object is equal to another object.
-     *
-     * @param o The object to compare for equality.
-     * @return true if the objects are equal, false otherwise.
-     */
     public boolean equals(Object o) {
-        if (this == o) return true;  // If the objects are the same instance, they are equal
-        if (!(o instanceof Ray)) return false;  // If the object is not of type Ray, they are not equal
-        Ray ray = (Ray) o;  // Cast the object to Ray type for comparison
-        return getP0().equals(ray.getP0()) && getDir().equals(ray.getDir());  // Compare the starting point and direction of the rays for equality
+        // If the objects are the same instance, they are equal
+        if (this == o) return true;
+        // If the object is not of type Ray, they are not equal
+        if (!(o instanceof Ray)) return false;
+        // Cast the object to Ray type for comparison
+        Ray ray = (Ray) o;
+        // Compare the starting point and direction of the rays for equality
+        return getP0().equals(ray.getP0()) && getDir().equals(ray.getDir());
     }
 
 
