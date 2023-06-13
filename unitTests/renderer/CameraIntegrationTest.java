@@ -158,10 +158,10 @@ public class CameraIntegrationTest {
                 // create ray through pixel(row ,column )
                 Ray ray = camera.constructRay(nX, nY, column, row);
                 // find Intersections points to the geometry with the ray
-                List<Point> intersection = geometry.findIntersections(ray);
+                List<Point> intersections = geometry.findIntersections(ray);
                 //if there is intersections ann their amount to the counter
-                if (intersection != null) {
-                    countIntersectionOfGeometries += intersection.size();
+                if (intersections != null) {
+                    countIntersectionOfGeometries += intersections.size();
                 }
             }
         }

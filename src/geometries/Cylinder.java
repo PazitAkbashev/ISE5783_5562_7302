@@ -31,8 +31,8 @@ public class Cylinder extends Tube {
     @Override
     public Vector getNormal(Point point) {
 
-        Point p0 = axisray.getP0();
-        Vector v = axisray.getDir();
+        Point p0 = axisRay.getP0();
+        Vector v = axisRay.getDir();
 
         Vector p0_p = point.subtract(p0);
         double t = alignZero(p0_p.dotProduct(v));
