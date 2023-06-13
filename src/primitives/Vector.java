@@ -71,7 +71,10 @@ public class Vector extends Point {
      * @return x1*x2 + y1*y2 + z1*z2
      */
     public double dotProduct(Vector vec) {
-        return (vec.xyz.d1 * xyz.d1) + (vec.xyz.d2 * xyz.d2) + (vec.xyz.d3 * xyz.d3);
+        double d1 = (vec.xyz.d1 * xyz.d1);
+        double d2 = (vec.xyz.d2 * xyz.d2);
+        double d3 = (vec.xyz.d3 * xyz.d3);
+        return d1 + d2 + d3;
     }
 
     /**
@@ -95,7 +98,10 @@ public class Vector extends Point {
      * @return x^2 + y^2 + z^2
      */
     public double lengthSquared() {
-        return (xyz.d1 * xyz.d1) + (xyz.d2 * xyz.d2) + (xyz.d3 * xyz.d3);
+        double d1 = (xyz.d1 * xyz.d1);
+        double d2 = (xyz.d2 * xyz.d2);
+        double d3 = (xyz.d3 * xyz.d3);
+        return  d1 + d2 + d3;
     }
 
     /**
@@ -108,20 +114,18 @@ public class Vector extends Point {
     }
 
     @Override
-    /**
-     * Checks if the current Vector object is equal to another object.
-     *
-     * @param o The object to compare for equality.
-     * @return true if the objects are equal, false otherwise.
-     */
     public boolean equals(Object o) {
-        if (this == o) return true;  // If the objects are the same instance, they are equal
+        // add comment
+        if (this == o)
+            return true;
+        // If the object is null or of a different class, they are not equal
         if (o == null || getClass() != o.getClass())
-            return false;  // If the object is null or of a different class, they are not equal
-        Vector vector = (Vector) o;  // Cast the object to Vector type for comparison
-        return Objects.equals(xyz, vector.xyz);  // Compare the xyz field of the vectors for equality using the Objects.equals() method
+            return false;
+        // Cast the object to Vector type for comparison
+        Vector vector = (Vector) o;
+        // Compare the xyz field of the vectors for equality using the Objects.equals() method
+        return Objects.equals(xyz, vector.xyz);
     }
-
 
     @Override
     public int hashCode() {

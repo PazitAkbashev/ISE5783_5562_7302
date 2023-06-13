@@ -25,6 +25,10 @@ public class Scene {
     /*ambient light of the scene, default in builder is black color*/
     public final AmbientLight ambientLight;
 
+    public AmbientLight getAmbientLight() {
+        return ambientLight;
+    }
+
     /*geometries of the scene*/
     public final Geometries geometries;
 

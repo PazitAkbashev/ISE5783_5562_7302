@@ -18,7 +18,7 @@ import scene.Scene;
 public class ReflectionRefractionTests {
     private Scene scene =  new Scene.SceneBuilder("Test scene").build();
 
-    /** Produce a picture of a sphere lighted by a spot light */
+    /** Produce a picture of a sphere lighted by a spotlight */
     @Test
     public void twoSpheres() {
         Camera camera = new Camera(
@@ -51,6 +51,8 @@ public class ReflectionRefractionTests {
                 .setRayTracer(new RayTracerBasic(scene)) //
                 .renderImage() //
                 .writeToImage();
+
+
     }
 
     /** Produce a picture of a sphere lighted by a spot light */
@@ -63,8 +65,9 @@ public class ReflectionRefractionTests {
                 .setVPSize(2500, 2500)
                 .setVPDistance(10000); //
 
-        //add it later according to scene builder
        // scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
+       Scene.SceneBuilder sceneBuilder = new Scene.SceneBuilder("Test scene")
+               .setAmbientLight(new AmbientLight(new Color(255,255,255), 0.1));
 
 
         scene.geometries.add( //
