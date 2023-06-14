@@ -10,7 +10,7 @@ import java.util.List;
  * @author pazit and Lea
  */
 public class Geometries extends Intersectable {
-    private List<Intersectable> intersectables = null;
+    private List<Intersectable> intersectables = new LinkedList<>();
 
     /**
      * Default constructor for Geometries
@@ -26,7 +26,6 @@ public class Geometries extends Intersectable {
      * @param intersectables one or more interfaces to add to the geometries list
      */
     public Geometries(Intersectable... intersectables) {
-        this();
         add(intersectables);
     }
 
@@ -35,29 +34,44 @@ public class Geometries extends Intersectable {
      * @param intersectables one or more interfaces to add to the geometries list
      */
     public void add(Intersectable... intersectables) {
-        Collections.addAll(this.intersectables, intersectables);
+        this.intersectables.addAll(List.of(intersectables));
     }
+//    public void add(Intersectable... intersectables) {
+//        Collections.addAll(this.intersectables, intersectables);
+//    }
 
     @Override
-    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDis) {
         List<GeoPoint> result = null;
-        // Iterate through each intersect item
-        for (var item : intersectables)
-
-        {
-            // Find intersection points between the item and the ray
-            List<GeoPoint> itemPoints = item.findGeoIntersections(ray, maxDistance);
-            // If there are intersection points
-            if (itemPoints != null) {
-                // Initialize the result list if it's null
+        for (Intersectable geo : intersectables) {
+            var tmp = geo.findGeoIntersections(ray, maxDis);
+            if (tmp != null) {
                 if (result == null)
-                {
                     result = new LinkedList<>();
-                }
-                // Add the item's intersection points to the result list
-                result.addAll(itemPoints);
+                result.addAll(tmp);
             }
         }
         return result;
     }
+//    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+//        List<GeoPoint> result = null;
+//        // Iterate through each intersect item
+//        for (var item : intersectables)
+//
+//        {
+//            // Find intersection points between the item and the ray
+//            List<GeoPoint> itemPoints = item.findGeoIntersections(ray, maxDistance);
+//            // If there are intersection points
+//            if (itemPoints != null) {
+//                // Initialize the result list if it's null
+//                if (result == null)
+//                {
+//                    result = new LinkedList<>();
+//                }
+//                // Add the item's intersection points to the result list
+//                result.addAll(itemPoints);
+//            }
+//        }
+//        return result;
+//    }
 }

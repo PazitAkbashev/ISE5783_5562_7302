@@ -25,7 +25,7 @@ public class Material {
    // public int nShininess = 1;
     public int nShininess = 0;
 
-    public Material setKt(Double3 kT3) {
+    public Material setkT(Double3 kT3) {
         this.kT = kT3;
         return this;
     }

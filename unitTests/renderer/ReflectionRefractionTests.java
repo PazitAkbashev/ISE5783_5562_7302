@@ -16,11 +16,16 @@ import scene.Scene;
  * (with transparency)
  * @author dzilb */
 public class ReflectionRefractionTests {
-    private Scene scene =  new Scene.SceneBuilder("Test scene").build();
+    // private Scene scene =  new Scene.SceneBuilder("Test scene").build();
 
     /** Produce a picture of a sphere lighted by a spotlight */
     @Test
     public void twoSpheres() {
+        Scene scene = new Scene.SceneBuilder("Test scene")
+                .setBackground(new Color(BLACK))
+                .setAmbientLight(AmbientLight.NONE)
+                .build();
+
         Camera camera = new Camera(
                 new Point(0, 0, 1000),
                 new Vector(0, 0, -1),
@@ -55,58 +60,59 @@ public class ReflectionRefractionTests {
 
     }
 
-    /** Produce a picture of a sphere lighted by a spot light */
+    /** Produce a picture of a sphere lighted by a spotlight */
     @Test
     public void twoSpheresOnMirrors() {
-        Camera camera = new Camera
-                (new Point(0, 0, 10000),
+        Camera camera = new Camera(
+                new Point(0, 0, 10000),
                 new Vector(0, 0, -1),
-                new Vector(0, 1, 0)) //
+                new Vector(0, 1, 0))
                 .setVPSize(2500, 2500)
-                .setVPDistance(10000); //
+                .setVPDistance(10000);
 
-       // scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
-       Scene.SceneBuilder sceneBuilder = new Scene.SceneBuilder("Test scene")
-               .setAmbientLight(new AmbientLight(new Color(255,255,255), 0.1));
+        Scene scene = new Scene.SceneBuilder("Test scene")
+                .setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1))
+                .build();
 
-        scene.geometries.add( //
+        scene.geometries.add(
                 new Sphere(new Point(-950, -900, -1000), 400d)
-                        .setEmission(new Color(0, 50, 100)) //
+                        .setEmission(new Color(0, 50, 100))
                         .setMaterial(new Material()
                                 .setKd(0.25)
                                 .setKs(0.25)
                                 .setShininess(20)
-                                .setKt(new Double3(0.5, 0, 0))),
+                                .setkT(new Double3(0.5, 0, 0))),
                 new Sphere(new Point(-950, -900, -1000), 200d)
-                        .setEmission(new Color(100, 50, 20)) //
+                        .setEmission(new Color(100, 50, 20))
                         .setMaterial(new Material()
                                 .setKd(0.25)
                                 .setKs(0.25)
                                 .setShininess(20)),
                 new Triangle(new Point(1500, -1500, -1500),
                         new Point(-1500, 1500, -1500),
-                        new Point(670, 670, 3000)) //
-                        .setEmission(new Color(20, 20, 20)) //
+                        new Point(670, 670, 3000))
+                        .setEmission(new Color(20, 20, 20))
                         .setMaterial(new Material().setKr(1d)),
                 new Triangle(new Point(1500, -1500, -1500),
                         new Point(-1500, 1500, -1500),
-                        new Point(-1500, -1500, -2000)) //
-                        .setEmission(new Color(20, 20, 20)) //
+                        new Point(-1500, -1500, -2000))
+                        .setEmission(new Color(20, 20, 20))
                         .setMaterial(new Material()
-                                .setKr(new Double3(0.5, 0, 0.4))));
+                                .setKr(new Double3(0.5, 0, 0.4)))
+        );
 
         scene.lights.add(new SpotLight(new Color(1020, 400, 400),
                 new Point(-750, -750, -150),
-                new Vector(-1, -1, -4)) //
+                new Vector(-1, -1, -4))
                 .setKl(0.00001)
                 .setKq(0.000005));
 
-        ImageWriter imageWriter = new ImageWriter("reflectionTwoSpheresMirrored", 500, 500);
-        camera.setImageWriter(imageWriter) //
-                .setRayTracer(new RayTracerBasic(scene)) //
-                .renderImage() //
+        camera.setImageWriter(new ImageWriter("reflectionTwoSpheresMirrored", 500, 500))
+                .setRayTracer(new RayTracerBasic(scene))
+                .renderImage()
                 .writeToImage();
     }
+
 
     /** Produce a picture of two triangles lighted by spot light with a
      * partially
@@ -115,49 +121,48 @@ public class ReflectionRefractionTests {
     public void trianglesTransparentSphere() {
         Camera camera = new Camera(new Point(0, 0, 1000),
                 new Vector(0, 0, -1),
-                new Vector(0, 1, 0)) //
+                new Vector(0, 1, 0))
                 .setVPSize(200, 200)
                 .setVPDistance(1000);
 
-        //add it later according to scene builder
-        //scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15));
+        Scene scene = new Scene.SceneBuilder("Test scene")
+                .setAmbientLight(new AmbientLight(new Color(WHITE), 0.15))
+                .build();
 
-        scene.geometries.add( //
-                new Triangle
-                        (new Point(-150, -150, -115),
-                                new Point(150, -150, -135),
-                                new Point(75, 75, -150)) //
+        scene.geometries.add(
+                new Triangle(new Point(-150, -150, -115),
+                        new Point(150, -150, -135),
+                        new Point(75, 75, -150))
                         .setMaterial(new Material()
                                 .setKd(0.5)
                                 .setKs(0.5)
-                                .setShininess(60)), //
-
+                                .setShininess(60)),
                 new Triangle(new Point(-150, -150, -115),
                         new Point(-70, 70, -140),
-                        new Point(75, 75, -150)) //
+                        new Point(75, 75, -150))
                         .setMaterial(new Material()
                                 .setKd(0.5)
                                 .setKs(0.5)
-                                .setShininess(60)), //
-
+                                .setShininess(60)),
                 new Sphere(new Point(60, 50, -50), 30d)
-                        .setEmission(new Color(BLUE)) //
+                        .setEmission(new Color(BLUE))
                         .setMaterial(new Material()
                                 .setKd(0.2)
                                 .setKs(0.2)
                                 .setShininess(30)
-                                .setkT(0.6)));
+                                .setkT(0.6))
+        );
 
-        scene.lights.add(new SpotLight
-                (new Color(700, 400, 400)
-                , new Point(60, 50, 0)
-                , new Vector(0, 0, -1)) //
-                .setKl(4E-5).setKq(2E-7));
+        scene.lights.add(new SpotLight(new Color(700, 400, 400),
+                new Point(60, 50, 0),
+                new Vector(0, 0, -1))
+                .setKl(4E-5)
+                .setKq(2E-7));
 
-        ImageWriter imageWriter = new ImageWriter("refractionShadow", 600, 600);
-        camera.setImageWriter(imageWriter) //
-                .setRayTracer(new RayTracerBasic(scene)) //
-                .renderImage() //
+        camera.setImageWriter(new ImageWriter("refractionShadow", 600, 600))
+                .setRayTracer(new RayTracerBasic(scene))
+                .renderImage()
                 .writeToImage();
     }
+
 }
