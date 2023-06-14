@@ -10,9 +10,9 @@ import static primitives.Util.isZero;
  *
  */
 public class Ray {
+    private static final double DELTA = 0.1d;
     private final Point p0;
     private final Vector dir;
-    private static final double DELTA = 0.1d;
 
     /**
      * Constructs a new Ray object with a given starting point and direction.
@@ -31,12 +31,12 @@ public class Ray {
      * offset by the normal of the geometry
      *
      * @param point original point
-     * @param l direction of the ray
-     * @param n normal of the geometry at this point
+     * @param dir   direction of the ray
+     * @param n     normal of the geometry at this point
      */
     public Ray(Point point, Vector dir, Vector n) {
         double nl = n.dotProduct(dir);
-        Vector delta = n.scale(nl > 0 ? DELTA : -DELTA);
+        Vector delta = n.scale(nl >= 0 ? DELTA : -DELTA);
         this.p0 = point.add(delta);
         this.dir = dir.normalize();
     }
@@ -90,7 +90,7 @@ public class Ray {
 
         GeoPoint closestGeoPoint = null;
         double distance = Double.MAX_VALUE;
-        double temp = 0;
+        double temp;
 
         // checking the all points intersections
         for (GeoPoint p : intersections) {

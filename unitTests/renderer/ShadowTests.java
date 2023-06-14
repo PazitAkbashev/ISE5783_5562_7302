@@ -35,8 +35,8 @@ public class ShadowTests {
     private Scene scene = new Scene.SceneBuilder("Test scene").build();
     private Camera camera = new Camera
             (new Point(0, 0, 1000),
-            new Vector(0, 0, -1),
-            new Vector(0, 1, 0))
+                    new Vector(0, 0, -1),
+                    new Vector(0, 1, 0))
             .setVPSize(200, 200)
             .setVPDistance(1000)                                                                       //
             .setRayTracer(new RayTracerBasic(scene));
@@ -134,19 +134,19 @@ public class ShadowTests {
         scene.geometries.add( //
                 new Triangle
                         (new Point(-150, -150, -115),
-                        new Point(150, -150, -135),
-                        new Point(75, 75, -150)) //
-                        .setMaterial
-                                (new Material()
-                                .setKs(0.8)
-                                .setShininess(60)), //
-                new Triangle
-                        (new Point(-150, -150, -115),
-                        new Point(-70, 70, -140),
+                                new Point(150, -150, -135),
                                 new Point(75, 75, -150)) //
                         .setMaterial
                                 (new Material()
-                                .setKs(0.8)
+                                        .setKs(0.8)
+                                        .setShininess(60)), //
+                new Triangle
+                        (new Point(-150, -150, -115),
+                                new Point(-70, 70, -140),
+                                new Point(75, 75, -150)) //
+                        .setMaterial
+                                (new Material()
+                                        .setKs(0.8)
                                         .setShininess(60)), //
                 new Sphere
                         (new Point(0, 0, -11), 30d) //

@@ -60,7 +60,7 @@ public class Tube extends RadialGeometry {
 
     @Override
     //https://hugi.scene.org/online/hugi24/coding%20graphics%20chris%20dragan%20raytracing%20shapes.htm
-    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
 
         Vector vAxis = axisRay.getDir();
         Vector v = ray.getDir();

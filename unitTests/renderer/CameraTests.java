@@ -60,7 +60,7 @@ class CameraTests {
 
 
         // BV04: 3X3 Corner (0,0)
-        assertEquals(new Ray (ZERO_POINT, new Vector(2, -2, -10)),
+        assertEquals(new Ray(ZERO_POINT, new Vector(2, -2, -10)),
                 camera.setVPSize(6, 6)
                         .constructRay(3, 3, 0, 0),
                 badRay);
@@ -79,6 +79,6 @@ class CameraTests {
                         .constructRay(4, 4, 1, 0),
                 badRay);
     }
-    
+
 
 }

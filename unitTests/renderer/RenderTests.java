@@ -172,9 +172,9 @@ public class RenderTests {
     public void basicRenderMultiColorTest() {
         Scene scene = new Scene.SceneBuilder("Test scene")//
                 .setAmbientLight
-                         (new AmbientLight
-                         (new Color(WHITE),
-                         new Double3(0.2)))
+                        (new AmbientLight
+                                (new Color(WHITE),
+                                        new Double3(0.2)))
                 .build(); //
 
         scene.geometries.add( // center

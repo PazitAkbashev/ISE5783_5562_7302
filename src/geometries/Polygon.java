@@ -93,6 +93,7 @@ public class Polygon extends Geometry {  //add abstract
     }
 
     @Override
+    // not implemented
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         return null;
     }

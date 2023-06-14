@@ -14,16 +14,24 @@ import primitives.Vector;
  */
 public class PointLight extends Light implements LightSource {
 
-    /**the position of the light*/
+    /**
+     * the position of the light
+     */
     private final Point position;
 
-    /**the attenuation factors*/
+    /**
+     * the attenuation factors
+     */
     private Double3 kC = Double3.ONE;
 
-    /** the attenuation factors*/
+    /**
+     * the attenuation factors
+     */
     private Double3 kL = Double3.ZERO;
 
-    /**the attenuation factors*/
+    /**
+     * the attenuation factors
+     */
     private Double3 kQ = Double3.ZERO;
 
     /**
@@ -39,6 +47,7 @@ public class PointLight extends Light implements LightSource {
 
     /**
      * constructor
+     *
      * @param intensity the intensity of the light
      * @param position  the position of the light
      * @param kC        attenuation factors
@@ -125,7 +134,6 @@ public class PointLight extends Light implements LightSource {
         // Return the resulting distance
         return dis;
     }
-
 
 
 }

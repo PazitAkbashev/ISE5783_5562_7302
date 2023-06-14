@@ -2,6 +2,8 @@ package primitives;
 
 import java.util.Objects;
 
+import static primitives.Util.isZero;
+
 /**
  * A fundamental object in geometry with direction and size,
  * according to the approach of linear algebra, is like a point, defined by the end point.
@@ -17,7 +19,7 @@ public class Vector extends Point {
      * @param z value of z
      */
     public Vector(double x, double y, double z) {
-        this (new Double3(x, y, z));
+        this(new Double3(x, y, z));
     }
 
     /**
@@ -28,7 +30,7 @@ public class Vector extends Point {
     public Vector(Double3 double3) {
         super(double3);
         if (Double3.ZERO.equals(double3))
-            throw new IllegalArgumentException("vector 0");
+            throw new IllegalArgumentException("vector 0 (c-tor vector class)");
     }
 
     /**
@@ -59,9 +61,9 @@ public class Vector extends Point {
      * @throws IllegalArgumentException if scalar = 0
      */
     public Vector scale(double num) {
-        if (num == 0)
-            throw new IllegalArgumentException("vector 0");
-        return new Vector(xyz.d1 * num, xyz.d2 * num, xyz.d3 * num);
+        if (isZero(num))
+            throw new IllegalArgumentException("vector 0 - Vactor class - scale");
+        return new Vector(xyz.scale(num));
     }
 
     /**
@@ -101,7 +103,7 @@ public class Vector extends Point {
         double d1 = (xyz.d1 * xyz.d1);
         double d2 = (xyz.d2 * xyz.d2);
         double d3 = (xyz.d3 * xyz.d3);
-        return  d1 + d2 + d3;
+        return d1 + d2 + d3;
     }
 
     /**

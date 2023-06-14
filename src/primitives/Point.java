@@ -13,9 +13,7 @@ public class Point {
      */
     public static final Point ZERO = new Point(0, 0, 0);
 
-    /**
-     * value of point
-     */
+    /*value of point*/
     final Double3 xyz;
 
     /**
@@ -40,10 +38,11 @@ public class Point {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Point point = (Point) o;
-        return Objects.equals(xyz, point.xyz);
+        if (this == o)
+            return true;
+        if (o instanceof Point other)
+            return xyz.equals(other.xyz);
+        return false;
     }
 
     @Override

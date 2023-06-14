@@ -12,25 +12,33 @@ public class Material {
      */
     public Double3 kT = Double3.ZERO;
 
-    /**Reflection factor - between 0 and 1*/
+    /**
+     * Reflection factor - between 0 and 1
+     */
     public Double3 kR = Double3.ZERO;
 
-    /**Diffusive factor*/
+    /**
+     * Diffusive factor
+     */
     public Double3 kD = Double3.ZERO;
 
-    /** Specular factor*/
+    /**
+     * Specular factor
+     */
     public Double3 kS = Double3.ZERO;
 
-    /** how shiny is the material*/
-   // public int nShininess = 1;
+    /**
+     * how shiny is the material
+     */
+    // public int nShininess = 1;
     public int nShininess = 0;
 
-    public Material setkT(Double3 kT3) {
+    public Material setKt(Double3 kT3) {
         this.kT = kT3;
         return this;
     }
 
-    public Material setkT(double kT) {
+    public Material setKt(double kT) {
         this.kT = new Double3(kT);
         return this;
     }

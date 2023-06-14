@@ -95,7 +95,7 @@ public class CameraIntegrationTest {
     void testIntegrationCameraPlane() {
         // TC01: The plane is against camera => 9 points
         Plane plane1 = new Plane
-                        (new Point(0, 0, -5),
+                (new Point(0, 0, -5),
                         new Vector(0, 0, 1));
 
         assertEquals(9, countIntersection(camera1, plane1, 3, 3),
@@ -103,15 +103,15 @@ public class CameraIntegrationTest {
 
         // TC02: The Plane is with small angle => 9 points
         Plane plane2 = new Plane
-                       (new Point(0, 0, -5),
-                       new Vector(0, 1, 2));
+                (new Point(0, 0, -5),
+                        new Vector(0, 1, 2));
         assertEquals(9, countIntersection(camera1, plane2, 3, 3),
                 "testIntegrationCameraPlane => should return 9 point");
 
         // TC03: The plane is parallel to lower rays => 6 points
         Plane plane3 = new Plane
-                       (new Point(0, 0, -5),
-                       new Vector(0, 1, 1));
+                (new Point(0, 0, -5),
+                        new Vector(0, 1, 1));
 
         assertEquals(6, countIntersection(camera1, plane3, 3, 3),
                 "testIntegrationCameraPlane => should return 6 point");

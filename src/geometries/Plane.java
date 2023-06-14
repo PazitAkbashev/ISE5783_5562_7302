@@ -17,8 +17,8 @@ import static primitives.Util.isZero;
  */
 public class Plane extends Geometry {
 
-    public Point q0;
-    public Vector normal;
+    private final Point q0;
+    private final Vector normal;
 
     /**
      * constructor create plane from one point and normal vector from the point.
@@ -89,7 +89,7 @@ public class Plane extends Geometry {
     }
 
     @Override
-    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         Point P0 = ray.getP0();
         Vector v = ray.getDir();
         Vector n = normal;
@@ -122,7 +122,7 @@ public class Plane extends Geometry {
 
         double t = alignZero(nP0Q0 / nv);
 
-        if (alignZero(t - maxDistance)  > 0) {
+        if (alignZero(t - maxDistance) > 0) {
             return null;
         }
 

@@ -163,7 +163,7 @@ public class Camera {
      * @return The Camera object after rendering the image.
      * @throws MissingResourceException If any required parameter is missing or has an invalid value.
      */
-    public Camera renderImage() throws MissingResourceException {
+    public Camera renderImage() {
         // Check if any required parameter is missing or has an invalid value
         if (this.height == 0
                 || this.width == 0

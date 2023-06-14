@@ -40,9 +40,9 @@ public class RayTracerBasic extends RayTracerBase {
      * Calculates the transparency factor for a given intersection point, light source, incident ray, and surface normal.
      *
      * @param geopoint The intersection point on the geometry.
-     * @param light The light source.
-     * @param l The incident ray direction (from point to light source).
-     * @param n The surface normal at the intersection point.
+     * @param light    The light source.
+     * @param l        The incident ray direction (from point to light source).
+     * @param n        The surface normal at the intersection point.
      * @return The transparency factor as a Double3 value.
      */
     private Double3 transparency(GeoPoint geopoint, LightSource light, Vector l, Vector n) {
@@ -79,22 +79,22 @@ public class RayTracerBasic extends RayTracerBase {
     /**
      * Calculates the color at the given intersection point for the specified ray.
      *
-     * @param gp The intersection point.
+     * @param gp  The intersection point.
      * @param ray The ray.
      * @return The calculated color.
      */
     private Color calcColor(GeoPoint gp, Ray ray) {
         return calcColor(gp, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K)
-                .add(scene.ambientLight.getIntensity());
+                .add(scene.getAmbientLight().getIntensity());
     }
 
     /**
      * Recursive function for calculating the color at the given intersection point for the specified ray.
      *
      * @param intersection The intersection point.
-     * @param ray The ray.
-     * @param level The current recursion level.
-     * @param k The accumulated attenuation factor.
+     * @param ray          The ray.
+     * @param level        The current recursion level.
+     * @param k            The accumulated attenuation factor.
      * @return The calculated color.
      */
     private Color calcColor(GeoPoint intersection, Ray ray, int level, Double3 k) {
@@ -119,7 +119,7 @@ public class RayTracerBasic extends RayTracerBase {
     /**
      * Calculates the local effects of the light at the intersection point.
      *
-     * @param gp The intersection point.
+     * @param gp  The intersection point.
      * @param ray The ray from the camera.
      * @return The color of the local effects.
      */
@@ -196,7 +196,8 @@ public class RayTracerBasic extends RayTracerBase {
         if (!kkt.lowerThan(MIN_CALC_COLOR_K)) {
             Ray refractedRay = constructReflected(gp, ray);
             GeoPoint refractedPoint = findClosestIntersection(refractedRay);
-            if (refractedPoint == null) return color.add(scene.background);
+            if (refractedPoint == null)
+                return color.add(scene.background);
             color = color.add(calcColor(refractedPoint, refractedRay, level - 1, kkt).scale(kt));
         }
         return color;
@@ -206,10 +207,10 @@ public class RayTracerBasic extends RayTracerBase {
      * Calculates the specular component of the light reflection using the Phong model.
      *
      * @param material The material of the geometry.
-     * @param n The normal vector at the intersection point.
-     * @param l The direction to the light source.
-     * @param nl The dot product between the normal vector and the light direction.
-     * @param v The direction of the ray from the camera.
+     * @param n        The normal vector at the intersection point.
+     * @param l        The direction to the light source.
+     * @param nl       The dot product between the normal vector and the light direction.
+     * @param v        The direction of the ray from the camera.
      * @return The specular component of the light reflection.
      */
     private Double3 calcSpecular(Material material, Vector n, Vector l, double nl, Vector v) {
@@ -223,7 +224,7 @@ public class RayTracerBasic extends RayTracerBase {
      * Calculates the diffuse component of the light reflection using the Lambertian model.
      *
      * @param material The material of the geometry.
-     * @param nl The dot product between the normal vector and the light direction.
+     * @param nl       The dot product between the normal vector and the light direction.
      * @return The diffuse component of the light reflection.
      */
     private Double3 calcDiffusive(Material material, double nl) {
@@ -235,7 +236,7 @@ public class RayTracerBasic extends RayTracerBase {
      * Constructs a reflected ray based on the intersection point and the incoming ray.
      *
      * @param geoPoint The intersection point.
-     * @param ray The incoming ray.
+     * @param ray      The incoming ray.
      * @return The reflected ray.
      */
     private Ray constructReflected(GeoPoint geoPoint, Ray ray) {
@@ -269,6 +270,9 @@ public class RayTracerBasic extends RayTracerBase {
         }
 
         List<GeoPoint> points = scene.geometries.findGeoIntersections(ray);
+        if (points == null) {
+            return null;
+        }
         return ray.findClosestGeoPoint(points);
     }
 

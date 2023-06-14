@@ -5,7 +5,6 @@ import primitives.Ray;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * @author Pazit and Leah
@@ -18,7 +17,7 @@ public abstract class Intersectable {
      * @param ray MUST be not null, The ray tested at the intersection of the object
      * @return List of points that intersection with the object
      */
-    public List<Point> findIntersections(Ray ray) {
+    public final List<Point> findIntersections(Ray ray) {
         var geoList = findGeoIntersections(ray);
         return geoList == null ? null
                 : geoList.stream()
@@ -27,10 +26,10 @@ public abstract class Intersectable {
     }
 
 
-
     /**
      * Finds the intersection points between a given ray and the geometry objects within the scene,
      * up to an infinite maximum distance.
+     *
      * @param ray The ray to find intersections with.
      * @return A list of GeoPoint objects representing the intersection points, or null if no intersections are found.
      */
@@ -43,13 +42,14 @@ public abstract class Intersectable {
     /**
      * Finds the intersection points between a given ray and the geometry objects within the scene,
      * up to a specified maximum distance.
+     *
      * @param ray         The ray to find intersections with.
      * @param maxDistance The maximum distance for valid intersections.
      * @return A list of GeoPoint objects representing the intersection points, or null if no intersections are found.
      */
-    public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
+    public final List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
         // Call the helper function findGeoIntersectionsHelper() with the given ray and maximum distance
-        return this.findGeoIntersectionsHelper(ray, maxDistance);
+        return findGeoIntersectionsHelper(ray, maxDistance);
     }
 
 
@@ -67,6 +67,7 @@ public abstract class Intersectable {
 
         /**
          * Constructs a GeoPoint object with the given geometry and point.
+         *
          * @param geometry The geometry object of the intersection.
          * @param point    The point of intersection.
          */
