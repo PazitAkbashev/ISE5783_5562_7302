@@ -38,7 +38,8 @@ public class Ray {
         double nl = n.dotProduct(dir);
         Vector delta = n.scale(nl >= 0 ? DELTA : -DELTA);
         this.p0 = point.add(delta);
-        this.dir = dir.normalize();
+        //this.dir = dir.normalize(); //only for checking
+        this.dir = dir;
     }
 
     /**
@@ -60,21 +61,23 @@ public class Ray {
     }
 
     /**
-     * Returns a new Point object that is a specific distance along the ray from the starting point.
+     * Returns a new Point object that is a specific distance
+     * along the ray from the starting point.
      *
      * @param t The distance from the starting point of the desired point on the ray.
      * @return A new Point object at distance t along the direction of the ray.
      */
     public Point getPoint(double t) {
         // if t is zero, return the starting point of the ray
-        if (isZero(t))
-            return p0;
+//        if (isZero(t))  //in comment for checking only
+//            return p0;
         return p0.add(dir.scale(t));
     }
 
     public Point findClosestPoint(List<Point> points) {
         return points == null || points.isEmpty() ? null :
-                findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
+                findClosestGeoPoint(points.stream().map
+                        (p -> new GeoPoint(null, p)).toList()).point;
     }
 
     /**
@@ -106,9 +109,11 @@ public class Ray {
     @Override
     public boolean equals(Object o) {
         // If the objects are the same instance, they are equal
-        if (this == o) return true;
+        if (this == o)
+            return true;
         // If the object is not of type Ray, they are not equal
-        if (!(o instanceof Ray)) return false;
+        if (!(o instanceof Ray))
+            return false;
         // Cast the object to Ray type for comparison
         Ray ray = (Ray) o;
         // Compare the starting point and direction of the rays for equality
