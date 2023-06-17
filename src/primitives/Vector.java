@@ -18,9 +18,16 @@ public class Vector extends Point {
      * @param y value of y
      * @param z value of z
      */
-    public Vector(double x, double y, double z) {
-        this(new Double3(x, y, z));
+//    public Vector(double x, double y, double z) {
+//        this(new Double3(x, y, z));
+//    }
+    public Vector(double x,double y,double z)//shinitiiiiiiii
+    {
+        super(x,y,z);
+        if(Double3.ZERO.equals(new Double3(x,y,z)))
+            throw new IllegalArgumentException("vector 0");
     }
+
 
     /**
      * A constructor that accepts an object of type Double3 permission
@@ -60,10 +67,15 @@ public class Vector extends Point {
      * @return new Vector with the value of (scalar * x, scalar * y, scalar * z)
      * @throws IllegalArgumentException if scalar = 0
      */
-    public Vector scale(double num) {
-        if (isZero(num))
-            throw new IllegalArgumentException("vector 0 - Vactor class - scale");
-        return new Vector(xyz.scale(num));
+//    public Vector scale(double num) {
+//        if (isZero(num))
+//            throw new IllegalArgumentException("vector 0 - Vactor class - scale");
+//        return new Vector(xyz.scale(num));
+//    }
+    public Vector scale (double num){//shinitiiiiiiiiiiii
+        if(num==0)
+            throw new IllegalArgumentException("vector 0");
+        return new Vector(xyz.d1*num,xyz.d2*num, xyz.d3*num);
     }
 
     /**
@@ -118,7 +130,7 @@ public class Vector extends Point {
     @Override
     public boolean equals(Object o) {
         // add comment
-        if (this == o)
+        if (this ==o)
             return true;
         // If the object is null or of a different class, they are not equal
         if (o == null || getClass() != o.getClass())

@@ -11,10 +11,10 @@ public class Point {
     /**
      * ZERO point for the coordinate system
      */
-    public static final Point ZERO = new Point(0, 0, 0);
+    public final static Point ZERO = new Point(0d, 0d, 0d);//shinitiii
 
     /*value of point*/
-    final Double3 xyz;
+   protected final Double3 xyz;//hosafti protectedddddddddddd
 
     /**
      * A constructor that accepts an object of type Double3 permission
@@ -33,16 +33,22 @@ public class Point {
      * @param d3 value of z
      */
     public Point(double d1, double d2, double d3) {
-        this(new Double3(d1, d2, d3));
+        xyz=new Double3(d1, d2, d3);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o instanceof Point other)
-            return xyz.equals(other.xyz);
-        return false;
+//    public boolean equals(Object o) {
+//        if (this == o)
+//            return true;
+//        if (o instanceof Point other)
+//            return xyz.equals(other.xyz);
+//        return false;
+//    }
+    public boolean equals(Object o) {//shinitiiiii
+        if (this == o) return true;
+        if (!(o instanceof Point)) return false;
+        Point point = (Point) o;
+        return xyz.equals(point.xyz);
     }
 
     @Override
@@ -63,20 +69,26 @@ public class Point {
      * @return Vector a vector from the second point to the point on which it is performed
      * the action
      */
-    public Vector subtract(Point point) {
-        Double3 result = this.xyz.subtract(point.xyz);
-        return new Vector(result);
+//    public Vector subtract(Point point) {
+//        Double3 result = this.xyz.subtract(point.xyz);
+//        return new Vector(result);
+//    }
+    public Vector subtract(Point point){//shinitiiiiii
+        return new Vector(xyz.subtract(point.xyz));
     }
 
     /**
      * Adding a vector to a point - returns a new point
      *
-     * @param vec to adding
+     * @param vector to adding
      * @return point new point
      */
-    public Point add(Vector vec) {
-        Double3 result = this.xyz.add(vec.xyz);
-        return new Point(result);
+//    public Point add(Vector vec) {
+//        Double3 result = this.xyz.add(vec.xyz);
+//        return new Point(result);
+//    }
+    public Point add(Vector vector) {//shinitiiii
+        return new Point(this.xyz.add(vector.xyz));
     }
 
     /**
