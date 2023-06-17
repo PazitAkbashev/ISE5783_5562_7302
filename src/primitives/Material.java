@@ -82,3 +82,125 @@ public class Material {
         return this;
     }
 }
+
+//
+//public class Material {
+//    /** transparency coefficient */
+//    public Double3 kT = Double3.ZERO;
+//    /** reflection coefficient */
+//    public Double3 kR = Double3.ZERO;
+//    /** Diffusive factor */
+//    public Double3 kD = Double3.ZERO;
+//    /** Specular factor */
+//    public Double3 kS = Double3.ZERO;
+//    /** how shiny is the material */
+//    public int nShininess = 1;
+//
+//    /**
+//     * Sets the transparency coefficient property.
+//     *
+//     * @param kT to set
+//     * @return Material object
+//     */
+//    public Material setKt(Double3 kT) {
+//        this.kT = kT;
+//        return this;
+//    }
+//
+//    /**
+//     * Sets the reflection coefficient property.
+//     *
+//     * @param kR to set
+//     * @return Materiel object
+//     */
+//    public Material setKr(Double3 kR) {
+//        this.kR = kR;
+//        return this;
+//    }
+//
+//    /**
+//     * Sets the transparency coefficient property.
+//     *
+//     * @param kT to set
+//     * @return Material object
+//     */
+//    public Material setKt(double kT) {
+//        this.kT = new Double3(kT);
+//        return this;
+//    }
+//
+//    /**
+//     * Sets the reflection coefficient property.
+//     *
+//     * @param kR to set
+//     * @return Materiel object
+//     */
+//    public Material setKr(double kR) {
+//        this.kR = new Double3(kR);
+//        return this;
+//    }
+//
+//    /**
+//     * Sets the kD property to a Double3.
+//     *
+//     * @param kD the Double3 kD to set
+//     * @return this
+//     */
+//    public Material setKd(Double3 kD) {
+//        if (!kS.add(kD).lowerThan(Double3.ONE))
+//            throw new IllegalArgumentException("ERROR: kD + kS should be  <= 1");
+//        this.kD = kD;
+//        return this;
+//    }
+//
+//    /**
+//     * Sets the kD property to a Double3.
+//     *
+//     * @param kD the Double3 kD to set
+//     * @return this
+//     */
+//    public Material setKd(double kD) {
+//        if (!kS.add(kD).lowerThan(Double3.ONE))
+//            throw new IllegalArgumentException("ERROR: kD + kS should be  <= 1");
+//        this.kD = new Double3(kD);
+//        return this;
+//    }
+//
+//    /**
+//     * Sets the kS property to a Double3
+//     *
+//     * @param kS the Double3 kS to set
+//     * @return this
+//     */
+//    public Material setKs(Double3 kS) {
+//        if (!kD.add(kS).lowerThanEqual(Double3.ONE))
+//            throw new IllegalArgumentException("ERROR: kD + kS should be  <= 1");
+//        this.kS = kS;
+//        return this;
+//    }
+//
+//    /**
+//     * Sets the kS property to a Double3
+//     *
+//     * @param kS the Double3 kS to set
+//     * @return this
+//     */
+//    public Material setKs(double kS) {
+//        if (!kD.add(kS).lowerThanEqual(Double3.ONE))
+//            throw new IllegalArgumentException("ERROR: kD + kS should be  <= 1");
+//        this.kS = new Double3(kS);
+//        return this;
+//    }
+//
+//    /**
+//     * Sets the nShininess property
+//     *
+//     * @param nShininess the nShininess to set
+//     * @return this
+//     */
+//    public Material setShininess(int nShininess) {
+//        this.nShininess = nShininess;
+//        return this;
+//    }
+//
+//}

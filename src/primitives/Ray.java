@@ -128,3 +128,116 @@ public class Ray {
 
 
 }
+
+//public class Ray {
+//    private final Point p0;
+//    private final Vector dir;
+//    private static final double DELTA = 0.1;
+//
+//    /**
+//     * A ctor to initialize a Ray with a Point and a direction Vector.
+//     *
+//     * @param p0  The head Point of the Ray
+//     * @param dir The direction Vector of the Ray
+//     */
+//    public Ray(Point p0, Vector dir) {
+//        dir = dir.normalize();
+//        this.p0 = p0;
+//        this.dir = dir;
+//    }
+//
+//    /**
+//     * A ctor to initialize a ray with a point, a direction, and a vector for
+//     * DELTA moving
+//     *
+//     * @param head the ray head
+//     * @param l    the direction
+//     * @param n    the normal
+//     */
+//    public Ray(Point head, Vector l, Vector n) {
+//        double nl = n.dotProduct(l);
+//        p0 = isZero(nl) ? head : head.add(n.scale(nl < 0 ? -DELTA : DELTA));
+//        dir = l.normalize();
+//    }
+//
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj)
+//            return true;
+//        if (obj instanceof Ray other)
+//            return p0.equals(other.p0) && dir.equals(other.dir);
+//        return false;
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return "Ray{p0: " + p0 + " | dir: " + dir + "}";
+//    }
+//
+//    /**
+//     * Getter for the head point of the Ray
+//     *
+//     * @return the head point
+//     */
+//    public Point getP0() {
+//        return p0;
+//    }
+//
+//    /**
+//     * @return the direction Vector of the Ray
+//     */
+//    public Vector getDir() {
+//        return dir;
+//    }
+//
+//    /**
+//     * Calculates a point on the ray line at a given distance from the head
+//     *
+//     * @param t the distance
+//     * @return a point on the ray, according to t
+//     */
+//    public Point getPoint(double t) {
+//        return isZero(t) ? p0 : p0.add(dir.scale(t));
+//    }
+//
+//    /**
+//     * finds the closest point to the ray's head in a list of points (assumingly on
+//     * the ray)
+//     *
+//     * @param lst List of points on the ray
+//     * @return The closest one to the ray's head
+//     */
+//    public Point findClosestPoint(List<Point> lst) {
+//        if (lst == null)
+//            return null;
+//        if (lst.size() == 0)
+//            return null;
+//
+//        // convert point list to gp list (with null in the gp.geometry)
+//        return findClosestGeoPoint(lst.stream().map(p -> new GeoPoint(null, p)).toList()).point;
+//
+//    }
+//
+//    /**
+//     * finds the closest geo point to the ray's head in a list of geo points
+//     * (assumingly on the ray)
+//     *
+//     * @param lst List of geo points on the ray
+//     * @return The closest one to the ray's head
+//     */
+//    public GeoPoint findClosestGeoPoint(List<GeoPoint> lst) {
+//        if (lst == null)
+//            return null;
+//
+//        GeoPoint closest = null;
+//        double min = Double.POSITIVE_INFINITY;
+//        for (GeoPoint gp : lst) {
+//            double dist = p0.distance(gp.point);
+//            if (dist < min) {
+//                min = dist;
+//                closest = gp;
+//            }
+//        }
+//        return closest;
+//    }
+//}
