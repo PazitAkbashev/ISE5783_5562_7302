@@ -77,7 +77,7 @@ public class Ray {
     public Point findClosestPoint(List<Point> points) {
         return points == null || points.isEmpty() ? null :
                 findClosestGeoPoint(points.stream().map
-                        (p -> new GeoPoint(null, p)).toList()).point;
+                        (p -> new GeoPoint(null, p)).toList()).getPoint();
     }
 
     /**
@@ -97,7 +97,7 @@ public class Ray {
 
         // checking the all points intersections
         for (GeoPoint p : intersections) {
-            temp = p0.distanceSquared(p.point);
+            temp = p0.distanceSquared(p.getPoint());
             if (temp < distance) {
                 distance = temp;
                 closestGeoPoint = p;

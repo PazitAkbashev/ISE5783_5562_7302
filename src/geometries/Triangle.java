@@ -67,7 +67,7 @@ public class Triangle extends Polygon {
         if (!isThereIntersections)
             return null;
 
-        return List.of(new GeoPoint(this, result.get(0).point));
+        return List.of(new GeoPoint(this, result.get(0).getPoint()));
     }
 }
 
