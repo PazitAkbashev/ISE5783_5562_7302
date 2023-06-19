@@ -73,14 +73,15 @@ public class ShadowTests {
 
     /**
      * Sphere-Triangle shading - move triangle up-right
+     * (our changes)
      */
     @Test
     public void sphereTriangleMove1() {
-//        sphereTriangleHelper("shadowSphereTriangleMove2", //
-//                new Triangle(new Point( ? ? ?, ???, ???),
-//                new Point( ???, ???, ???),
-//                new Point( ???, ???, ???)), //
-//        new Point(-100, -100, 200));
+        sphereTriangleHelper("shadowSphereTriangleMove1", //
+                new Triangle(new Point(-50, -20, 0),
+                        new Point(-20, -50, 0),
+                        new Point(-48, -48, -4)), //
+        new Point(-100, -100, 200));
     }
 
     /**
@@ -88,12 +89,11 @@ public class ShadowTests {
      */
     @Test
     public void sphereTriangleMove2() {
-//        sphereTriangleHelper("shadowSphereTriangleMove1", //
-//                new Triangle
-//                (new Point( ? ? ?, ???, ???),
-//                new Point( ???, ???, ???),
-//                new Point( ???, ???, ???)), //
-//        new Point(-100, -100, 200));
+        sphereTriangleHelper("shadowSphereTriangleMove2", //
+                new Triangle(new Point(-65, -35, 0), //up left
+                        new Point(-30, -70, 0), //down right
+                        new Point(-60, -62, -4)), // middle
+        new Point(-100, -100, 200));
     }
 
     /**
@@ -123,7 +123,7 @@ public class ShadowTests {
      */
     @Test
     public void trianglesSphere() {
-        //scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15));
+        scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15));
         Scene scene1 = new Scene.
                 SceneBuilder("Test scene1").
                 setAmbientLight(new AmbientLight(

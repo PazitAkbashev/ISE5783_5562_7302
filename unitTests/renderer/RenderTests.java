@@ -130,40 +130,6 @@ public class RenderTests {
         camera.writeToImage();
     }
 
-
-    /**
-     * Eliezer's test
-     ****** FOR STAGE 6*******
-     * Produce a scene with basic 3D model and render it into a png image with a grid
-     */
-//    @Test
-//    void testRedtriangle() {
-//        Scene scene = new Scene.SceneBuilder("Test scene")//
-//                .setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.2)))
-//                .build(); //
-//
-//        scene.geometries.add( //
-//                new Triangle(
-//                        new Point(-100, 0, -100),
-//                        new Point(0, -100, -100),
-//                        new Point(-100, -100, -100))
-//                        .setEmission(new Color(RED)));
-//
-//        Camera camera = new Camera(Point.ZERO, new Vector(0, 0, -1),
-//                new Vector(0, 1, 0)) //
-//                .setVPDistance(100) //
-//                .setVPSize(500, 500) //
-//                .setImageWriter(new ImageWriter("red triangle render test",
-//                        1000, 1000))
-//                .setRayTracer(new RayTracerBasic(scene));
-//
-//        camera.renderImage();
-//        camera.printGrid(100, new Color(WHITE));
-//        camera.writeToImage();
-//    }
-
-    // For stage 6 - please disregard in stage 5
-
     /**
      * Produce a scene with basic 3D model - including individual lights of the
      * bodies and render it into a png image with a grid
