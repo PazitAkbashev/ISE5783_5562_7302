@@ -144,3 +144,59 @@ public class Sphere extends RadialGeometry {
     }
 
 }
+//
+//public class Sphere extends RadialGeometry {
+//
+//    private final Point center;
+//
+//    /**
+//     * A ctor to initialize a Sphere with a radius and a center Point
+//     *
+//     * @param radius radius of the sphere
+//     * @param center center of the sphere
+//     */
+//    public Sphere(Point center, double radius) {
+//        super(radius);
+//        this.center = center;
+//    }
+//
+//    @Override
+//    public Vector getNormal(Point p) {
+//        return p.subtract(center).normalize();
+//    }
+//
+//    @Override
+//    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDis) {
+//        Point p0 = ray.getP0();
+//        Vector v = ray.getDir();
+//
+//        // if the ray starts at the center of the sphere, go with v direction
+//        if (center.equals(p0))
+//            return List.of(new GeoPoint(this, ray.getPoint(radius)));
+//
+//        Vector u = center.subtract(p0);
+//        double tm = v.dotProduct(u);
+//        double dd = u.lengthSquared() - tm * tm;
+//        double thth = (radius * radius) - dd;
+//        if (alignZero(thth) <= 0)
+//            return null;
+//        double th = Math.sqrt(thth);
+//
+//        double t1 = alignZero(tm - th);
+//        double t2 = alignZero(tm + th);
+//        // t1 <= t2 (always)
+//        // if P2 is behind or P1 is too far - both points are behind or too far
+//        if (t2 <= 0 || alignZero(t1 - maxDis) >= 0)
+//            return null;
+//
+//        // if P2 is too far
+//        if (alignZero(t2 - maxDis) >= 0)
+//            return t1 <= 0 ? null : List.of(new GeoPoint(this, ray.getPoint(t1)));
+//
+//        // P2 is OK (between the ray head and the max distance)
+//        return t1 <= 0 //
+//                ? List.of(new GeoPoint(this, ray.getPoint(t2))) //
+//                : List.of(new GeoPoint(this, ray.getPoint(t1)), new GeoPoint(this, ray.getPoint(t2)));
+//    }
+//
+//}

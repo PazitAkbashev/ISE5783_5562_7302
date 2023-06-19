@@ -1,5 +1,7 @@
 package geometries;
 
+//checked
+
 /**
  * Polygon class RadialGeometry is an abstract class that is implemented by all classes that contain a radius
  *
