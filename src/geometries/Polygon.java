@@ -16,13 +16,16 @@ import static primitives.Util.isZero;
  */
 public class Polygon extends Geometry {  //add abstract
     /**
-     * List of polygon's vertices
+     * List of polygon's vertices (KODKODIM)
      */
     protected final List<Point> vertices;
     /**
      * Associated plane in which the polygon lays
      */
     protected final Plane plane;
+    /**
+     *
+     */
     private final int size;
 
     /**

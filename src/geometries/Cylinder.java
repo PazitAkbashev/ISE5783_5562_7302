@@ -19,6 +19,12 @@ public class Cylinder extends Tube {
     //the length - the height of the cylinder
     private final double length;
 
+    //the base of the cylinder
+    private final Plane base;
+
+    //the top base of the cylinder
+    private final Plane top;
+
     /**
      * constructor for finite Cylinder
      *
@@ -26,12 +32,16 @@ public class Cylinder extends Tube {
      * @param axisray - ray of the circumference of the cylinder
      * @param length - the length of the cylinder
      */
-    protected Cylinder(double radius, Ray axisray, double length) {
+    public Cylinder(double radius, Ray axisray, double length) {
         //call to Tube constructor (and it calls to RadialGeometry constructor)
         super(radius, axisray);
 
+        Point p1 = axisray.getP0().add(axisray.getDir().scale(length));
+        Point p0 = axisRay.getP0();
         //initialize the length
         this.length = length;
+        this.base = new Plane(p1, axisRay.getDir().scale(-1));
+        this.top = new Plane(p0, axisRay.getDir());
     }
 
     //----BONUS----,

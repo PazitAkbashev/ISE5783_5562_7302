@@ -87,9 +87,9 @@ class SphereTests {
         ray = new Ray(new Point(0.59, 0, 0), new Vector(-0.59, 0, 0));
         assertEquals(List.of(new Point(0, 0, 0)), sphere.findIntersections(ray));
 
-//        // TC16: Ray starts at the center (1 point)
-//        Ray ray1 = new Ray(new Point(1, 0, 0), new Vector(2, 2, 0));
-//        assertThrows(IllegalArgumentException.class, () -> sphere.findIntersections(ray1));
+        // TC16: Ray starts at the center (1 point)
+        Ray ray1 = new Ray(new Point(1, 0, 0), new Vector(2, 2, 0));
+        assertThrows(IllegalArgumentException.class, () -> sphere.findIntersections(ray1));
 
         // TC17: Ray starts at sphere and goes outside (0 points)
         ray = new Ray(new Point(2, 0, 0), new Vector(2, 0, 0));

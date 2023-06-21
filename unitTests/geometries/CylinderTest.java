@@ -64,6 +64,19 @@ class CylinderTest {
         /* TC05: point in the center the bottom base. */
         assertEquals(exceptVectorCenterBottomBase, cylinder.getNormal(bottomBaseCenterPoint),
                 "ERROR: getNormal() point in the center on the top base.");
+
+
+
+        //!!!!need to add : BVA: 2 TC on the base edge (force decision which normal to use)!!!!!
+
+       // from Sheina:
+//        // TC13: Point at the edge with 1st base
+//        assertEquals(new Vector(0, 1, 0), cylinder.getNormal(new Point(0, 0, 2)), "Bad normal to edge with lower base");
+//
+//        // TC14: Point at the edge with 2nd base
+//        assertEquals(new Vector(0, 1, 0), cylinder.getNormal(new Point(0, 1, 2)), "Bad normal to edge with upper base");
+//
+
     }
-    //!!!!need to add : BVA: 2 TC on the base edge (force decision which normal to use)!!!!! //TODO
+
 }
