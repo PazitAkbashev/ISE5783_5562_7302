@@ -76,7 +76,7 @@ public abstract class Intersectable { //++
      */
     public static class GeoPoint {
         // The geometry object of the intersection
-        private final Geometry geometry; //++
+        public Geometry geometry; //++
 
         // The point of intersection
         private final Point point; //++
@@ -95,6 +95,7 @@ public abstract class Intersectable { //++
             this.point = point;
         }
 
+        //private?????????????????
         /**
          * Returns the geometry object of the intersection.
          * geometry defined as private final
