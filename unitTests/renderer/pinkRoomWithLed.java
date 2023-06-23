@@ -1,12 +1,14 @@
 package renderer;
-//
-//import org.junit.jupiter.api.Test;
-//import lighting.*;
-//import primitives.*;
-//import geometries.*;
-//import scene.Scene;
-//
-//import static java.awt.Color.*;
+
+import org.junit.jupiter.api.Test;
+
+
+import lighting.*;
+import primitives.*;
+import geometries.*;
+import scene.Scene;
+
+import static java.awt.Color.*;
 
 import geometries.*;
 import lighting.SpotLight;
@@ -17,13 +19,13 @@ import scene.Scene;
 import static java.awt.Color.RED;
 import static java.awt.Color.YELLOW;
 
-public class pinkRoomWithLed {
+    public class pinkRoomWithLed {
 
-    /**
-     * The final picture of miniProject2
-     */
-    @Test
-    public void miniProject1() {
+        /**
+         * The final picture of miniProject2
+         */
+        @Test
+        public void miniProject1() {
 
         Scene scene1 = new Scene.SceneBuilder("Test scene")
                 .build();
@@ -31,7 +33,7 @@ public class pinkRoomWithLed {
         Camera camera3 = new Camera(new Point(-40, 50, 160),
                 new Vector(0, 0, -1), new Vector(0, 1, 0)) //
                 .setVPSize(200, 200) //
-                .setVPDistance(120);
+                .setVPDistance(100);
 
         Geometry floor = new Plane(new Point(0, 0, 0), new Vector(0, 1, 0))
                 .setEmission(new Color(255, 153, 185))
@@ -53,9 +55,6 @@ public class pinkRoomWithLed {
                 .setEmission(new Color(255, 128, 168))
                 .setMaterial(new Material().setKd(0.5));
 
-//        Geometry Sphere = new Sphere(new Point(-30, 20, 50), 25)
-//                .setEmission(new Color(RED))
-//                .setMaterial(new Material().setKd(0.5).setKt(0.2).setShininess(100));
 
         Geometry Sphere1 = new Sphere(new Point(-30, 20, 50), 25)
                 .setEmission(new Color(RED))
@@ -111,7 +110,7 @@ public class pinkRoomWithLed {
 
 
         double radius = 1;
-        Ray axisray = new Ray(new Point(0, 79, -20), new Vector(1, 0, 0));
+        Ray axisray = new Ray(new Point(0, 79, -15), new Vector(1, 0, 0));
         double length = 0.1;
 
         Geometry led = new Cylinder( radius, axisray, length)
@@ -121,39 +120,49 @@ public class pinkRoomWithLed {
 
         //spot lights:
         {// right
-            scene1.lights.add(new SpotLight(new Color(YELLOW).scale(.8),
+            scene1.lights.add(new SpotLight(new Color(YELLOW).scale(1),
                     new Point(20, 79, -15),
-                    new Vector(-100, -40, -100)));
+                    new Vector(-100, -40, 50)));
         }
 
         {//middle
-            scene1.lights.add(new SpotLight(new Color(YELLOW).scale(.8),
+            scene1.lights.add(new SpotLight(new Color(YELLOW).scale(1),
                     new Point(-32, 79, -15),
-                    new Vector(0, 0, -100)));
+                    new Vector(0, 0, 50)));
         }
 
-        {//left
-            scene1.lights.add(new SpotLight(new Color(YELLOW).scale(.8),
-                    new Point(-85, 79, -15),
-                    new Vector(100, -40, -100)));
-        }
+//        {//left
+//            scene1.lights.add(new SpotLight(new Color(YELLOW).scale(1),
+//                    new Point(-85, 79, -15),
+//                    new Vector(100, -40, -100)));
+//        }
 
-        {//left - middle
-            scene1.lights.add(new SpotLight(new Color(YELLOW).scale(1.5),
-                    new Point(-57, 79, -15),
-                    new Vector(40, 60, -100)));
-        }
+//        {//left - middle
+//            scene1.lights.add(new SpotLight(new Color(YELLOW).scale(1),
+//                    new Point(-57, 79, -15),
+//                    new Vector(40, 60, -100)));
+//        }
 
         {//right - middle
-            scene1.lights.add(new SpotLight(new Color(YELLOW).scale(1.5),
+            scene1.lights.add(new SpotLight(new Color(YELLOW).scale(1),
                     new Point(-5, 79, -15),
-                    new Vector(40, 60, -100)));
+                    new Vector(40, 60, 50)));
         }
+
+        //points lights//
+         for(int i = -15; i < 100; i+=15) {
+             scene1.lights.add(new PointLight(new Color(YELLOW),
+                     new Point(34, 79, i),
+                     1,
+                     0.01111,
+                     0.0111));
+         }
+
 
        scene1.geometries.add(roof, wallRight, wallLeft, wallFront, floor, led, Sphere1, door0, door1, door2, door3, door4, door5);
 
         ImageWriter imageWriter = new ImageWriter("pinkRoom", 1000, 1000);
         camera3.setImageWriter(imageWriter)
                 .setRayTracer(new RayTracerBasic(scene1)).renderImage().writeToImage();
+        }
     }
-}
