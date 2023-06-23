@@ -56,17 +56,17 @@ import static java.awt.Color.YELLOW;
                 .setMaterial(new Material().setKd(0.5));
 
 
-        Geometry Sphere1 = new Sphere(new Point(-30, 20, 50), 25)
+        Geometry Sphere1 = new Sphere(new Point(-30, 20, 40), 30)
                 .setEmission(new Color(RED))
-                .setMaterial(new Material().setKd(0.5).setKt(0.2).setShininess(100));
+                .setMaterial(new Material().setKd(0.5).setKr(0.2).setShininess(100));
 
         //rectengle0
         Geometry door0 =
                 new Polygon(
-                        new Point(-75, 0, 120),
+                        new Point(-75, 0, 130),
                         new Point(-60, 0, 90),
                         new Point(-60, 80, 90),
-                        new Point(-75, 80, 120))
+                        new Point(-75, 80, 130))
                         .setMaterial(new Material()).setEmission(new Color(255,26,140));
 
         //rectangle5
@@ -121,36 +121,36 @@ import static java.awt.Color.YELLOW;
         //spot lights:
         {// right
             scene1.lights.add(new SpotLight(new Color(YELLOW).scale(1),
-                    new Point(20, 79, -15),
+                    new Point(14, 79, -15),
                     new Vector(-100, -40, 50)));
         }
 
-        {//middle
+        {//MOOL DELET
             scene1.lights.add(new SpotLight(new Color(YELLOW).scale(1),
-                    new Point(-32, 79, -15),
+                    new Point(-34, 79, -15),
                     new Vector(0, 0, 50)));
         }
 
-//        {//left
-//            scene1.lights.add(new SpotLight(new Color(YELLOW).scale(1),
-//                    new Point(-85, 79, -15),
-//                    new Vector(100, -40, -100)));
-//        }
-
-//        {//left - middle
-//            scene1.lights.add(new SpotLight(new Color(YELLOW).scale(1),
-//                    new Point(-57, 79, -15),
-//                    new Vector(40, 60, -100)));
-//        }
-
-        {//right - middle
+        {//right after middle
             scene1.lights.add(new SpotLight(new Color(YELLOW).scale(1),
-                    new Point(-5, 79, -15),
+                    new Point(-24, 79, -15),
+                    new Vector(100, -40, 100)));
+        }
+
+        {//right after right after middle
+            scene1.lights.add(new SpotLight(new Color(YELLOW).scale(1),
+                    new Point(-12, 79, -15),
+                    new Vector(40, 60, 100)));
+        }
+
+        {//left right
+            scene1.lights.add(new SpotLight(new Color(YELLOW).scale(1),
+                    new Point(4, 79, -15),
                     new Vector(40, 60, 50)));
         }
 
         //points lights//
-         for(int i = -15; i < 100; i+=15) {
+         for(int i = 0; i < 100; i+=15) {
              scene1.lights.add(new PointLight(new Color(YELLOW),
                      new Point(34, 79, i),
                      1,
@@ -158,8 +158,22 @@ import static java.awt.Color.YELLOW;
                      0.0111));
          }
 
+         //not done, its the door shaddow on sphere
+         scene1.lights.add(new SpotLight(new Color(YELLOW).scale(0.3),
+                 new Point(30, 65, 100),
+                 new Vector(-30, 20, -40)));
 
-       scene1.geometries.add(roof, wallRight, wallLeft, wallFront, floor, led, Sphere1, door0, door1, door2, door3, door4, door5);
+            double radius2 = 1;
+            Ray axisray2 = new Ray(new Point(32, 79, 0), new Vector(0, 0, 1));
+            double length2 = 0.1;
+            Geometry ledRight = new Cylinder( radius2, axisray2, length2)
+                    .setEmission(new Color(RED))
+                    .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100).setKt(0.95));
+
+
+            scene1.geometries.add(roof, wallRight, wallLeft, wallFront,
+                    floor, led, ledRight, Sphere1, door0, door1,
+                    door2, door3, door4, door5);
 
         ImageWriter imageWriter = new ImageWriter("pinkRoom", 1000, 1000);
         camera3.setImageWriter(imageWriter)
