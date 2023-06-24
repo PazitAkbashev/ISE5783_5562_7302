@@ -75,59 +75,7 @@ public class RenderTests {
     @Disabled
     public void basicRenderJson() {
 
-        //work with Gson library
-        Gson gson = new Gson();
 
-        Camera camera;
-        try (FileWriter writer = new FileWriter("basicRenderTwoColors.json")) {
-            Scene tempScene = new Scene.SceneBuilder("json temp scene test")
-                    //background is green
-                    .setBackground(new Color(75, 127, 90))
-                    //AmbientLight is pink
-                    .setAmbientLight(new AmbientLight(
-                            new Color(255, 191, 191),
-                            new Double3(1, 1, 1))) //
-                    .build();
-            tempScene.geometries.add(new Sphere(new Point(0, 0, -100), 50d),
-                    new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100),
-                            new Point(-100, 100, -100)), // up left
-
-                    new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100),
-                            new Point(-100, -100, -100)), // down left
-
-                    new Triangle(new Point(100, 0, -100), new Point(0, -100, -100),
-                            new Point(100, -100, -100))); // down right
-
-            camera = new Camera(Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0))
-                    .setVPDistance(100)
-                    .setVPSize(500, 500)
-                    .setImageWriter(new ImageWriter("Json render test", 1000, 1000))
-                    .setRayTracer(new RayTracerBasic(tempScene));
-
-            //convert to json
-            String myfile = gson.toJson(tempScene);
-            System.out.println(myfile);
-            //gson.toJson(tempScene, writer);
-
-
-        } catch (IOException e) {
-            throw new RuntimeException("Error writing to JSON file", e);
-        }
-
-//****************-----READER----**************************************************************
-
-        try (FileReader reader = new FileReader("basicRenderTwoColors.json")) {
-            Scene jsonScene = gson.fromJson(reader, Scene.class);
-
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException("JSON file not found", e);
-        } catch (IOException e) {
-            throw new RuntimeException("Error reading JSON file", e);
-        }
-
-        camera.renderImage();
-        camera.printGrid(100, new Color(YELLOW));
-        camera.writeToImage();
     }
 
     /**

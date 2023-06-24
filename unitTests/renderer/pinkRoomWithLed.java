@@ -67,7 +67,7 @@ import static java.awt.Color.YELLOW;
                         new Point(-60, 0, 90),
                         new Point(-60, 80, 90),
                         new Point(-75, 80, 130))
-                        .setMaterial(new Material()).setEmission(new Color(255,26,140));
+                        .setMaterial(new Material()).setEmission(new Color(255,26,140).scale(1.2));
 
         //rectangle5
         Geometry door1 = new Polygon(
@@ -90,7 +90,7 @@ import static java.awt.Color.YELLOW;
                         new Point(-35, 65, 80),
                         new Point(-35, 0, 80),
                         new Point(-40, 0, 96))
-                        .setMaterial(new Material()).setEmission(new Color(255,26,140));
+                        .setMaterial(new Material()).setEmission(new Color(255,26,140).scale(.9d));
 
         //rectangle 3
         Geometry door4 = new Polygon(
@@ -106,7 +106,7 @@ import static java.awt.Color.YELLOW;
                         new Point(20, 68.9, 96),//right
                         new Point(-40, 65, 96),//left
                         new Point(-40, 65, 80)//left
-                ).setMaterial(new Material()).setEmission(new Color(255,26,140));
+                ).setMaterial(new Material()).setEmission(new Color(255,26,140).scale(.9d));
 
 
         double radius = 1;
