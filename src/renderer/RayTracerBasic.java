@@ -347,29 +347,102 @@ public class RayTracerBasic extends RayTracerBase {
      * @param ray      the ray that intersected with the point
      * @return the local effects on the point as a Color object
      */
-    private Color calcLocalEffects(GeoPoint geoPoint, Ray ray, Double3 k) {
-        var color = geoPoint.getGeometry().getEmission();
+//    private Color calcLocalEffects(GeoPoint geoPoint, Ray ray, Double3 k) {
+//        var color = geoPoint.getGeometry().getEmission();
+//        Vector v = ray.getDir();
+//        Vector n = geoPoint.getGeometry().getNormal(geoPoint.getPoint());
+//        double nv = alignZero(n.dotProduct(v));
+//
+//        // if the ray is orthogonal to the point's normal it does not make any effect:
+//        if (isZero(nv))
+//            return color;
+//
+//        Material mat = geoPoint.getGeometry().getMaterial();
+//        for (LightSource light : scene.lights) {
+//            Vector l = light.getL(geoPoint.getPoint());
+//            double nl = n.dotProduct(l);
+//
+//            // Make sure that the perspective (camera) and the light source, are both in
+//            // the same side of the point's tangent plane sign(nl) == sign(nv)
+//            if (alignZero(nl * nv) > 0) {
+//                Double3 ktr = transparency(geoPoint, light, l, n);
+//              //  if (ktr.product(k).greaterThan(MIN_CALC_COLOR_K)) {
+//                if (ktr.product(k).greaterThan(MIN_CALC_COLOR_K)) {
+//                    Color iL = light.getIntensity(geoPoint.getPoint()).scale(ktr);
+//                    color = color.add(iL.scale(calcDiffusive(mat, nl)), iL.scale(calcSpecular(mat, n, l, nl, v)));
+//                }
+//            }
+//        }
+//        return color;
+//    }
+
+    //TODO : instead on previous calcLocalEffects function
+    private Color calcLocalEffects(GeoPoint intersection, Ray ray, Double3 k) {
+        // (Kd * |l.dorProduct(n)| ) * Il + (Ks * max(0 ,(-v).dotProduct(r))  nShinines) * Il
+        // l = vector from light source to the point
+        // n = normal vector to shape at point
+        // r = specular vector to vector from light to point
+        // v = ray from camera to point
+
+
+        // v
         Vector v = ray.getDir();
-        Vector n = geoPoint.getGeometry().getNormal(geoPoint.getPoint());
+        // n
+        Vector n = intersection.geometry.getNormal(intersection.point);
         double nv = alignZero(n.dotProduct(v));
+        if (nv == 0)
+            return Color.BLACK;
+        //  nShininess
+        int nShininess = intersection.geometry.getMaterial().nShininess;
+        // Kd
+        Double3 kD = intersection.geometry.getMaterial().kD;
+        // Ks
+        Double3 kS = intersection.geometry.getMaterial().kS;
+        Color color = Color.BLACK;
+        // loop through all light sources in scene
 
-        // if the ray is orthogonal to the point's normal it does not make any effect:
-        if (isZero(nv))
-            return color;
+        var lights = scene.lights;
+        if (softShadow) {
+            for (var lightSource : lights) {
+                Color colorBeam = Color.BLACK;
+                var vectors = lightSource.getListL(intersection.point);
+                for (var l:vectors) {
 
-        Material mat = geoPoint.getGeometry().getMaterial();
-        for (LightSource light : scene.lights) {
-            Vector l = light.getL(geoPoint.getPoint());
-            double nl = n.dotProduct(l);
+                    // l.dorProduct(n)
+                    double nl = alignZero(n.dotProduct(l));
+                    // check that light direction is towards shape and not behind
+                    if (nl * nv > 0) { // sign(nl) == sing(nv)
 
-            // Make sure that the perspective (camera) and the light source, are both in
-            // the same side of the point's tangent plane sign(nl) == sign(nv)
-            if (alignZero(nl * nv) > 0) {
-                Double3 ktr = transparency(geoPoint, light, l, n);
-              //  if (ktr.product(k).greaterThan(MIN_CALC_COLOR_K)) {
-                if (ktr.product(k).greaterThan(MIN_CALC_COLOR_K)) {
-                    Color iL = light.getIntensity(geoPoint.getPoint()).scale(ktr);
-                    color = color.add(iL.scale(calcDiffusive(mat, nl)), iL.scale(calcSpecular(mat, n, l, nl, v)));
+                        Double3 ktr = transparency(intersection, lightSource, l, n);
+                        if (ktr.scale(k).greaterThan(MIN_CALC_COLOR_K)) {
+                            Color lightIntensity = lightSource.getIntensity(intersection.point).scale(ktr);
+                            // (Kd * |l.dorProduct(n)|) * Il
+                            colorBeam = colorBeam.add(calcDiffusive(kD, nl, lightIntensity),
+                                    // (Ks * max(0 ,(-v).dotProduct(r))  nShinines ) * Il
+                                    calcSpecular(kS, nl, l, n, v, nShininess, lightIntensity));
+                        }
+                    }
+                }
+                color=color.add(colorBeam.reduce(vectors.size()));
+            }
+        }
+        else {
+            for (var lightSource : lights) {
+                // l
+                Vector l = lightSource.getL(intersection.point);
+                // l.dorProduct(n)
+                double nl = alignZero(n.dotProduct(l));
+                // check that light direction is towards shape and not behind
+                if (nl * nv > 0) { // sign(nl) == sing(nv)
+
+                    Double3 ktr = transparency(intersection, lightSource, l, n);
+                    if (ktr.scale(k).greaterThan(MIN_CALC_COLOR_K)) {
+                        Color lightIntensity = lightSource.getIntensity(intersection.point).scale(ktr);
+                        // (Kd * |l.dorProduct(n)|) * Il
+                        color = color.add(calcDiffusive(kD, nl, lightIntensity),
+                                // (Ks * max(0 ,(-v).dotProduct(r)) ** nShinines ) * Il
+                                calcSpecular(kS, nl, l, n, v, nShininess, lightIntensity));
+                    }
                 }
             }
         }

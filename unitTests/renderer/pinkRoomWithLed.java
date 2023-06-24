@@ -56,10 +56,6 @@ import static java.awt.Color.YELLOW;
                 .setMaterial(new Material().setKd(0.5));
 
 
-        Geometry Sphere1 = new Sphere(new Point(-30, 20, 40), 30)
-                .setEmission(new Color(RED))
-                .setMaterial(new Material().setKd(0.5).setKr(0.2).setShininess(100));
-
         //rectengle0
         Geometry door0 =
                 new Polygon(
@@ -67,7 +63,7 @@ import static java.awt.Color.YELLOW;
                         new Point(-60, 0, 90),
                         new Point(-60, 80, 90),
                         new Point(-75, 80, 130))
-                        .setMaterial(new Material()).setEmission(new Color(255,26,140).scale(1.2));
+                        .setMaterial(new Material()).setEmission(new Color(255,26,140).scale(1.11));
 
         //rectangle5
         Geometry door1 = new Polygon(
@@ -109,7 +105,13 @@ import static java.awt.Color.YELLOW;
                 ).setMaterial(new Material()).setEmission(new Color(255,26,140).scale(.9d));
 
 
-        double radius = 1;
+            Geometry Sphere1 = new Sphere(new Point(-30, 20, 40), 30)
+                    .setEmission(new Color(255, 153, 194).scale(0.7))
+                    .setMaterial(new Material().setKd(0.5).setKr(0.2).setShininess(100));
+
+
+
+            double radius = 1;
         Ray axisray = new Ray(new Point(0, 79, -15), new Vector(1, 0, 0));
         double length = 0.1;
 
@@ -118,50 +120,50 @@ import static java.awt.Color.YELLOW;
                 .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100).setKt(0.9));
 
 
-        //spot lights:
+        //spot lights on front wall:
         {// right
-            scene1.lights.add(new SpotLight(new Color(YELLOW).scale(1),
+            scene1.lights.add(new SpotLight(new Color(WHITE).scale(0.7),
                     new Point(14, 79, -15),
                     new Vector(-100, -40, 50)));
         }
 
-        {//MOOL DELET
-            scene1.lights.add(new SpotLight(new Color(YELLOW).scale(1),
-                    new Point(-34, 79, -15),
-                    new Vector(0, 0, 50)));
-        }
+//        {//MOOL DELET
+//            scene1.lights.add(new SpotLight(new Color(YELLOW).scale(0.7),
+//                    new Point(-34, 79, -15),
+//                    new Vector(0, 0, 50)));
+//        }
 
-        {//right after middle
-            scene1.lights.add(new SpotLight(new Color(YELLOW).scale(1),
-                    new Point(-24, 79, -15),
-                    new Vector(100, -40, 100)));
-        }
+//        {//right after middle
+//            scene1.lights.add(new SpotLight(new Color(YELLOW).scale(1),
+//                    new Point(-24, 79, -15),
+//                    new Vector(100, -40, 100)));
+//        }
 
-        {//right after right after middle
-            scene1.lights.add(new SpotLight(new Color(YELLOW).scale(1),
-                    new Point(-12, 79, -15),
-                    new Vector(40, 60, 100)));
-        }
+//        {//right after right after middle
+//            scene1.lights.add(new SpotLight(new Color(YELLOW).scale(1),
+//                    new Point(-12, 79, -15),
+//                    new Vector(40, 60, 100)));
+//        }
+//
+//        {//left right
+//            scene1.lights.add(new SpotLight(new Color(YELLOW).scale(0.7),
+//                    new Point(4, 79, -15),
+//                    new Vector(40, 60, 50)));
+//        }
 
-        {//left right
-            scene1.lights.add(new SpotLight(new Color(YELLOW).scale(1),
-                    new Point(4, 79, -15),
-                    new Vector(40, 60, 50)));
-        }
-
-        //points lights//
-         for(int i = 0; i < 100; i+=15) {
-             scene1.lights.add(new PointLight(new Color(YELLOW),
+        //points lights on right wall
+         for(int i = 0; i <40; i+=10) {
+             scene1.lights.add(new PointLight(new Color(WHITE).scale(0.6),
                      new Point(34, 79, i),
                      1,
                      0.01111,
-                     0.0111));
+                     0.000111));
          }
 
-         //not done, its the door shaddow on sphere
-         scene1.lights.add(new SpotLight(new Color(YELLOW).scale(0.3),
-                 new Point(30, 65, 100),
-                 new Vector(-30, 20, -40)));
+//         //not done, its the door shaddow on sphere
+//         scene1.lights.add(new SpotLight(new Color(YELLOW).scale(0.3),
+//                 new Point(30, 65, 100),
+//                 new Vector(-30, 20, -40)));
 
             double radius2 = 1;
             Ray axisray2 = new Ray(new Point(32, 79, 0), new Vector(0, 0, 1));
