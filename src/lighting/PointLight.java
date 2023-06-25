@@ -5,6 +5,13 @@ import primitives.Double3;
 import primitives.Point;
 import primitives.Vector;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+
+import static java.lang.Math.sqrt;
+import static primitives.Util.isZero;
+
 /**
  * PointLight class is the class representing a point light
  * extends Light implements LightSource
@@ -13,6 +20,8 @@ import primitives.Vector;
  * @author Pazit and Leah
  */
 public class PointLight extends Light implements LightSource {
+
+    private static final Random RND = new Random(); //for soft shadows
 
     /**
      * the position of the light
@@ -133,6 +142,59 @@ public class PointLight extends Light implements LightSource {
 
         // Return the resulting distance
         return dis;
+    }
+
+    @Override
+    public List<Vector> getLCircle(Point p, double r, int amount) {
+        if (p.equals(position))
+            return null;
+
+        List<Vector> result = new LinkedList<>();
+
+        Vector l = getL(p); //vector to the center of the point light
+        result.add(l);
+
+        if (amount < 2) {
+            return result;
+        }
+
+        Vector vAcross;
+        if (isZero(l.getX()) && isZero(l.getY())) { //if l is parallel to z axis, then the normal is across z on x axis
+            vAcross = new Vector(-1 * l.getZ(), 0, 0).normalize();
+        } else { //otherwise get the normal using x and y
+            vAcross = new Vector(-1 * l.getY(), l.getX(), 0).normalize();
+        }
+        Vector vForward = vAcross.crossProduct(l).normalize(); //the vector to the other direction
+
+        double cosAngle, sinAngle, moveX, moveY, d;
+
+        for (int i = 0; i < amount; i++) {
+            Point movedPoint = this.position;
+
+            cosAngle = 2 * RND.nextDouble() - 1; //random cosine of angle between (-1,1)
+            sinAngle = sqrt(1 - cosAngle * cosAngle); //sin(angle)=1-cos^2(angle)
+
+            d = r * (2 * RND.nextDouble() - 1); //d is between (-r,r)
+            if (isZero(d)) { //if we got 0 then try again, because it will just be the same as the center
+                i--;
+                continue;
+            }
+
+            //says how much to move across and down
+            moveX = d * cosAngle;
+            moveY = d * sinAngle;
+
+            //moving the point according to the value
+            if (!isZero(moveX)) {
+                movedPoint = movedPoint.add(vAcross.scale(moveX));
+            }
+            if (!isZero(moveY)) {
+                movedPoint = movedPoint.add(vForward.scale(moveY));
+            }
+
+            result.add(p.subtract(movedPoint).normalize()); //adding the vector from the new point to the light position
+        }
+        return result;
     }
 
 

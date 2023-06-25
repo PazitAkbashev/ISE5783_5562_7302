@@ -177,8 +177,11 @@ import static java.awt.Color.YELLOW;
                     floor, led, ledRight, Sphere1, door0, door1,
                     door2, door3, door4, door5);
 
-        ImageWriter imageWriter = new ImageWriter("pinkRoom", 1000, 1000);
+        ImageWriter imageWriter = new ImageWriter("pinkRoomWithSoftShaddow", 1000, 1000);
         camera3.setImageWriter(imageWriter)
-                .setRayTracer(new RayTracerBasic(scene1)).renderImage().writeToImage();
+                .setRayTracer(new RayTracerBasic(scene1).useSoftShadow(true)
+                        .setNumOfSSRays(100).setRadiusBeamSS(50D) )
+                .renderImage()
+                .writeToImage();
         }
     }
