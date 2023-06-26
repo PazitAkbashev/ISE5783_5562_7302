@@ -9,11 +9,12 @@ import static primitives.Util.isZero;
 
 /**
  * This class represent a Cylinder - finite tube.
- * cilinder contains radius (- in RadialGeometry class),
+ * cylinder contains radius (- in RadialGeometry class),
  * axisRay (- in Tube class)
+ * top and base cups
  * and length
  *
- * @author Pazit and Leah
+ * @author Pazit and Leah - 26.06.23
  */
 public class Cylinder extends Tube {
     //the length - the height of the cylinder
@@ -48,33 +49,10 @@ public class Cylinder extends Tube {
     //otherwise return null
     @Override
     public Vector getNormal(Point point) {
-//
-//        //the starting point of the axis ray
-//        Point p0 = axisRay.getP0();
-//
-//        //the direction of the axis ray
-//        Vector v = axisRay.getDir();
-//
-//        // Vector from the starting point of the axis ray to the given point
-//        Vector p0_p = point.subtract(p0);
-//
-//        // Projection of the vector p0_p onto the axis ray
-//       // double t = alignZero(p0_p.dotProduct(v));
-//        double t= v.dotProduct(point.subtract(p0));
-//       // check if the point is on the top
-//        if(isZero(t-length)){
-//            return v;
-//        }
-//        //check if the point is on the bottom
-//        if(isZero(t))
-//            return v.scale(-1).normalize();
-//
-//        Point o = p0.add((v.scale(t)));
-//        Vector o_p = point.subtract(o);
-//        return o_p.normalize();
-
-
+        //the direction of the axis ray
         Vector v= axisRay.getDir();
+
+        //the starting point of the axis ray
         Point p0 =axisRay.getP0();
 
         //if p=p0, then (p-p0) is zero vector
@@ -84,6 +62,7 @@ public class Cylinder extends Tube {
         }
 
         double t= v.dotProduct(point.subtract(p0));
+
         //check if the point on the bottom
         if(isZero(t)){
             return v.scale(-1);
@@ -92,7 +71,6 @@ public class Cylinder extends Tube {
         if(isZero(t-length)){
             return v;
         }
-
         Point o=p0.add(v.scale(t));
         Vector o_p = point.subtract(o).normalize();
         return o_p;

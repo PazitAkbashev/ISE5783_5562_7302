@@ -12,9 +12,11 @@ import static primitives.Util.isZero;
 /**
  * Class describe tube, the tube is infinity.
  *
- * @author Pazit and Lea
+ * @author Pazit and Lea - 26.06.23
  */
 public class Tube extends RadialGeometry {
+
+    // Ray, the ray contains the direction and the center point of the ray
     final Ray axisRay;
 
     /**
@@ -61,18 +63,18 @@ public class Tube extends RadialGeometry {
         return n;
     }
 
-    //!!!!!!!!!check comments, and change names to be meaning full!!!!!!!!!!!
-
-    @Override
     //https://hugi.scene.org/online/hugi24/coding%20graphics%20chris%20dragan%20raytracing%20shapes.htm
     //( -this link added by Eliezer)
     //----BONUS----
     //otherwise return null
+    @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         // Direction vector of the cylinder's axis
         Vector vAxis = axisRay.getDir();
+
         // Direction vector of the ray
         Vector v = ray.getDir();
+
         // Starting point of the ray
         Point p0 = ray.getP0();
 

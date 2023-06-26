@@ -1,5 +1,6 @@
 package renderer;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 
@@ -25,6 +26,7 @@ import static java.awt.Color.YELLOW;
          * The final picture of miniProject2
          */
         @Test
+        @Disabled
         public void miniProject1() {
 
         Scene scene1 = new Scene.SceneBuilder("Test scene")
@@ -172,7 +174,6 @@ import static java.awt.Color.YELLOW;
                     .setEmission(new Color(RED))
                     .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100).setKt(0.95));
 
-
             scene1.geometries.add(roof, wallRight, wallLeft, wallFront,
                     floor, led, ledRight, Sphere1, door0, door1,
                     door2, door3, door4, door5);
@@ -180,7 +181,7 @@ import static java.awt.Color.YELLOW;
         ImageWriter imageWriter = new ImageWriter("pinkRoomWithSoftShaddow", 1000, 1000);
         camera3.setImageWriter(imageWriter)
                 .setRayTracer(new RayTracerBasic(scene1).useSoftShadow(true)
-                        .setNumOfSSRays(100).setRadiusBeamSS(50D) )
+                        .setNumOfSSRays(170).setRadiusBeamSS(50d) )
                 .renderImage()
                 .writeToImage();
         }

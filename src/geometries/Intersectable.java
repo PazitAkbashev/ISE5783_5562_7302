@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  * Intersectable is an interface for all geometries that are able to intersect
  *
- * @author Pazit and Leah
+ * @author Pazit and Leah - 26.06.23
  */
 public abstract class Intersectable { //++
 
@@ -23,7 +23,7 @@ public abstract class Intersectable { //++
     public final List<Point> findIntersections(Ray ray) { //++
         // findGeoIntersections() function finds intersections between the ray and the geometry
         // returns a list of GeoPoint objects
-        var geoList = findGeoIntersections(ray);
+        List<GeoPoint> geoList = findGeoIntersections(ray);
 
         //if the list is null, return null
         return geoList == null ? null
@@ -75,8 +75,8 @@ public abstract class Intersectable { //++
      * Represents a point of intersection between a ray and a geometry object.
      */
     public static class GeoPoint {
-        // The geometry object of the intersection
-        public Geometry geometry; //++
+        // The geometry object of the intersection - public not final!!
+        public  Geometry geometry; //++
 
         // The point of intersection
         private final Point point; //++
@@ -95,7 +95,6 @@ public abstract class Intersectable { //++
             this.point = point;
         }
 
-        //private?????????????????
         /**
          * Returns the geometry object of the intersection.
          * geometry defined as private final
@@ -127,12 +126,7 @@ public abstract class Intersectable { //++
             GeoPoint geoPoint = (GeoPoint) obj;
             return geometry.equals(geoPoint.geometry) && point.equals(geoPoint.point);
         }
-//
-//        @Override
-//        public int hashCode() {
-//            return Objects.hash(geometry, point);
-//        }
-//
+
         @Override
         public String toString() { //++
             return "GeoPoint{" +

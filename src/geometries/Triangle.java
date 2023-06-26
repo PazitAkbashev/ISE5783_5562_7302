@@ -11,7 +11,7 @@ import static primitives.Util.alignZero;
 /**
  * Class describe triangle, polygon with 3 points.
  *
- * @author Pazit and Leah
+ * @author Pazit and Leah - 26.06.23
  */
 public class Triangle extends Polygon {
 
@@ -42,32 +42,33 @@ public class Triangle extends Polygon {
 
         boolean isThereIntersections;
 
-        // The triangle is defined by 3 points, p1, p2, p3.*/
+        // The triangle is defined by 3 points, p1, p2, p3.
         Point point1 = vertices.get(0);
         Point point2 = vertices.get(1);
         Point point3 = vertices.get(2);
 
-        // The triangle is defined by 3 vectors, v1, v2, v3.*/
+        // The triangle is defined by 3 vectors, v1, v2, v3.
         Vector vector1 = point1.subtract(p0);
         Vector vector2 = point2.subtract(p0);
         Vector vector3 = point3.subtract(p0);
 
-        // The triangle is defined by 3 normals, normal1, normal2, normal3.*/
+        // The triangle is defined by 3 normals, normal1, normal2, normal3.
         Vector normal1 = vector1.crossProduct(vector2);
         Vector normal2 = vector2.crossProduct(vector3);
         Vector normal3 = vector3.crossProduct(vector1);
 
-        // The triangle is defined by 3 signs, s1, s2, s3.*/
+        // The triangle is defined by 3 signs, s1, s2, s3.
         double s1 = alignZero(v.dotProduct(normal1));
         double s2 = alignZero(v.dotProduct(normal2));
         double s3 = alignZero(v.dotProduct(normal3));
 
-        // If all signs are positive or negative, there is no intersections.*/
+        // If all signs are positive or negative, there is no intersections.
         isThereIntersections = (s1 > 0 && s2 > 0 && s3 > 0) || (s1 < 0 && s2 < 0 && s3 < 0);
         if (!isThereIntersections)
             return null;
 
-        return List.of(new GeoPoint(this, result.get(0).getPoint()));
+        List<GeoPoint> intersections = List.of(new GeoPoint(this, result.get(0).getPoint()));
+        return intersections;
     }
 }
 

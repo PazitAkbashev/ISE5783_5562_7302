@@ -275,9 +275,9 @@ public class RayTracerBasic extends RayTracerBase {
         double nv = alignZero(n.dotProduct(v));
 
         //====================================
-        int nShininess = geoPoint.geometry.getMaterial().nShininess;
-        Double3 kD = geoPoint.geometry.getMaterial().kD;
-        Double3 kS = geoPoint.geometry.getMaterial().kS;
+        int nShininess = geoPoint.getGeometry().getMaterial().nShininess;
+        Double3 kD = geoPoint.getGeometry().getMaterial().kD;
+        Double3 kS = geoPoint.getGeometry().getMaterial().kS;
 
         //====================================
         // if the ray is orthogonal to the point's normal it does not make any effect:
