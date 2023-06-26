@@ -1,8 +1,6 @@
 package renderer;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
 
 import lighting.*;
 import primitives.*;
@@ -11,14 +9,9 @@ import scene.Scene;
 
 import static java.awt.Color.*;
 
-import geometries.*;
 import lighting.SpotLight;
-import org.junit.jupiter.api.Test;
-import primitives.*;
-import scene.Scene;
 
 import static java.awt.Color.RED;
-import static java.awt.Color.YELLOW;
 
     public class pinkRoomWithLed {
 
@@ -26,7 +19,6 @@ import static java.awt.Color.YELLOW;
          * The final picture of miniProject2
          */
         @Test
-        @Disabled
         public void miniProject1() {
 
         Scene scene1 = new Scene.SceneBuilder("Test scene")
@@ -122,7 +114,7 @@ import static java.awt.Color.YELLOW;
                 .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(100).setKt(0.9));
 
 
-        //spot lights on front wall:
+        //spotlights on front wall:
         {// right
             scene1.lights.add(new SpotLight(new Color(WHITE).scale(0.7),
                     new Point(14, 79, -15),
@@ -162,11 +154,6 @@ import static java.awt.Color.YELLOW;
                      0.000111));
          }
 
-//         //not done, its the door shaddow on sphere
-//         scene1.lights.add(new SpotLight(new Color(YELLOW).scale(0.3),
-//                 new Point(30, 65, 100),
-//                 new Vector(-30, 20, -40)));
-
             double radius2 = 1;
             Ray axisray2 = new Ray(new Point(32, 79, 0), new Vector(0, 0, 1));
             double length2 = 0.1;
@@ -181,7 +168,7 @@ import static java.awt.Color.YELLOW;
         ImageWriter imageWriter = new ImageWriter("pinkRoomWithSoftShaddow", 1000, 1000);
         camera3.setImageWriter(imageWriter)
                 .setRayTracer(new RayTracerBasic(scene1).useSoftShadow(true)
-                        .setNumOfSSRays(170).setRadiusBeamSS(50d) )
+                        .setNumOfSSRays(100).setRadiusBeamSS(50d) )
                 .renderImage()
                 .writeToImage();
         }

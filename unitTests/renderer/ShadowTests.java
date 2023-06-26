@@ -101,10 +101,10 @@ public class ShadowTests {
      */
     @Test
     public void sphereTriangleSpot1() {
-//        sphereTriangleHelper("shadowSphereTriangleSpot1", //
-//                new Triangle(new Point(-70, -40, 0),
-//                new Point(-40, -70, 0), new Point(-68, -68, -4)), //
-//                new Point( ? ??, ???, ???));
+        sphereTriangleHelper("shadowSphereTriangleSpot1", //
+                new Triangle(new Point(-70, -40, 0),
+                new Point(-40, -70, 0), new Point(-68, -68, -4)), //
+                new Point(-80,-88, 120));
     }
 
     /**
@@ -112,9 +112,9 @@ public class ShadowTests {
      */
     @Test
     public void sphereTriangleSpot2() {
-//        sphereTriangleHelper("shadowSphereTriangleSpot2", //
-//                new Triangle(new Point(-70, -40, 0), new Point(-40, -70, 0), new Point(-68, -68, -4)), //
-//                new Point( ? ??, ???, ???));
+        sphereTriangleHelper("shadowSphereTriangleSpot2", //
+                new Triangle(new Point(-70, -40, 0), new Point(-40, -70, 0), new Point(-68, -68, -4)), //
+                new Point(-76, -76, 70));
     }
 
     /**
@@ -124,12 +124,6 @@ public class ShadowTests {
     @Test
     public void trianglesSphere() {
         scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15));
-        Scene scene1 = new Scene.
-                SceneBuilder("Test scene1").
-                setAmbientLight(new AmbientLight(
-                        new Color(WHITE),
-                        0.15)).
-                build();
 
         scene.geometries.add( //
                 new Triangle

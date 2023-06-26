@@ -18,16 +18,9 @@ public class Vector extends Point {
      * @param y value of y
      * @param z value of z
      */
-//    public Vector(double x, double y, double z) {
-//        this(new Double3(x, y, z));
-//    }
-    public Vector(double x,double y,double z)//shinitiiiiiiii
-    {
-        super(x,y,z);
-        if(Double3.ZERO.equals(new Double3(x,y,z)))
-            throw new IllegalArgumentException("vector 0");
+    public Vector(double x, double y, double z) {
+        this(new Double3(x, y, z));
     }
-
 
     /**
      * A constructor that accepts an object of type Double3 permission

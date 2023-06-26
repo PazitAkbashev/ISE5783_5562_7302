@@ -11,23 +11,24 @@ import java.util.List;
  * extends Light implements LightSource
  * in direction light no attenuation with distance
  *
- * @author pazit  and Leah
+ * @author Pazit and Leah - 26.06.23
  */
 public class DirectionalLight extends Light implements LightSource {
 
-    /**
-     * the direction of the light
-     */
+    //the direction of the light
     private final Vector direction;
 
     /**
-     * constructor
+     * constructor for directional light
      *
      * @param intensity
      * @param direction
      */
     public DirectionalLight(Color intensity, Vector direction) {
+        //initialize the intensity by sending it to fathers class
         super(intensity);
+
+        //initialize the direction vector of the light
         this.direction = direction.normalize();
     }
 
@@ -48,9 +49,9 @@ public class DirectionalLight extends Light implements LightSource {
 
     @Override
     public List<Vector> getLCircle(Point p, double r, int amount) {
-        return List.of(getL(p));
+        //list of rays for soft shadows
+        List<Vector> list = List.of(getL(p));
+        return list;
     }
-
-
 }
 

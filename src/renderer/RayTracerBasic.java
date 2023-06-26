@@ -294,9 +294,11 @@ public class RayTracerBasic extends RayTracerBase {
             if (alignZero(nl * nv) > 0) {
                 Double3 ktr = transparency(geoPoint, light, l, n);
                 //================================================
-                if (!isSoftShadow) { //if soft shadow is not activated, get the regular transparency
+                //if soft shadow is not activated, get the regular transparency
+                if (!isSoftShadow) {
                     ktr = transparency(geoPoint, light, l, n);
-                } else { //otherwise get the transparency level according to soft shadow
+                    //otherwise get the transparency level according to soft shadow
+                } else {
                     ktr = transparencySS(geoPoint, light, n);
                 }
                 if (!(ktr.product(k)).lowerThan(MIN_CALC_COLOR_K)) {
@@ -309,15 +311,6 @@ public class RayTracerBasic extends RayTracerBase {
         return color;
 
         //=================================================
-        //  if (ktr.product(k).greaterThan(MIN_CALC_COLOR_K)) {
-//                if (ktr.product(k).greaterThan(MIN_CALC_COLOR_K)) {
-//                    Color iL = light.getIntensity(geoPoint.getPoint()).scale(ktr);
-//                    color = color.add(iL.scale(calcDiffusive(mat, nl)), iL.scale(calcSpecular(mat, n, l, nl, v)));
-        //              }
-        //      }
-        //   }
-        //     return color;
-
     }
 
 

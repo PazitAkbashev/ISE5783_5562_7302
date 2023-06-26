@@ -7,13 +7,11 @@ import primitives.Double3;
  * AmbientLight class is the basic class representing an ambient light
  * It is responsible for the intensity of the ambient light
  *
- * @author pazit and Leah
+ * @author Pazit and Leah - 26.06.23
  */
 public class AmbientLight extends Light {
 
-    /**
-     * default ambient light
-     */
+    //default ambient light
     public static final AmbientLight NONE = new AmbientLight(Color.BLACK, Double3.ZERO);
 
     /**
@@ -35,6 +33,4 @@ public class AmbientLight extends Light {
     public AmbientLight(Color iA, double kA) {
         super(iA.scale(kA));
     }
-
-
 }

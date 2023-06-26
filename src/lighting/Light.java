@@ -5,13 +5,11 @@ import primitives.Color;
 /**
  * Light class is the abstract class for all the lights in the scene
  *
- * @author Pazit and Leah
+ * @author Pazit and Leah - 26.06.23
  */
 abstract class Light {
 
-    /**
-     * the intensity of light
-     */
+    //the intensity of light
     private final Color intensity;
 
     /**
@@ -24,7 +22,7 @@ abstract class Light {
     }
 
     /**
-     * getIntensity function is the function that return the intensity of the light
+     * getter for the intensity of the light
      *
      * @return the intensity of the light
      */

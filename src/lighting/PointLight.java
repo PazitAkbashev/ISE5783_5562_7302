@@ -21,59 +21,55 @@ import static primitives.Util.isZero;
  */
 public class PointLight extends Light implements LightSource {
 
-    private static final Random RND = new Random(); //for soft shadows
+    //for random number of rays to create for soft shadows
+    private static final Random RND = new Random();
 
-    /**
-     * the position of the light
-     */
+    //the position of the point light
     private final Point position;
 
-    /**
-     * the attenuation factors
-     */
+    //the kc attenuation factors
     private Double3 kC = Double3.ONE;
 
-    /**
-     * the attenuation factors
-     */
+    //the kl attenuation factors
     private Double3 kL = Double3.ZERO;
 
-    /**
-     * the attenuation factors
-     */
+    //the kq attenuation factors
     private Double3 kQ = Double3.ZERO;
 
     /**
-     * constructor
+     * constructor for PointLight class
      *
-     * @param intensity the intensity of the light
-     * @param position  the position of the light
+     * @param intensity - the intensity of the light
+     * @param position - the position of the light
      */
     public PointLight(Color intensity, Point position) {
+        //initialize the intensity by calling to the fathers constructor
         super(intensity);
+
+        //initialize the position of the light
         this.position = position;
     }
 
     /**
-     * constructor
+     * constructor for PointLight class with attenuation factors
      *
      * @param intensity the intensity of the light
      * @param position  the position of the light
-     * @param kC        attenuation factors
-     * @param kL        attenuation factors
-     * @param kQ        attenuation factors
+     * @param kC - attenuation factors
+     * @param kL - attenuation factors
+     * @param kQ - attenuation factors
      */
     public PointLight(Color intensity, Point position, double kC, double kL, double kQ) {
+        //initialize the intensity by calling to the fathers constructor
         super(intensity);
+
+        //initialize the position
         this.position = position;
+
+        //initialize the attenuation factors
         setKc(kC);
         setKl(kL);
         setKq(kQ);
-    }
-
-    public PointLight setKc(Double3 kC) {
-        this.kC = kC;
-        return this;
     }
 
     /**
@@ -84,23 +80,58 @@ public class PointLight extends Light implements LightSource {
         return this;
     }
 
-    public PointLight setKl(Double3 kL) {
-        this.kL = kL;
-        return this;
-    }
-
+    /**
+     * setter for the kL attenuation factor
+     *
+     * @param kL - the attenuation factor
+     * @return the object itself
+     */
     public PointLight setKl(double kL) {
         this.kL = new Double3(kL);
         return this;
     }
 
+    /**
+     * setter for the kQ attenuation factor
+     *
+     * @param kQ - the attenuation factor
+     * @return the object itself
+     */
+    public PointLight setKq(double kQ) {
+        this.kQ = new Double3(kQ);
+        return this;
+    }
+
+    /**
+     * setter for the kQ attenuation factor
+     *
+     * @param kQ - the attenuation factor
+     * @return the object itself
+     */
     public PointLight setKq(Double3 kQ) {
         this.kQ = kQ;
         return this;
     }
 
-    public PointLight setKq(double kQ) {
-        this.kQ = new Double3(kQ);
+    /**
+     * setter for the kL attenuation factor
+     *
+     * @param kL - the attenuation factor
+     * @return the object itself
+     */
+    public PointLight setKl(Double3 kL) {
+        this.kL = kL;
+        return this;
+    }
+
+    /**
+     * setter for the kC attenuation factor
+     *
+     * @param kC - the attenuation factor
+     * @return the object itself
+     */
+    public PointLight setKc(Double3 kC) {
+        this.kC = kC;
         return this;
     }
 
@@ -159,23 +190,34 @@ public class PointLight extends Light implements LightSource {
         }
 
         Vector vAcross;
-        if (isZero(l.getX()) && isZero(l.getY())) { //if l is parallel to z axis, then the normal is across z on x axis
-            vAcross = new Vector(-1 * l.getZ(), 0, 0).normalize();
-        } else { //otherwise get the normal using x and y
-            vAcross = new Vector(-1 * l.getY(), l.getX(), 0).normalize();
+        //if l is parallel to z axis, then the normal is across z on x-axis
+        if (isZero(l.getX()) && isZero(l.getY())) {
+            //switch z and x places
+            vAcross = new Vector(0, 0, -1 * l.getZ()).normalize();
+            //otherwise get the normal using x and y
+        } else {//switched x and y places
+            vAcross = new Vector(l.getX(),-1 * l.getY(),  0).normalize();
         }
-        Vector vForward = vAcross.crossProduct(l).normalize(); //the vector to the other direction
+
+
+        //the vector to the other direction
+        Vector vForward = vAcross.crossProduct(l).normalize();
 
         double cosAngle, sinAngle, moveX, moveY, d;
 
         for (int i = 0; i < amount; i++) {
             Point movedPoint = this.position;
 
-            cosAngle = 2 * RND.nextDouble() - 1; //random cosine of angle between (-1,1)
-            sinAngle = sqrt(1 - cosAngle * cosAngle); //sin(angle)=1-cos^2(angle)
+            //random cosine of angle between (-1,1)
+            cosAngle = 2 * RND.nextDouble() - 1;
 
-            d = r * (2 * RND.nextDouble() - 1); //d is between (-r,r)
-            if (isZero(d)) { //if we got 0 then try again, because it will just be the same as the center
+            //sin(angle)=1-cos^2(angle)
+            sinAngle = sqrt(1 - cosAngle * cosAngle);
+
+            //d is between (-r,r)
+            d = r * (2 * RND.nextDouble() - 1);
+            //if we got 0 then try again, because it will just be the same as the center
+            if (isZero(d)) {
                 i--;
                 continue;
             }
@@ -192,10 +234,9 @@ public class PointLight extends Light implements LightSource {
                 movedPoint = movedPoint.add(vForward.scale(moveY));
             }
 
-            result.add(p.subtract(movedPoint).normalize()); //adding the vector from the new point to the light position
+            //adding the vector from the new point to the light position
+            result.add(p.subtract(movedPoint).normalize());
         }
         return result;
     }
-
-
 }
