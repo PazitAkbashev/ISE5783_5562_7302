@@ -7,11 +7,19 @@ import java.util.List;
 import static primitives.Util.isZero;
 
 /**
+ * This class represents a ray in space as a starting point and a direction.
  *
+ * @author Pazit and Leah - 26.06.23
  */
 public class Ray {
+
+    //the delta for moving the ray's head
     private static final double DELTA = 0.1d;
+
+    //the starting point of the ray
     private final Point p0;
+
+    //the direction of the ray
     private final Vector dir;
 
     /**
@@ -21,40 +29,48 @@ public class Ray {
      * @param dir The direction of the ray as a Vector object.
      */
     public Ray(Point p0, Vector dir) {
+        //initialize the starting point of the ray
         this.p0 = p0;
+
+        //initialize the direction vector of the ray
         this.dir = dir.normalize();
     }
-
 
     /**
      * Constructs a new Ray object with a given starting point and direction.
      * offset by the normal of the geometry
      *
-     * @param point original point
-     * @param dir   direction of the ray
-     * @param n     normal of the geometry at this point
+     * @param point - original point
+     * @param dir - direction of the ray
+     * @param n - normal of the geometry at this point
      */
     public Ray(Point point, Vector dir, Vector n) {
+        // calculate the dot product between the normal and the direction vector
         double nl = n.dotProduct(dir);
+
+        // if the ray is orthogonal to the normal, move the ray's head by delta
         Vector delta = n.scale(nl >= 0 ? DELTA : -DELTA);
+
+        //initialize the starting point of the ray
         this.p0 = point.add(delta);
-        //this.dir = dir.normalize(); //only for checking
+
+        //initialize the direction vector of the ray
         this.dir = dir;
     }
 
     /**
-     * Returns the starting point of the ray as a Point object.
+     * getter for the starting point of the ray
      *
-     * @return The starting point of the ray.
+     * @return - The starting point of the ray.
      */
     public Point getP0() {
         return p0;
     }
 
     /**
-     * Returns the direction of the ray as a Vector object.
+     * getter for the direction vector of the ray
      *
-     * @return The direction of the ray.
+     * @return - The direction of the ray.
      */
     public Vector getDir() {
         return dir;
@@ -64,16 +80,22 @@ public class Ray {
      * Returns a new Point object that is a specific distance
      * along the ray from the starting point.
      *
-     * @param t The distance from the starting point of the desired point on the ray.
+     * @param t - The distance from the starting point of the desired point on the ray.
      * @return A new Point object at distance t along the direction of the ray.
      */
     public Point getPoint(double t) {
         // if t is zero, return the starting point of the ray
-//        if (isZero(t))  //in comment for checking only
-//            return p0;
+        if (isZero(t))
+            return p0;
         return p0.add(dir.scale(t));
     }
 
+    /**
+     * find the closest point to the ray from a list of points.
+     *
+     * @param points - list of points
+     * @return the closest point
+     */
     public Point findClosestPoint(List<Point> points) {
         return points == null || points.isEmpty() ? null :
                 findClosestGeoPoint(points.stream().map
@@ -120,11 +142,8 @@ public class Ray {
         return getP0().equals(ray.getP0()) && getDir().equals(ray.getDir());
     }
 
-
     @Override
     public String toString() {
         return p0.toString() + dir.toString();
     }
-
-
 }

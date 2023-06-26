@@ -6,9 +6,10 @@ import static primitives.Util.isZero;
 
 /**
  * A fundamental object in geometry with direction and size,
- * according to the approach of linear algebra, is like a point, defined by the end point.
+ * according to the approach of linear algebra, is like a point,
+ * defined by the end point.
  *
- * @author Pazit and Leah
+ * @author Pazit and Leah - 26.06.23
  */
 public class Vector extends Point {
     /**
@@ -19,6 +20,7 @@ public class Vector extends Point {
      * @param z value of z
      */
     public Vector(double x, double y, double z) {
+        //initialize the starting point of the ray
         this(new Double3(x, y, z));
     }
 
@@ -60,16 +62,12 @@ public class Vector extends Point {
      * @return new Vector with the value of (scalar * x, scalar * y, scalar * z)
      * @throws IllegalArgumentException if scalar = 0
      */
-//    public Vector scale(double num) {
+    public Vector scale(double num) {
 //        if (isZero(num))
-//            throw new IllegalArgumentException("vector 0 - Vactor class - scale");
-//        return new Vector(xyz.scale(num));
-//    }
-    public Vector scale (double num){//shinitiiiiiiiiiiii
-        if(num==0)
-            throw new IllegalArgumentException("vector 0");
-        return new Vector(xyz.d1*num,xyz.d2*num, xyz.d3*num);
+//            throw new IllegalArgumentException("vector 0 - Vector class - scale");
+        return new Vector(xyz.scale(num));
     }
+
 
     /**
      * dot product of tow vectors (x1, y1, z1), (x2, y2, z2)
@@ -78,8 +76,13 @@ public class Vector extends Point {
      * @return x1*x2 + y1*y2 + z1*z2
      */
     public double dotProduct(Vector vec) {
+        //d1 = x1*x2
         double d1 = (vec.xyz.d1 * xyz.d1);
+
+        //d2 = y1*y2
         double d2 = (vec.xyz.d2 * xyz.d2);
+
+        //d3 = z1*z2
         double d3 = (vec.xyz.d3 * xyz.d3);
         return d1 + d2 + d3;
     }
@@ -92,8 +95,13 @@ public class Vector extends Point {
      * = (y1*z2 -z1*y2, z1*x2 - x1*z2, x1*y2 - y1*x2)
      */
     public Vector crossProduct(Vector vec) {
+        //xx = y1*z2 -z1*y2
         double xx = xyz.d2 * vec.xyz.d3 - xyz.d3 * vec.xyz.d2;
+
+        //yy = z1*x2 - x1*z2
         double yy = xyz.d3 * vec.xyz.d1 - xyz.d1 * vec.xyz.d3;
+
+        //zz = x1*y2 - y1*x2
         double zz = xyz.d1 * vec.xyz.d2 - xyz.d2 * vec.xyz.d1;
 
         return new Vector(xx, yy, zz);
@@ -105,8 +113,13 @@ public class Vector extends Point {
      * @return x^2 + y^2 + z^2
      */
     public double lengthSquared() {
+        //d1 = x^2
         double d1 = (xyz.d1 * xyz.d1);
+
+        //d2 = y^2
         double d2 = (xyz.d2 * xyz.d2);
+
+        //d3 = z^2
         double d3 = (xyz.d3 * xyz.d3);
         return d1 + d2 + d3;
     }

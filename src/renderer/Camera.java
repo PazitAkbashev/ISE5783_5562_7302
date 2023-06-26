@@ -10,9 +10,10 @@ import java.util.MissingResourceException;
 import static primitives.Util.isZero;
 
 /**
- * This class represents a Camera, defined by a position and 3 direction vectors.
+ * This class represents a Camera,
+ * defined by a position and 3 direction vectors.
  *
- * @author pazit and lea
+ * @author pazit and lea - 26.06.23
  **/
 public class Camera {
     //camera's location
@@ -39,6 +40,7 @@ public class Camera {
     //image writer, contain parameters: image name, Nx, Ny, width, height
     private ImageWriter imageWriter;
 
+    //ray tracer, contain parameters: scene, image writer
     private RayTracerBase rayTracer;
 
     /**
@@ -52,8 +54,10 @@ public class Camera {
         if (!isZero(vTo.dotProduct(vUp))) {
             throw new IllegalArgumentException("vto  and vup are not orthogonal");
         }
+        //initialize the camera's location
         this.p0 = p0;
 
+        //initialize the camera's direction vectors -
         //saving only normalize vectors
         this.vUp = vUp.normalize();
         this.vTo = vTo.normalize();
@@ -62,31 +66,68 @@ public class Camera {
         vRight = this.vTo.crossProduct(this.vUp);
     }
 
-    //camera's getters
+    /**
+     * getter for the camera's location
+     *
+     * @return the camera's location
+     */
     public Point getP0() {
         return p0;
     }
 
+    /**
+     * getter for the camera's direction vector pointing
+     * right from the camera's perspective
+     *
+     * @return the camera's direction vector pointing
+     */
     public Vector getvRight() {
         return vRight;
     }
 
+    /**
+     * getter for the camera's direction vector pointing
+     * up from the camera's perspective
+     *
+     * @return the camera's direction vector pointing
+     */
     public Vector getvUp() {
         return vUp;
     }
 
+    /**
+     * getter for the camera's direction vector pointing
+     * right from the camera's perspective
+     *
+     * @return the camera's direction vector pointing
+     */
     public Vector getvTo() {
         return vTo;
     }
 
+    /**
+     * getter for the camera's height
+     *
+     * @return the camera's height
+     */
     public double getHeight() {
         return height;
     }
 
+    /**
+     * getter for the camera's width
+     *
+     * @return the camera's width
+     */
     public double getWidth() {
         return width;
     }
 
+    /**
+     * getter for the camera's distance
+     *
+     * @return the camera's distance
+     */
     public double getDistance() {
         return distance;
     }
@@ -161,7 +202,8 @@ public class Camera {
      * Renders the image by casting rays and setting the colors of the pixels.
      *
      * @return The Camera object after rendering the image.
-     * @throws MissingResourceException If any required parameter is missing or has an invalid value.
+     * @throws MissingResourceException If any required
+     * parameter is missing or has an invalid value.
      */
     public Camera renderImage() {
         // Check if any required parameter is missing or has an invalid value
@@ -174,7 +216,10 @@ public class Camera {
                 || this.distance == 0
                 || this.imageWriter == null
                 || this.rayTracer == null) {
-            throw new MissingResourceException("Missing one or more parameter values", ImageWriter.class.getName(), null);
+            throw new MissingResourceException(
+                    "Missing one or more parameter values"
+                    , ImageWriter.class.getName()
+                    , null);
         }
 
         // Number of pixels in the x direction
@@ -203,14 +248,19 @@ public class Camera {
      */
     void printGrid(int interval, Color color) {
         if (this.imageWriter == null) {
-            throw new MissingResourceException("imageWriter is null", ImageWriter.class.getName(), null);
+            throw new MissingResourceException("imageWriter is null"
+                    , ImageWriter.class.getName()
+                    , null);
         }
 
+        // Number of pixels in the x direction
         int nX = imageWriter.getNx();
+        // Number of pixels in the y direction
         int nY = imageWriter.getNy();
 
         for (int i = 0; i < nY; i++) {
             for (int j = 0; j < nX; j++) {
+                //if the pixel is on the grid, paint it with the color
                 if (j % interval == 0 || i % interval == 0)
                     imageWriter.writePixel(j, i, color);
             }
@@ -223,7 +273,9 @@ public class Camera {
      */
     public void writeToImage() {
         if (this.imageWriter == null) {
-            throw new MissingResourceException("imageWriter is null", ImageWriter.class.getName(), null);
+            throw new MissingResourceException("imageWriter is null"
+                    , ImageWriter.class.getName()
+                    , null);
         }
         imageWriter.writeToImage();
     }
@@ -262,11 +314,11 @@ public class Camera {
     private Color castRay(int j, int i) {
         // Construct the ray for the given pixel coordinates
         Ray ray = constructRay(imageWriter.getNx(), imageWriter.getNy(), j, i);
+
         // Trace the ray to determine the color
         var tmp = rayTracer.traceRay(ray);
+
         // Return the color obtained from the ray tracing, or Color.BLACK if no color is obtained
         return tmp == null ? Color.BLACK : tmp;
     }
-
-
 }

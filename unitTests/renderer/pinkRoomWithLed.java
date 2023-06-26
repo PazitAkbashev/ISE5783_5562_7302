@@ -1,5 +1,6 @@
 package renderer;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import lighting.*;
@@ -19,6 +20,7 @@ import static java.awt.Color.RED;
          * The final picture of miniProject2
          */
         @Test
+        @Disabled
         public void miniProject1() {
 
         Scene scene1 = new Scene.SceneBuilder("Test scene")

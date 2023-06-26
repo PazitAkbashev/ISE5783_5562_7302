@@ -9,10 +9,11 @@ import scene.Scene;
  * It is responsible for the calculation of the color of the pixel
  * It is an abstract class that extended by RayTracerBasic class
  *
- * @author Pazit and Leah
+ * @author Pazit and Leah - 26.06.23
  */
 public abstract class RayTracerBase {
-    protected Scene scene;  //final????????????
+    //the scene we want to trace
+    protected Scene scene;
 
     /**
      * constructor for RayTracerBasic class
