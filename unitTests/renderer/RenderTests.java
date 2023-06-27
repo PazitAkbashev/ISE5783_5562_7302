@@ -66,18 +66,6 @@ public class RenderTests {
     }
 
 
-    //--------only if doing the bonus --------//
-
-    /**
-     * Test for Json based scene - for bonus
-     */
-    @Test
-    @Disabled
-    public void basicRenderJson() {
-
-
-    }
-
     /**
      * Produce a scene with basic 3D model - including individual lights of the
      * bodies and render it into a png image with a grid
