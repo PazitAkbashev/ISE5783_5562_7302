@@ -1,6 +1,5 @@
 package renderer;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import lighting.*;
@@ -20,7 +19,6 @@ import static java.awt.Color.RED;
          * The final picture of miniProject2
          */
         @Test
-        @Disabled
         public void miniProject1() {
 
         Scene scene1 = new Scene.SceneBuilder("Test scene")
@@ -148,7 +146,7 @@ import static java.awt.Color.RED;
 //        }
 
         //points lights on right wall
-         for(int i = 0; i <40; i+=10) {
+         for(int i = 0; i <40; i+=5) {
              scene1.lights.add(new PointLight(new Color(WHITE).scale(0.6),
                      new Point(34, 79, i),
                      1,
@@ -170,7 +168,7 @@ import static java.awt.Color.RED;
         ImageWriter imageWriter = new ImageWriter("pinkRoomWithSoftShaddow", 1000, 1000);
         camera3.setImageWriter(imageWriter)
                 .setRayTracer(new RayTracerBasic(scene1).useSoftShadow(true)
-                        .setNumOfSSRays(100).setRadiusBeamSS(50d) )
+                        .setNumOfSSRays(98).setRadiusBeamSS(10d) )
                 .renderImage()
                 .writeToImage();
         }
