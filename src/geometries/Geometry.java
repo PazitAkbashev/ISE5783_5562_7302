@@ -6,7 +6,7 @@ import primitives.Point;
 import primitives.Vector;
 
 /**
- * An interface called  Geometry for geometric shapes
+ * An abstract class called  Geometry for geometric shapes
  *
  * @author Pazit and Leah - 26.06.23
  */

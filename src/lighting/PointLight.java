@@ -21,8 +21,7 @@ import static primitives.Util.isZero;
  */
 public class PointLight extends Light implements LightSource {
 
-    //for random number of rays to create for soft shadows
-    private static final Random RND = new Random();
+
 
     //the position of the point light
     private final Point position;
@@ -175,6 +174,8 @@ public class PointLight extends Light implements LightSource {
         return dis;
     }
 
+    //for random number of rays to create for soft shadows
+    private static final Random RND = new Random();
     @Override
     public List<Vector> getLCircle(Point p, double r, int amount) {
         if (p.equals(position))
@@ -198,7 +199,6 @@ public class PointLight extends Light implements LightSource {
         } else {//switched x and y places
             vAcross = new Vector(l.getX(),-1 * l.getY(),  0).normalize();
         }
-
 
         //the vector to the other direction
         Vector vForward = vAcross.crossProduct(l).normalize();
